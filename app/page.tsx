@@ -1,69 +1,276 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Navbar } from "@/components/Navbar";
+import { BottomTickSlider } from "@/components/BottomTickSlider";
+import { ShowreelModal } from "@/components/ShowreelModal";
+import { MenuOverlay } from "@/components/MenuOverlay";
+import { ContactModal } from "@/components/ContactModal";
+
+import { SlideHero } from "@/components/slides/SlideHero";
+import { SlideServicesSphere } from "@/components/slides/SlideServicesSphere";
+import { SlideDripHero } from "@/components/slides/SlideDripHero";
+import { SlidePlayerPortal } from "@/components/slides/SlidePlayerPortal";
+import { SlideProjectsArchive } from "@/components/slides/SlideProjectsArchive";
+import { SlideContactSection } from "@/components/slides/SlideContactSection";
+import { SlideFooterSection } from "@/components/slides/SlideFooterSection";
+import { soundFx } from "@/utils/audio";
+
+export default function PortfolioPage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isShowreelOpen, setIsShowreelOpen] = useState(false);
+  const [isAudioActive, setIsAudioActive] = useState(false);
+
+  const totalSlides = 7;
+  const isScrollingRef = useRef(false);
+  const touchStartYRef = useRef<number | null>(null);
+
+  // Slides 4 (Works Archive) and 6 (Grand Finale Footer) are dark theme
+  const isDarkSlide = currentSlide === 4 || currentSlide === 6;
+
+  const changeSlide = useCallback(
+    (newIndex: number) => {
+      if (newIndex < 0 || newIndex >= totalSlides) return;
+      setDirection(newIndex > currentSlide ? 1 : -1);
+      setCurrentSlide(newIndex);
+      soundFx.playSlideTransition();
+    },
+    [currentSlide, totalSlides]
+  );
+
+  const nextSlide = useCallback(() => {
+    if (currentSlide < totalSlides - 1) {
+      changeSlide(currentSlide + 1);
+    }
+  }, [currentSlide, totalSlides, changeSlide]);
+
+  const prevSlide = useCallback(() => {
+    if (currentSlide > 0) {
+      changeSlide(currentSlide - 1);
+    }
+  }, [currentSlide, changeSlide]);
+
+  // Wheel listener for smooth slide transitions
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (isMenuOpen || isContactOpen || isShowreelOpen) return;
+
+      if (isScrollingRef.current) return;
+      if (Math.abs(e.deltaY) < 30) return;
+
+      isScrollingRef.current = true;
+      if (e.deltaY > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 750);
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: true });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [isMenuOpen, isContactOpen, isShowreelOpen, nextSlide, prevSlide]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isMenuOpen || isContactOpen || isShowreelOpen) return;
+
+      if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") {
+        nextSlide();
+      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") {
+        prevSlide();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isMenuOpen, isContactOpen, isShowreelOpen, nextSlide, prevSlide]);
+
+  // Touch gesture navigation for mobile / tablet
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartYRef.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isMenuOpen || isContactOpen || isShowreelOpen) return;
+      if (touchStartYRef.current === null) return;
+
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffY = touchStartYRef.current - touchEndY;
+
+      if (Math.abs(diffY) > 50) {
+        if (diffY > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+      touchStartYRef.current = null;
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isMenuOpen, isContactOpen, isShowreelOpen, nextSlide, prevSlide]);
+
+  const toggleAudio = () => {
+    const isMuted = soundFx.toggleMute();
+    setIsAudioActive(!isMuted);
+  };
+
+  const getShowreelDetails = () => {
+    switch (currentSlide) {
+      case 2:
+        return {
+          title: "DRIP — Industrial Design Showcase",
+          category: "Hardware & E-Commerce",
+        };
+      case 3:
+        return {
+          title: "PLAYER PORTAL — Mobile App Experience",
+          category: "Sports Tech & Recruitment",
+        };
+      case 4:
+        return {
+          title: "Archive Showcase: HorizonX & The Social Elite",
+          category: "Selected Works",
+        };
+      default:
+        return {
+          title: "MDX Studio Master Showreel 2025",
+          category: "Digital Experience",
+        };
+    }
+  };
+
+  const currentShowreel = getShowreelDetails();
+
+  // Slide animation variants
+  const slideVariants = {
+    enter: (direction: number) => ({
+      y: direction > 0 ? "15%" : "-15%",
+      opacity: 0,
+      scale: 0.98,
+    }),
+    center: {
+      y: "0%",
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+    exit: (direction: number) => ({
+      y: direction > 0 ? "-15%" : "15%",
+      opacity: 0,
+      scale: 0.98,
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    }),
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main
+      className={`relative w-screen h-screen overflow-hidden font-sans transition-colors duration-500 ${
+        isDarkSlide ? "bg-black text-white" : "bg-white text-neutral-900"
+      }`}
+    >
+      {/* 1. Persistent Top Navbar (adaptive theme) */}
+      <Navbar
+        onOpenMenu={() => setIsMenuOpen(true)}
+        onOpenContact={() => changeSlide(5)}
+        isMenuOpen={isMenuOpen}
+        isAudioActive={isAudioActive}
+        onToggleAudio={toggleAudio}
+        theme={isDarkSlide ? "dark" : "light"}
+      />
+
+      {/* 2. Fullscreen Animated Slide Engine */}
+      <div className="relative w-full h-full">
+        <AnimatePresence initial={false} custom={direction} mode="wait">
+          <motion.div
+            key={currentSlide}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="absolute inset-0 w-full h-full"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            {/* Slide 0: Hero Statement (Image 4 Batch 1) */}
+            {currentSlide === 0 && <SlideHero />}
+
+            {/* Slide 1: Services Sphere (Images 1 & 2 Batch 2) */}
+            {currentSlide === 1 && <SlideServicesSphere />}
+
+            {/* Slide 2: DRIP Showcase (Images 1, 2, 3 Batch 1) */}
+            {currentSlide === 2 && (
+              <SlideDripHero onOpenShowreel={() => setIsShowreelOpen(true)} />
+            )}
+
+            {/* Slide 3: Player Portal (Image 5 Batch 1) */}
+            {currentSlide === 3 && (
+              <SlidePlayerPortal onOpenShowreel={() => setIsShowreelOpen(true)} />
+            )}
+
+            {/* Slide 4: Projects Archive & Filter Gallery (Images 3, 4, 5 Batch 2 & Image 4 Batch 3) */}
+            {currentSlide === 4 && <SlideProjectsArchive />}
+
+            {/* Slide 5: Dedicated Contact Section (Image 1 Batch 3) */}
+            {currentSlide === 5 && <SlideContactSection />}
+
+            {/* Slide 6: Grand Finale Footer & Directory (Images 2 & 3 Batch 3) */}
+            {currentSlide === 6 && (
+              <SlideFooterSection onScrollTop={() => changeSlide(0)} />
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* 3. Persistent Bottom Tick Slider (adaptive theme) */}
+      <BottomTickSlider
+        totalSlides={totalSlides}
+        currentSlide={currentSlide}
+        onSelectSlide={changeSlide}
+        theme={isDarkSlide ? "dark" : "light"}
+      />
+
+      {/* 4. Interactive Showreel Modal Lightbox */}
+      <ShowreelModal
+        isOpen={isShowreelOpen}
+        onClose={() => setIsShowreelOpen(false)}
+        title={currentShowreel.title}
+        category={currentShowreel.category}
+      />
+
+      {/* 5. Fullscreen Editorial Menu */}
+      <MenuOverlay
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        onSelectSlide={changeSlide}
+        onOpenContact={() => changeSlide(5)}
+      />
+
+      {/* 6. "Let's Talk" Contact Modal (Quick fallback) */}
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+      />
+    </main>
   );
 }
