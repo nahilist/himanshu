@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Mail, Check, ArrowRight } from "lucide-react";
 import { soundFx } from "@/utils/audio";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
