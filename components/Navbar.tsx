@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { soundFx } from "@/utils/audio";
 
@@ -24,21 +25,39 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isDark = theme === "dark";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 px-6 md:px-12 py-6 flex items-center justify-between pointer-events-none transition-colors duration-500">
-      {/* Left section: Logo | Sound pill */}
-      <div className="flex items-center gap-4 pointer-events-auto select-none">
+    <header className="fixed top-0 left-0 right-0 z-40 px-6 md:px-12 py-5 flex items-center justify-between pointer-events-none transition-colors duration-500">
+      {/* Left section: nahilist Logo | Sound pill */}
+      <div className="flex items-center gap-3.5 pointer-events-auto select-none">
         <div
           onClick={() => {
             soundFx.playTick();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className={`group cursor-pointer flex items-center tracking-[0.22em] font-extrabold text-sm md:text-base transition-colors ${
-            isDark ? "text-white" : "text-neutral-900"
-          }`}
+          className="group cursor-pointer flex items-center gap-2.5 transition-all duration-300 hover:opacity-85"
         >
-          <span>M</span>
-          <span className="mx-[0.18em]">D</span>
-          <span>X</span>
+          {/* Logo Monogram from new PNG */}
+          <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg overflow-hidden flex items-center justify-center">
+            <Image
+              src="/logo.png"
+              alt="nahilist logo"
+              width={48}
+              height={48}
+              className={`w-full h-full object-cover transition-all duration-300 ${
+                isDark ? "invert contrast-125 brightness-110" : "mix-blend-multiply"
+              }`}
+              style={{ objectPosition: "50% 28%", transform: "scale(1.28)" }}
+              priority
+            />
+          </div>
+
+          {/* Logo Wordmark */}
+          <span
+            className={`font-black tracking-tight text-lg sm:text-xl lowercase transition-colors ${
+              isDark ? "text-white" : "text-neutral-950"
+            }`}
+          >
+            nahilist
+          </span>
         </div>
 
         {/* Separator */}
@@ -54,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <button
           onClick={onToggleAudio}
           title={isAudioActive ? "Mute audio" : "Enable ambient sound"}
-          className={`group relative flex items-center justify-center h-6 px-3 rounded-full border backdrop-blur-sm transition-all duration-300 ${
+          className={`group relative flex items-center justify-center h-6 px-3 rounded-full border backdrop-blur-sm transition-all duration-300 cursor-pointer ${
             isDark
               ? "border-white/20 bg-neutral-900/80 hover:border-white text-white"
               : "border-neutral-300/80 bg-white/70 hover:border-neutral-900 text-neutral-900"
@@ -101,7 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             soundFx.playOpenModal();
             onOpenContact();
           }}
-          className={`group relative flex items-center gap-1.5 text-xs md:text-sm font-medium transition-colors ${
+          className={`group relative flex items-center gap-1.5 text-xs md:text-sm font-medium transition-colors cursor-pointer ${
             isDark ? "text-neutral-200 hover:text-white" : "text-neutral-800 hover:text-neutral-950"
           }`}
         >

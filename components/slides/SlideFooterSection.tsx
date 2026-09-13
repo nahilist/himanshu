@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Send, ChevronUp } from "lucide-react";
 import { soundFx } from "@/utils/audio";
@@ -167,23 +168,24 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({ onScroll
         </div>
       </div>
 
-      {/* 3. GIANT TYPOGRAPHY: M D X Letters matching Images 2 & 3 */}
-      <div className="relative z-10 py-6 sm:py-10 flex items-center justify-between w-full overflow-hidden select-none">
+      {/* 3. GIANT BRAND IDENTITY: nahilist Monogram & Typography */}
+      <div className="relative z-10 py-8 sm:py-14 flex flex-col items-center justify-center w-full overflow-hidden select-none">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-full flex items-center justify-between font-black text-white leading-none tracking-tighter"
+          className="w-full flex flex-col items-center justify-center gap-6"
         >
-          {/* Custom sculpted bold letters matching reference */}
-          <div className="text-[20vw] font-sans font-black select-none tracking-tighter hover:text-neutral-300 transition-colors">
-            M
-          </div>
-          <div className="text-[20vw] font-sans font-black select-none tracking-tighter hover:text-neutral-300 transition-colors">
-            D
-          </div>
-          <div className="text-[20vw] font-sans font-black select-none tracking-tighter hover:text-neutral-300 transition-colors">
-            X
+          {/* Full Logo Presentation (emblem + wordmark) */}
+          <div className="relative w-44 h-44 sm:w-60 sm:h-60 md:w-72 md:h-72 flex items-center justify-center">
+            <Image
+              src="/logo.png"
+              alt="nahilist logo"
+              width={320}
+              height={320}
+              className="w-full h-full object-contain invert contrast-125 brightness-110"
+              priority
+            />
           </div>
         </motion.div>
       </div>
@@ -201,7 +203,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({ onScroll
 
         {/* Legal Notices */}
         <div className="flex items-center gap-4 text-center sm:text-left">
-          <span>2026 MDX. All rights reserved</span>
+          <span>2026 NAHILIST. All rights reserved</span>
           <span className="hover:text-neutral-300 transition-colors cursor-pointer">
             Privacy Policy
           </span>
@@ -210,7 +212,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({ onScroll
           </span>
         </div>
 
-        {/* Functional SCROLL TOP Button matching reference */}
+        {/* Functional SCROLL TOP Button */}
         <button
           onClick={() => {
             soundFx.playSlideTransition();
@@ -227,4 +229,3 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({ onScroll
     </footer>
   );
 };
-
