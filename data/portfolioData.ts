@@ -1,7 +1,7 @@
 export interface ProjectItem {
   id: string;
   title: string;
-  category: "AI/ML & GenAI" | "Frontend" | "Full Stack";
+  category: "AI/ML" | "Frontend" | "Full Stack";
   problemStatement: string;
   whatIBuilt: string;
   technologies: string[];
@@ -27,13 +27,13 @@ export interface ServiceItem {
 
 export const PORTFOLIO_DATA = {
   personal: {
-    name: "Himanshu Kumar",
+    name: "Himanshu",
     role: "AI/ML & Frontend Developer",
     shortIntro:
-      "Crafting intelligent AI systems and responsive, fluid digital experiences. Bridging cutting-edge Generative AI & machine learning with modern frontend engineering.",
-    status: "Available for Internships & Collaborations",
+      "",
+    status: "",
     location: "India",
-    email: "himanshukumar.dev@gmail.com",
+    email: "himanshukx64@gmail.com",
     github: "https://github.com/himanshux64",
     linkedin: "https://linkedin.com/in/himanshukumar-dev",
     medium: "https://medium.com/@himanshux64",
@@ -42,8 +42,8 @@ export const PORTFOLIO_DATA = {
 
   about: {
     degree: "B.Tech in Artificial Intelligence & Machine Learning (AI & ML)",
-    college: "Engineering College & Technology Institute",
-    currentYear: "3rd Year (Pre-final Year)",
+    college: "Sanskriti University, Mathura, India",
+    currentYear: "4th Year",
     cgpa: "8.6 / 10.0",
     careerObjective:
       "Aspiring AI/ML & Frontend Engineer dedicated to building end-to-end intelligent software. Combining deep learning, retrieval-augmented generation (RAG), and agentic systems with clean, accessible, and high-performance web interfaces to solve complex real-world challenges.",
