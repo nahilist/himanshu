@@ -14,43 +14,32 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://himanshukumar.dev"),
-  title: "Himanshu Kumar | AI/ML & Frontend Developer",
+  title: "Himanshu | AI/ML & Frontend Developer",
   description:
-    "Portfolio of Himanshu Kumar showcasing Generative AI, RAG, machine learning and modern frontend projects.",
-  authors: [{ name: "Himanshu Kumar", url: "https://github.com/himanshux64" }],
+    "Portfolio of Himanshu showcasing machine learning and modern frontend projects.",
+  authors: [{ name: "Himanshu", url: "https://github.com/himanshux64" }],
   creator: "Himanshu Kumar",
   keywords: [
-    "Himanshu Kumar",
+    "Himanshu",
     "AI/ML Developer",
     "Frontend Developer",
-    "Generative AI",
-    "RAG",
-    "LangChain",
-    "Machine Learning",
-    "Next.js",
-    "React",
-    "Python",
-    "PyTorch",
-    "TensorFlow",
-    "FastAPI",
-    "Tailwind CSS",
   ],
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",
   },
   openGraph: {
-    title: "Himanshu Kumar | AI/ML & Frontend Developer",
+    title: "Himanshu | AI/ML & Frontend Developer",
     description:
-      "Portfolio of Himanshu Kumar showcasing Generative AI, RAG, machine learning and modern frontend projects.",
+      "Portfolio of Himanshu showcasing machine learning and modern frontend projects.",
     url: "https://himanshukumar.dev",
-    siteName: "Himanshu Kumar Portfolio",
+    siteName: "Himanshu Portfolio",
     images: [
       {
         url: "/logo.png",
         width: 800,
         height: 800,
-        alt: "Himanshu Kumar Portfolio Logo",
+        alt: "Himanshu Portfolio Logo",
       },
     ],
     locale: "en_US",
@@ -58,9 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Himanshu Kumar | AI/ML & Frontend Developer",
+    title: "Himanshu | AI/ML & Frontend Developer",
     description:
-      "Portfolio of Himanshu Kumar showcasing Generative AI, RAG, machine learning and modern frontend projects.",
+      "Portfolio of Himanshu showcasing machine learning and modern frontend projects.",
     creator: "@himanshux64",
     images: ["/logo.png"],
   },
