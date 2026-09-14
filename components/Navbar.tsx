@@ -2,12 +2,14 @@
 
 import React from "react";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, FileText } from "lucide-react";
 import { soundFx } from "@/utils/audio";
+import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 interface NavbarProps {
   onOpenMenu: () => void;
   onOpenContact: () => void;
+  onOpenResume: () => void;
   isMenuOpen: boolean;
   isAudioActive: boolean;
   onToggleAudio: () => void;
@@ -17,6 +19,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenMenu,
   onOpenContact,
+  onOpenResume,
   isMenuOpen,
   isAudioActive,
   onToggleAudio,
@@ -26,7 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 px-6 md:px-12 py-5 flex items-center justify-between pointer-events-none transition-colors duration-500">
-      {/* Left section: nahilist Logo | Sound pill */}
+      {/* Left section: Logo + Himanshu Kumar | Sound pill */}
       <div className="flex items-center gap-3.5 pointer-events-auto select-none">
         <div
           onClick={() => {
@@ -35,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
           className="group cursor-pointer flex items-center gap-2.5 transition-all duration-300 hover:opacity-85"
         >
-          {/* Logo Monogram from new PNG */}
+          {/* Logo Monogram */}
           <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg overflow-hidden flex items-center justify-center">
             <Image
               src="/logo.png"
@@ -50,14 +53,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             />
           </div>
 
-          {/* Logo Wordmark */}
-          <span
-            className={`font-black tracking-tight text-lg sm:text-xl lowercase transition-colors ${
-              isDark ? "text-white" : "text-neutral-950"
-            }`}
-          >
-            nahilist
-          </span>
+          {/* Name & Role Badge */}
+          <div className="flex flex-col">
+            <span
+              className={`font-black tracking-tight text-base sm:text-lg transition-colors leading-tight ${
+                isDark ? "text-white" : "text-neutral-950"
+              }`}
+            >
+              {PORTFOLIO_DATA.personal.name}
+            </span>
+            <span
+              className={`text-[9px] font-mono tracking-wider transition-colors hidden sm:block ${
+                isDark ? "text-neutral-400" : "text-neutral-500"
+              }`}
+            >
+              AI/ML & Frontend Dev
+            </span>
+          </div>
         </div>
 
         {/* Separator */}
@@ -69,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           |
         </span>
 
-        {/* Audio / ambient pill toggle matching ( - ) in reference */}
+        {/* Audio / ambient pill toggle */}
         <button
           onClick={onToggleAudio}
           title={isAudioActive ? "Mute audio" : "Enable ambient sound"}
@@ -112,15 +124,31 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
       </div>
 
-      {/* Right section: Let's talk ↗ | Hamburger icon */}
-      <div className="flex items-center gap-4 pointer-events-auto">
+      {/* Right section: Resume | Let's talk ↗ | Hamburger icon */}
+      <div className="flex items-center gap-3.5 sm:gap-4 pointer-events-auto">
+        {/* View Resume Button */}
+        <button
+          onClick={() => {
+            soundFx.playOpenModal();
+            onOpenResume();
+          }}
+          className={`group hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono tracking-wide transition-colors cursor-pointer border ${
+            isDark
+              ? "border-white/20 hover:border-white text-neutral-200"
+              : "border-neutral-300 hover:border-black text-neutral-700 hover:text-black"
+          }`}
+        >
+          <FileText className="w-3 h-3 text-amber-500" />
+          <span>Resume</span>
+        </button>
+
         {/* Let's talk button */}
         <button
           onClick={() => {
             soundFx.playOpenModal();
             onOpenContact();
           }}
-          className={`group relative flex items-center gap-1.5 text-xs md:text-sm font-medium transition-colors cursor-pointer ${
+          className={`group relative flex items-center gap-1 text-xs md:text-sm font-medium transition-colors cursor-pointer ${
             isDark ? "text-neutral-200 hover:text-white" : "text-neutral-800 hover:text-neutral-950"
           }`}
         >

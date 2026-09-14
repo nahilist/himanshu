@@ -2,72 +2,73 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Tag, Code2, Crosshair, Gamepad2, Sparkles } from "lucide-react";
+import { Sparkles, Brain, Cpu, Layout, Server, Network, CheckCircle2, ArrowRight } from "lucide-react";
 import { soundFx } from "@/utils/audio";
-import { PORTFOLIO_DATA } from "@/data/portfolioData";
+import { PORTFOLIO_DATA, ServiceItem } from "@/data/portfolioData";
 
-export const SlideServicesSphere: React.FC = () => {
-  // State: 0 = "We Build Experiences That Breathe", 1 = "Made with Intention. Meant to Be Felt."
-  const [viewState, setViewState] = useState<0 | 1>(0);
-  const [activeDiscipline, setActiveDiscipline] = useState<string | null>(null);
+interface SlideServicesSphereProps {
+  onContactMe: () => void;
+}
 
-  const services = PORTFOLIO_DATA.services;
+export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onContactMe }) => {
+  const [activeService, setActiveService] = useState<ServiceItem | null>(null);
+  const { services, statistics } = PORTFOLIO_DATA;
 
-  const toggleState = () => {
-    soundFx.playTick();
-    setViewState((prev) => (prev === 0 ? 1 : 0));
+  const getServiceIcon = (id: string) => {
+    switch (id) {
+      case "ai-ml-dev":
+        return <Brain className="w-4 h-4 text-amber-600" />;
+      case "gen-ai-rag":
+        return <Sparkles className="w-4 h-4 text-purple-600" />;
+      case "frontend-dev":
+        return <Layout className="w-4 h-4 text-blue-600" />;
+      case "fullstack-apps":
+        return <Server className="w-4 h-4 text-emerald-600" />;
+      case "api-integration":
+        return <Network className="w-4 h-4 text-rose-600" />;
+      default:
+        return <Cpu className="w-4 h-4 text-amber-600" />;
+    }
   };
 
   return (
     <section className="relative w-full h-full min-h-screen flex flex-col items-center justify-center p-6 md:p-14 bg-white overflow-hidden select-none">
-      {/* Subtle warm ambient lighting on edges */}
+      {/* Subtle warm ambient lighting */}
       <div className="absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-amber-100/40 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-amber-100/40 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-purple-100/30 blur-3xl pointer-events-none" />
 
-      {/* State Switcher / Hint Badge */}
-      <div className="absolute top-24 z-30 flex items-center gap-2">
-        <button
-          onClick={toggleState}
-          className="group flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-100/80 hover:bg-neutral-900 hover:text-white text-[11px] font-mono tracking-wider uppercase text-neutral-600 transition-all duration-300 border border-neutral-200 cursor-pointer shadow-xs"
-        >
-          <Sparkles className="w-3 h-3 text-amber-500 group-hover:rotate-12 transition-transform" />
-          <span>Toggle View: {viewState === 0 ? "Vision Mode" : "Intention Mode"}</span>
-        </button>
+      {/* Top Header */}
+      <div className="absolute top-20 md:top-24 inset-x-6 md:inset-x-14 z-20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-100 pb-4">
+        <div>
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+            <span className="text-xs font-mono tracking-widest text-neutral-500 uppercase font-semibold">
+              Capabilities & Services
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-950 tracking-tight">
+            AI Engineering & Web Services
+          </h2>
+        </div>
+
+        {/* Verified Stats Row */}
+        <div className="flex items-center gap-4 sm:gap-6 text-right">
+          {statistics.slice(0, 3).map((stat, i) => (
+            <div key={i} className="text-left sm:text-right">
+              <span className="text-lg sm:text-2xl font-black text-neutral-950 block leading-tight">
+                {stat.value}
+              </span>
+              <span className="text-[10px] font-mono text-neutral-500 block uppercase">
+                {stat.label}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* State 2 (Image 2): Split Top Headlines */}
-      <AnimatePresence mode="wait">
-        {viewState === 1 && (
-          <motion.div
-            key="split-header"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute top-24 md:top-28 inset-x-6 md:inset-x-16 z-20 flex flex-col md:flex-row items-start justify-between gap-4 pointer-events-none"
-          >
-            {/* Top-Left: "Made with Intention. Meant to Be Felt." */}
-            <div className="max-w-md">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-neutral-900 leading-[1.12]">
-                Made with Intention.
-                <br />
-                Meant to Be <span className="font-extrabold text-neutral-950">Felt.</span>
-              </h2>
-            </div>
-
-            {/* Top-Right: "From the way words breathe to how animations flow..." */}
-            <div className="max-w-xs md:text-right">
-              <p className="text-xs sm:text-sm text-neutral-600 font-normal leading-relaxed">
-                {services.subtextB}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Center 3D Tactile Fuzzy Sphere Scene */}
-      <div className="relative w-full max-w-2xl h-[420px] sm:h-[480px] md:h-[540px] flex items-center justify-center my-auto z-10">
-        {/* Organic Fuzzy Sandy Sphere Graphic with procedural fur/particle depth */}
+      {/* Center 3D Tactile Fuzzy Sphere Scene with 5 Service Pills */}
+      <div className="relative w-full max-w-3xl h-[420px] sm:h-[480px] md:h-[520px] flex items-center justify-center my-auto z-10 pt-16">
+        {/* Organic Fuzzy Sandy Sphere Graphic */}
         <motion.div
           animate={{
             scale: [1, 1.03, 0.99, 1],
@@ -78,12 +79,10 @@ export const SlideServicesSphere: React.FC = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="relative w-72 h-72 sm:w-96 sm:h-96 md:w-[420px] md:h-[420px] flex items-center justify-center rounded-full"
+          className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[380px] md:h-[380px] flex items-center justify-center rounded-full"
         >
-          {/* Outer soft ambient depth */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#d5c3b0] via-[#eedecf] to-[#f7eee5] blur-sm shadow-[0_30px_70px_rgba(180,150,120,0.3)]" />
 
-          {/* Procedural fibrous fur/hair particles using multi-layer SVG noise and radial gradient */}
           <div
             className="absolute inset-2 rounded-full overflow-hidden"
             style={{
@@ -91,7 +90,6 @@ export const SlideServicesSphere: React.FC = () => {
                 "radial-gradient(circle at 40% 35%, #fff0e2 0%, #e0cebd 35%, #c5b09d 70%, #a48c77 100%)",
             }}
           >
-            {/* Fine procedural texture overlay resembling dense micro-fibers */}
             <div
               className="absolute inset-0 opacity-45 mix-blend-multiply"
               style={{
@@ -99,7 +97,6 @@ export const SlideServicesSphere: React.FC = () => {
                 backgroundSize: "6px 6px",
               }}
             />
-            {/* Secondary noise layer */}
             <div
               className="absolute inset-0 opacity-30 mix-blend-overlay"
               style={{
@@ -107,114 +104,171 @@ export const SlideServicesSphere: React.FC = () => {
                 backgroundSize: "9px 9px",
               }}
             />
-            {/* Lighting highlight */}
-            <div className="absolute top-4 left-8 w-44 h-44 rounded-full bg-white/40 blur-2xl pointer-events-none" />
+            <div className="absolute top-4 left-8 w-40 h-40 rounded-full bg-white/40 blur-2xl pointer-events-none" />
           </div>
 
-          {/* Micro-fur edge fringe simulation */}
           <div className="absolute -inset-2 rounded-full border-[10px] border-[#eedecf]/40 blur-[3px] pointer-events-none" />
         </motion.div>
 
-        {/* State 1 (Image 1): Central Overlaid Headline */}
-        <AnimatePresence mode="wait">
-          {viewState === 0 && (
-            <motion.div
-              key="center-headline"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 px-4 pointer-events-none"
-            >
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-extralight tracking-tight text-neutral-900 leading-[1.08]">
-                We Build Experiences
-                <br />
-                <span className="font-medium text-neutral-950">That Breathe</span>
-              </h1>
-              <p className="mt-4 max-w-md text-xs sm:text-sm text-neutral-600 font-normal leading-relaxed">
-                {services.subtextA}
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Center Typography superimposed */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 px-4 pointer-events-none">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-amber-700 font-bold bg-white/70 px-3 py-1 rounded-full border border-neutral-200 backdrop-blur-xs mb-2">
+            Click Any Service To Inspect
+          </span>
+          <h3 className="text-3xl sm:text-5xl md:text-6xl font-extralight tracking-tight text-neutral-900 leading-tight">
+            We Build Systems
+            <br />
+            <span className="font-bold text-neutral-950">That Scale</span>
+          </h3>
+          <p className="mt-2 text-xs sm:text-sm text-neutral-600 max-w-sm">
+            Fusing intelligent machine models with robust web engineering.
+          </p>
+        </div>
 
-        {/* 4 Floating Discipline Pills Matching Image 1 & 2 */}
-        {/* Top-Left: UI/UX */}
+        {/* 5 Floating Service Pills */}
+        {/* 1. AI/ML App Development (Top-Left) */}
         <motion.button
           onClick={() => {
-            soundFx.playTick();
-            setActiveDiscipline(activeDiscipline === "ui-ux" ? null : "ui-ux");
+            soundFx.playOpenModal();
+            setActiveService(services[0]);
           }}
-          whileHover={{ scale: 1.06 }}
-          whileTap={{ scale: 0.96 }}
-          className="absolute -top-3 sm:top-4 left-0 sm:left-4 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200/90 shadow-lg hover:border-neutral-900 text-xs sm:text-sm font-medium text-neutral-900 transition-all cursor-pointer"
+          whileHover={{ scale: 1.05 }}
+          className="absolute top-4 sm:top-8 left-2 sm:left-6 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md border border-neutral-200 shadow-md hover:border-neutral-900 text-xs sm:text-sm font-medium text-neutral-900 transition-all cursor-pointer"
         >
-          <Tag className="w-3.5 h-3.5 text-neutral-600" />
-          <span>UI/UX</span>
+          {getServiceIcon(services[0].id)}
+          <span>{services[0].title}</span>
         </motion.button>
 
-        {/* Top-Right: Development */}
+        {/* 2. Generative AI & RAG (Top-Right) */}
         <motion.button
           onClick={() => {
-            soundFx.playTick();
-            setActiveDiscipline(activeDiscipline === "development" ? null : "development");
+            soundFx.playOpenModal();
+            setActiveService(services[1]);
           }}
-          whileHover={{ scale: 1.06 }}
-          whileTap={{ scale: 0.96 }}
-          className="absolute -top-3 sm:top-4 right-0 sm:right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200/90 shadow-lg hover:border-neutral-900 text-xs sm:text-sm font-medium text-neutral-900 transition-all cursor-pointer"
+          whileHover={{ scale: 1.05 }}
+          className="absolute top-4 sm:top-8 right-2 sm:right-6 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md border border-neutral-200 shadow-md hover:border-neutral-900 text-xs sm:text-sm font-medium text-neutral-900 transition-all cursor-pointer"
         >
-          <Code2 className="w-3.5 h-3.5 text-neutral-600" />
-          <span>Development</span>
+          {getServiceIcon(services[1].id)}
+          <span>{services[1].title}</span>
         </motion.button>
 
-        {/* Bottom-Left: Branding */}
+        {/* 3. Frontend Development (Bottom-Left) */}
         <motion.button
           onClick={() => {
-            soundFx.playTick();
-            setActiveDiscipline(activeDiscipline === "branding" ? null : "branding");
+            soundFx.playOpenModal();
+            setActiveService(services[2]);
           }}
-          whileHover={{ scale: 1.06 }}
-          whileTap={{ scale: 0.96 }}
-          className="absolute -bottom-3 sm:bottom-4 left-0 sm:left-4 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200/90 shadow-lg hover:border-neutral-900 text-xs sm:text-sm font-medium text-neutral-900 transition-all cursor-pointer"
+          whileHover={{ scale: 1.05 }}
+          className="absolute bottom-6 sm:bottom-10 left-2 sm:left-6 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md border border-neutral-200 shadow-md hover:border-neutral-900 text-xs sm:text-sm font-medium text-neutral-900 transition-all cursor-pointer"
         >
-          <Crosshair className="w-3.5 h-3.5 text-neutral-600" />
-          <span>Branding</span>
+          {getServiceIcon(services[2].id)}
+          <span>{services[2].title}</span>
         </motion.button>
 
-        {/* Bottom-Right: 3D Animation */}
+        {/* 4. Full-Stack Web Applications (Bottom-Right) */}
         <motion.button
           onClick={() => {
-            soundFx.playTick();
-            setActiveDiscipline(activeDiscipline === "3d-animation" ? null : "3d-animation");
+            soundFx.playOpenModal();
+            setActiveService(services[3]);
           }}
-          whileHover={{ scale: 1.06 }}
-          whileTap={{ scale: 0.96 }}
-          className="absolute -bottom-3 sm:bottom-4 right-0 sm:right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200/90 shadow-lg hover:border-neutral-900 text-xs sm:text-sm font-medium text-neutral-900 transition-all cursor-pointer"
+          whileHover={{ scale: 1.05 }}
+          className="absolute bottom-6 sm:bottom-10 right-2 sm:right-6 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md border border-neutral-200 shadow-md hover:border-neutral-900 text-xs sm:text-sm font-medium text-neutral-900 transition-all cursor-pointer"
         >
-          <Gamepad2 className="w-3.5 h-3.5 text-neutral-600" />
-          <span>3D Animation</span>
+          {getServiceIcon(services[3].id)}
+          <span>{services[3].title}</span>
+        </motion.button>
+
+        {/* 5. API Integration & Automation (Bottom-Center) */}
+        <motion.button
+          onClick={() => {
+            soundFx.playOpenModal();
+            setActiveService(services[4]);
+          }}
+          whileHover={{ scale: 1.05 }}
+          className="absolute -bottom-2 sm:bottom-0 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-950 text-white shadow-lg hover:bg-neutral-800 text-xs sm:text-sm font-medium transition-all cursor-pointer"
+        >
+          {getServiceIcon(services[4].id)}
+          <span>{services[4].title}</span>
         </motion.button>
       </div>
 
-      {/* Active Discipline Quick Drawer / Toast */}
+      {/* Service Detail Modal */}
       <AnimatePresence>
-        {activeDiscipline && (
+        {activeService && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="absolute bottom-16 z-30 max-w-sm px-5 py-3 rounded-2xl bg-neutral-900/90 text-white backdrop-blur-md shadow-2xl text-center text-xs"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
           >
-            <span className="font-mono text-[10px] text-amber-400 uppercase tracking-widest block mb-0.5">
-              {services.disciplines.find((d) => d.id === activeDiscipline)?.label}
-            </span>
-            <p className="text-neutral-300">
-              {services.disciplines.find((d) => d.id === activeDiscipline)?.description}
-            </p>
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 15 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 15 }}
+              className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-neutral-200 text-neutral-900"
+            >
+              <div className="flex items-start justify-between border-b border-neutral-100 pb-4 mb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-neutral-100 flex items-center justify-center">
+                    {getServiceIcon(activeService.id)}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-base sm:text-lg text-neutral-950">
+                      {activeService.title}
+                    </h3>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setActiveService(null)}
+                  className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center cursor-pointer text-xs"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-5">
+                {activeService.description}
+              </p>
+
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-400 font-bold block mb-2.5">
+                  Key Deliverables
+                </span>
+                <div className="space-y-2">
+                  {activeService.deliverables.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-2 p-2.5 rounded-xl bg-neutral-50 border border-neutral-100 text-xs font-medium text-neutral-800"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-neutral-100 flex items-center justify-between">
+                <button
+                  onClick={() => setActiveService(null)}
+                  className="text-xs font-mono text-neutral-500 hover:text-neutral-900 cursor-pointer"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={() => {
+                    setActiveService(null);
+                    onContactMe();
+                  }}
+                  className="px-4 py-2 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-medium flex items-center gap-1.5 cursor-pointer shadow-sm"
+                >
+                  <span>Request Service</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
     </section>
   );
 };
-

@@ -4,15 +4,15 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { BottomTickSlider } from "@/components/BottomTickSlider";
-import { ShowreelModal } from "@/components/ShowreelModal";
 import { MenuOverlay } from "@/components/MenuOverlay";
 import { ContactModal } from "@/components/ContactModal";
+import { ResumeModal } from "@/components/ResumeModal";
 
 import { SlideHero } from "@/components/slides/SlideHero";
-import { SlideServicesSphere } from "@/components/slides/SlideServicesSphere";
-import { SlideDripHero } from "@/components/slides/SlideDripHero";
-import { SlidePlayerPortal } from "@/components/slides/SlidePlayerPortal";
+import { SlideAbout } from "@/components/slides/SlideAbout";
+import { SlideSkills } from "@/components/slides/SlideSkills";
 import { SlideProjectsArchive } from "@/components/slides/SlideProjectsArchive";
+import { SlideServicesSphere } from "@/components/slides/SlideServicesSphere";
 import { SlideContactSection } from "@/components/slides/SlideContactSection";
 import { SlideFooterSection } from "@/components/slides/SlideFooterSection";
 import { soundFx } from "@/utils/audio";
@@ -22,15 +22,15 @@ export default function PortfolioPage() {
   const [direction, setDirection] = useState(1);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const [isShowreelOpen, setIsShowreelOpen] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isAudioActive, setIsAudioActive] = useState(false);
 
   const totalSlides = 7;
   const isScrollingRef = useRef(false);
   const touchStartYRef = useRef<number | null>(null);
 
-  // Slides 4 (Works Archive) and 6 (Grand Finale Footer) are dark theme
-  const isDarkSlide = currentSlide === 4 || currentSlide === 6;
+  // Slides 3 (Projects Archive) and 6 (Grand Finale Footer) are luxury dark theme
+  const isDarkSlide = currentSlide === 3 || currentSlide === 6;
 
   const changeSlide = useCallback(
     (newIndex: number) => {
@@ -57,7 +57,7 @@ export default function PortfolioPage() {
   // Wheel listener for smooth slide transitions
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (isMenuOpen || isContactOpen || isShowreelOpen) return;
+      if (isMenuOpen || isContactOpen || isResumeOpen) return;
 
       if (isScrollingRef.current) return;
       if (Math.abs(e.deltaY) < 30) return;
@@ -76,12 +76,12 @@ export default function PortfolioPage() {
 
     window.addEventListener("wheel", handleWheel, { passive: true });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [isMenuOpen, isContactOpen, isShowreelOpen, nextSlide, prevSlide]);
+  }, [isMenuOpen, isContactOpen, isResumeOpen, nextSlide, prevSlide]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isMenuOpen || isContactOpen || isShowreelOpen) return;
+      if (isMenuOpen || isContactOpen || isResumeOpen) return;
 
       if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") {
         nextSlide();
@@ -92,7 +92,7 @@ export default function PortfolioPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isMenuOpen, isContactOpen, isShowreelOpen, nextSlide, prevSlide]);
+  }, [isMenuOpen, isContactOpen, isResumeOpen, nextSlide, prevSlide]);
 
   // Touch gesture navigation for mobile / tablet
   useEffect(() => {
@@ -101,7 +101,7 @@ export default function PortfolioPage() {
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (isMenuOpen || isContactOpen || isShowreelOpen) return;
+      if (isMenuOpen || isContactOpen || isResumeOpen) return;
       if (touchStartYRef.current === null) return;
 
       const touchEndY = e.changedTouches[0].clientY;
@@ -123,39 +123,12 @@ export default function PortfolioPage() {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [isMenuOpen, isContactOpen, isShowreelOpen, nextSlide, prevSlide]);
+  }, [isMenuOpen, isContactOpen, isResumeOpen, nextSlide, prevSlide]);
 
   const toggleAudio = () => {
     const isMuted = soundFx.toggleMute();
     setIsAudioActive(!isMuted);
   };
-
-  const getShowreelDetails = () => {
-    switch (currentSlide) {
-      case 2:
-        return {
-          title: "DRIP — Industrial Design Showcase",
-          category: "Hardware & E-Commerce",
-        };
-      case 3:
-        return {
-          title: "PLAYER PORTAL — Mobile App Experience",
-          category: "Sports Tech & Recruitment",
-        };
-      case 4:
-        return {
-          title: "Archive Showcase: HorizonX & The Social Elite",
-          category: "Selected Works",
-        };
-      default:
-        return {
-          title: "MDX Studio Master Showreel 2025",
-          category: "Digital Experience",
-        };
-    }
-  };
-
-  const currentShowreel = getShowreelDetails();
 
   // Slide animation variants
   const slideVariants = {
@@ -190,10 +163,11 @@ export default function PortfolioPage() {
         isDarkSlide ? "bg-black text-white" : "bg-white text-neutral-900"
       }`}
     >
-      {/* 1. Persistent Top Navbar (adaptive theme) */}
+      {/* 1. Persistent Top Navbar */}
       <Navbar
         onOpenMenu={() => setIsMenuOpen(true)}
         onOpenContact={() => changeSlide(5)}
+        onOpenResume={() => setIsResumeOpen(true)}
         isMenuOpen={isMenuOpen}
         isAudioActive={isAudioActive}
         onToggleAudio={toggleAudio}
@@ -212,37 +186,51 @@ export default function PortfolioPage() {
             exit="exit"
             className="absolute inset-0 w-full h-full"
           >
-            {/* Slide 0: Hero Statement (Image 4 Batch 1) */}
-            {currentSlide === 0 && <SlideHero />}
+            {/* Slide 0: Hero Section (Himanshu Kumar, AI/ML & Frontend, 3 CTAs) */}
+            {currentSlide === 0 && (
+              <SlideHero
+                onViewProjects={() => changeSlide(3)}
+                onOpenResume={() => setIsResumeOpen(true)}
+                onContactMe={() => changeSlide(5)}
+              />
+            )}
 
-            {/* Slide 1: Services Sphere (Images 1 & 2 Batch 2) */}
-            {currentSlide === 1 && <SlideServicesSphere />}
+            {/* Slide 1: About Me & Education (B.Tech AI & ML, CGPA 8.6, Objective) */}
+            {currentSlide === 1 && (
+              <SlideAbout
+                onContactMe={() => changeSlide(5)}
+                onViewSkills={() => changeSlide(2)}
+              />
+            )}
 
-            {/* Slide 2: DRIP Showcase (Images 1, 2, 3 Batch 1) */}
+            {/* Slide 2: Specialized Skills Matrix (6 Categories) */}
             {currentSlide === 2 && (
-              <SlideDripHero onOpenShowreel={() => setIsShowreelOpen(true)} />
+              <SlideSkills onViewProjects={() => changeSlide(3)} />
             )}
 
-            {/* Slide 3: Player Portal (Image 5 Batch 1) */}
-            {currentSlide === 3 && (
-              <SlidePlayerPortal onOpenShowreel={() => setIsShowreelOpen(true)} />
+            {/* Slide 3: Featured Projects (The 6 Projects with Filters & Modals) */}
+            {currentSlide === 3 && <SlideProjectsArchive />}
+
+            {/* Slide 4: Services & Capabilities (3D Sphere & Stats) */}
+            {currentSlide === 4 && (
+              <SlideServicesSphere onContactMe={() => changeSlide(5)} />
             )}
 
-            {/* Slide 4: Projects Archive & Filter Gallery (Images 3, 4, 5 Batch 2 & Image 4 Batch 3) */}
-            {currentSlide === 4 && <SlideProjectsArchive />}
-
-            {/* Slide 5: Dedicated Contact Section (Image 1 Batch 3) */}
+            {/* Slide 5: Contact Section (Form, Email, Socials, Calendly) */}
             {currentSlide === 5 && <SlideContactSection />}
 
-            {/* Slide 6: Grand Finale Footer & Directory (Images 2 & 3 Batch 3) */}
+            {/* Slide 6: Grand Finale Footer (Stats, Directory, Scroll Top) */}
             {currentSlide === 6 && (
-              <SlideFooterSection onScrollTop={() => changeSlide(0)} />
+              <SlideFooterSection
+                onScrollTop={() => changeSlide(0)}
+                onOpenResume={() => setIsResumeOpen(true)}
+              />
             )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* 3. Persistent Bottom Tick Slider (adaptive theme) */}
+      {/* 3. Persistent Bottom Tick Slider */}
       <BottomTickSlider
         totalSlides={totalSlides}
         currentSlide={currentSlide}
@@ -250,23 +238,22 @@ export default function PortfolioPage() {
         theme={isDarkSlide ? "dark" : "light"}
       />
 
-      {/* 4. Interactive Showreel Modal Lightbox */}
-      <ShowreelModal
-        isOpen={isShowreelOpen}
-        onClose={() => setIsShowreelOpen(false)}
-        title={currentShowreel.title}
-        category={currentShowreel.category}
-      />
-
-      {/* 5. Fullscreen Editorial Menu */}
+      {/* 4. Fullscreen Editorial Menu */}
       <MenuOverlay
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
         onSelectSlide={changeSlide}
         onOpenContact={() => changeSlide(5)}
+        onOpenResume={() => setIsResumeOpen(true)}
       />
 
-      {/* 6. "Let's Talk" Contact Modal (Quick fallback) */}
+      {/* 5. Resume Hub Lightbox Modal */}
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
+
+      {/* 6. Quick Contact Modal (Fallback) */}
       <ContactModal
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}

@@ -13,19 +13,57 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MDX — From Ideas to Impactful Experiences",
+  metadataBase: new URL("https://himanshukumar.dev"),
+  title: "Himanshu Kumar | AI/ML & Frontend Developer",
   description:
-    "Award-winning portfolio and digital experience studio. Industrial design, full-stack creative engineering, and mobile applications.",
+    "Portfolio of Himanshu Kumar showcasing Generative AI, RAG, machine learning and modern frontend projects.",
+  authors: [{ name: "Himanshu Kumar", url: "https://github.com/himanshux64" }],
+  creator: "Himanshu Kumar",
   keywords: [
-    "Portfolio",
-    "Creative Development",
-    "Design Engineering",
+    "Himanshu Kumar",
+    "AI/ML Developer",
+    "Frontend Developer",
+    "Generative AI",
+    "RAG",
+    "LangChain",
+    "Machine Learning",
     "Next.js",
+    "React",
+    "Python",
+    "PyTorch",
+    "TensorFlow",
+    "FastAPI",
     "Tailwind CSS",
-    "Framer Motion",
-    "MDX",
   ],
-  authors: [{ name: "MDX Studio" }],
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "Himanshu Kumar | AI/ML & Frontend Developer",
+    description:
+      "Portfolio of Himanshu Kumar showcasing Generative AI, RAG, machine learning and modern frontend projects.",
+    url: "https://himanshukumar.dev",
+    siteName: "Himanshu Kumar Portfolio",
+    images: [
+      {
+        url: "/logo.png",
+        width: 800,
+        height: 800,
+        alt: "Himanshu Kumar Portfolio Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Himanshu Kumar | AI/ML & Frontend Developer",
+    description:
+      "Portfolio of Himanshu Kumar showcasing Generative AI, RAG, machine learning and modern frontend projects.",
+    creator: "@himanshux64",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({

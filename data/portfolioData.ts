@@ -1,221 +1,303 @@
-export interface ProjectSlide {
+export interface ProjectItem {
   id: string;
   title: string;
-  category: string;
-  year: string;
-  description: string;
-  showreelTitle?: string;
-  videoUrl?: string;
+  category: "AI/ML & GenAI" | "Frontend" | "Full Stack";
+  problemStatement: string;
+  whatIBuilt: string;
+  technologies: string[];
+  keyFeatures: string[];
+  githubUrl: string;
+  liveUrl: string;
+  badge: string;
 }
 
-export interface ArchiveProject {
+export interface SkillCategory {
+  title: string;
+  iconName: string;
+  skills: string[];
+  description: string;
+}
+
+export interface ServiceItem {
   id: string;
   title: string;
-  category: string;
-  tags: string[];
-  headline: string;
-  subtext: string;
-  previewType: "horizon" | "social-elite" | "social-inc" | "munch";
-  link: string;
+  description: string;
+  deliverables: string[];
 }
 
 export const PORTFOLIO_DATA = {
-  brand: {
-    name: "M D X",
-    tagline: "Digital Design & Creative Engineering",
-    email: "hello@mdx.so",
-    location: "NEW YORK / TOKYO",
-    status: "AVAILABLE FOR SELECT PROJECTS",
+  personal: {
+    name: "Himanshu Kumar",
+    role: "AI/ML & Frontend Developer",
+    shortIntro:
+      "Crafting intelligent AI systems and responsive, fluid digital experiences. Bridging cutting-edge Generative AI & machine learning with modern frontend engineering.",
+    status: "Available for Internships & Collaborations",
+    location: "India",
+    email: "himanshukumar.dev@gmail.com",
+    github: "https://github.com/himanshux64",
+    linkedin: "https://linkedin.com/in/himanshukumar-dev",
+    medium: "https://medium.com/@himanshux64",
+    calendly: "https://calendly.com/himanshukumar-dev/30min",
   },
-  services: {
-    titleA: "We Build Experiences That Breathe",
-    subtextA:
-      "Because lasting experiences aren't made by chance — they're shaped with purpose.",
-    titleB: "Made with Intention. Meant to Be Felt.",
-    subtextB:
-      "From the way words breathe to how animations flow, every part is made to resonate.",
-    disciplines: [
-      {
-        id: "ui-ux",
-        label: "UI/UX",
-        icon: "tag",
-        position: "top-left",
-        description:
-          "Human-centric interaction design, design systems, and friction-free user flows.",
-      },
-      {
-        id: "development",
-        label: "Development",
-        icon: "code",
-        position: "top-right",
-        description:
-          "Modern Next.js engineering, WebGL, smooth animations, and high performance.",
-      },
-      {
-        id: "branding",
-        label: "Branding",
-        icon: "crosshair",
-        position: "bottom-left",
-        description:
-          "Iconic visual identity, typography curation, and distinct art direction.",
-      },
-      {
-        id: "3d-animation",
-        label: "3D Animation",
-        icon: "gamepad",
-        position: "bottom-right",
-        description:
-          "Photorealistic 3D product renders, kinetic typography, and motion design.",
-      },
+
+  about: {
+    degree: "B.Tech in Artificial Intelligence & Machine Learning (AI & ML)",
+    college: "Engineering College & Technology Institute",
+    currentYear: "3rd Year (Pre-final Year)",
+    cgpa: "8.6 / 10.0",
+    careerObjective:
+      "Aspiring AI/ML & Frontend Engineer dedicated to building end-to-end intelligent software. Combining deep learning, retrieval-augmented generation (RAG), and agentic systems with clean, accessible, and high-performance web interfaces to solve complex real-world challenges.",
+    availability: "Actively seeking Summer/Winter 2025-2026 Internships and high-impact collaborative projects.",
+    highlights: [
+      { label: "Degree", value: "B.Tech AI & ML" },
+      { label: "Academic Standing", value: "CGPA 8.6 / 10" },
+      { label: "Focus", value: "GenAI, RAG & Next.js" },
+      { label: "Status", value: "Open for Internships" },
     ],
   },
-  archiveProjects: [
+
+  skills: [
     {
-      id: "horizon-x",
-      title: "HorizonX",
-      category: "UI/UX / DEVELOPMENT",
-      tags: ["ALL", "UI/UX", "DEVELOPMENT"],
-      headline: "The premium UI & code library for the vibecoding era.",
-      subtext:
-        "Browse a library of UI kits, components and Figma files for real projects. Download what you need, then make it yours.",
-      previewType: "horizon",
-      link: "https://mdx.so/projects/horizon-x?id=1024",
-    },
-    {
-      id: "the-social-elite",
-      title: "The Social Elite",
-      category: "UI/UX / DEVELOPMENT",
-      tags: ["ALL", "BRANDING", "3D ANIMATION"],
-      headline: "THE SOCIAL ELITE",
-      subtext:
-        "360° CREATIVE SERVICES • PRODUCTION • CASTING • BRAND STRATEGISTS",
-      previewType: "social-elite",
-      link: "https://mdx.so/projects/the-social-elite?id=2825",
-    },
-    {
-      id: "the-social-inc",
-      title: "The Social Inc",
-      category: "UI/UX / DEVELOPMENT",
-      tags: ["ALL", "UI/UX", "DEVELOPMENT"],
-      headline: "CONNECTING BRANDS IN THE SAFEST HANDS",
-      subtext:
-        "Innovative creator platform connecting global brands with verified digital storytellers.",
-      previewType: "social-inc",
-      link: "https://mdx.so/projects/the-social-inc?id=3301",
-    },
-    {
-      id: "munch",
-      title: "Munch",
-      category: "UI/UX / DEVELOPMENT",
-      tags: ["ALL", "DEVELOPMENT", "BRANDING"],
-      headline: "Engineered for Business Results",
-      subtext:
-        "Audience-first selection. Efficient strategy. Engaging Content. Thorough monitoring. Data-driven amplification.",
-      previewType: "munch",
-      link: "https://mdx.so/projects/munch?id=4920",
-    },
-  ] as ArchiveProject[],
-  footer: {
-    aboutUs: ["Awards", "Team", "Vision", "Projects", "Recruiting", "Blog"],
-    services: [
-      "UI/UX",
-      "Custom web dev",
-      "Branding",
-      "3D animation",
-      "App Development",
-      "Business automation",
-    ],
-    otherServices: [
-      "3D Web Design",
-      "3D Rendering",
-      "Web App Development",
-      "E-commerce Development",
-      "Brand Identity",
-      "Motion Design",
-    ],
-    socialMedia: [
-      "Tiktok",
-      "Instagram",
-      "Linkedin",
-      "Youtube",
-      "Facebook",
-      "X",
-    ],
-  },
-  slides: [
-    {
-      id: "hero",
-      title: "Philosophy",
-      headlinePart1: "From",
-      headlineHighlight: "Ideas",
-      headlinePart2: "to Impactful",
-      headlinePart3: "Experiences",
+      title: "AI / Machine Learning",
+      iconName: "brain",
+      skills: ["Python", "TensorFlow", "PyTorch", "Scikit-learn"],
       description:
-        "Every project begins with your vision. We design, develop, and refine until every detail delivers.",
+        "Developing predictive algorithms, computer vision pipelines, statistical modeling, and deep neural networks.",
     },
     {
-      id: "services",
-      title: "Services & Ethos",
-      category: "Capabilities",
-    },
-    {
-      id: "drip-hero",
-      title: "DRIP — Smart Hydration",
-      category: "Industrial Design / E-Commerce",
-      client: "DRIP Bottle Co.",
-      year: "2025",
-      showreelTitle: "DRIP SHOWREEL 2025",
+      title: "Generative AI",
+      iconName: "sparkles",
+      skills: ["LLM", "RAG", "AI Agents", "LangChain"],
       description:
-        "A next-generation self-cleaning water bottle engineered with medical-grade UV-C LED sterilization and precision stainless steel.",
+        "Building context-aware retrieval engines, vector search pipelines, autonomous agentic workflows, and prompt engineering.",
     },
     {
-      id: "player-portal",
-      title: "PLAYER PORTAL",
-      category: "Mobile Application / Sports Tech",
-      client: "Athletics Next",
-      year: "2025",
-      showreelTitle: "PLAYER PORTAL APP REEL",
-      headline: "INTRODUCING THE FUTURE OF SPORTS RECRUITMENT",
-      actionHeadline: "LET'S START",
-      actionSubtext:
-        "NEVER BEFORE HAS IT BEEN SO EASY TO MANAGE AN ATHLETE'S JOURNEY IN ONE APPLICATION",
-      audiences: [
-        "PARENTS/3RD PARTY ACCOUNT MANAGERS",
-        "SCOUTS/RECRUITERS",
-        "ATHLETES & COACHES",
+      title: "Frontend Engineering",
+      iconName: "layout",
+      skills: ["HTML5", "CSS3", "JavaScript", "React", "Next.js", "Tailwind CSS"],
+      description:
+        "Crafting pixel-perfect, accessible, and responsive user interfaces with server-side rendering and smooth physics animations.",
+    },
+    {
+      title: "Backend Development",
+      iconName: "server",
+      skills: ["Django", "FastAPI"],
+      description:
+        "Designing high-throughput asynchronous REST APIs, microservices, authentication systems, and model-serving backends.",
+    },
+    {
+      title: "Developer Tools",
+      iconName: "terminal",
+      skills: ["Git", "GitHub", "Docker", "Jupyter", "Google Colab"],
+      description:
+        "Version control workflows, reproducible containerized environments, and interactive exploratory data analysis.",
+    },
+    {
+      title: "Databases & Storage",
+      iconName: "database",
+      skills: ["MongoDB", "SQLite", "Supabase"],
+      description:
+        "Designing relational schemas, document-based stores, vector embeddings databases, and real-time backend synchronization.",
+    },
+  ] as SkillCategory[],
+
+  projects: [
+    {
+      id: "elementum-3d",
+      title: "Elementum 3D",
+      category: "Frontend",
+      badge: "3D Creative Tech",
+      problemStatement:
+        "Standard product showcases often lack depth and tactile interactivity, leading to low user engagement and flat visual presentations.",
+      whatIBuilt:
+        "An immersive WebGL 3D interactive web experience featuring real-time shader lighting, organic mesh deformations, and physics-driven gesture controls.",
+      technologies: ["Next.js", "Three.js", "Tailwind CSS", "Framer Motion"],
+      keyFeatures: [
+        "Interactive 3D model rotation and physics inertia",
+        "Custom GLSL shader materials with dynamic light reflection",
+        "Responsive canvas optimization maintaining 60 FPS on mobile",
+        "Audio-reactive tactile feedback using Web Audio API",
       ],
+      githubUrl: "https://github.com/himanshux64/elementum-3d",
+      liveUrl: "https://elementum-3d.vercel.app",
     },
     {
-      id: "archive",
-      title: "Our Craft, Your Expression",
-      category: "Selected Works",
+      id: "atlas-invisible-systems",
+      title: "ATLAS — The Invisible Systems",
+      category: "Full Stack",
+      badge: "Distributed Architecture",
+      problemStatement:
+        "Monitoring complex multi-tier asynchronous automated systems in enterprise environments is often fragmented across disjointed logging consoles.",
+      whatIBuilt:
+        "A centralized systems visualization and telemetry platform simulating and monitoring distributed microservices, message queues, and health statuses.",
+      technologies: ["Next.js", "FastAPI", "Python", "Supabase", "Tailwind CSS"],
+      keyFeatures: [
+        "Real-time pipeline health telemetry with live status streaming",
+        "Interactive node-graph topology visualization",
+        "Automated anomaly detection triggering diagnostic alerts",
+        "Role-based access control with secure Supabase authentication",
+      ],
+      githubUrl: "https://github.com/himanshux64/atlas-systems",
+      liveUrl: "https://atlas-systems.vercel.app",
     },
     {
-      id: "contact",
-      title: "Initiate Project",
-      category: "Inquiries",
+      id: "digit-classifier",
+      title: "Handwritten Digit Classifier",
+      category: "AI/ML & GenAI",
+      badge: "Computer Vision",
+      problemStatement:
+        "Deploying deep convolutional neural networks into low-latency, interactive web browsers requires model quantization and responsive inference pipelines.",
+      whatIBuilt:
+        "An interactive end-to-end computer vision application that classifies drawn digits in real-time, displaying live class confidence probabilities and feature maps.",
+      technologies: ["PyTorch", "Python", "TensorFlow", "OpenCV", "Next.js"],
+      keyFeatures: [
+        "Deep CNN trained on MNIST with 99.2% validation accuracy",
+        "Smooth drawing canvas with automatic centering and bounding-box normalization",
+        "Real-time probability distribution chart for all 10 digits",
+        "Layer activation visualization showing model focus areas",
+      ],
+      githubUrl: "https://github.com/himanshux64/digit-classifier",
+      liveUrl: "https://digit-classifier.streamlit.app",
     },
     {
-      id: "footer",
-      title: "Studio Directory & Awards",
-      category: "Index",
+      id: "ai-notes-summarizer",
+      title: "AI Notes Summarizer",
+      category: "AI/ML & GenAI",
+      badge: "Generative AI & RAG",
+      problemStatement:
+        "Students and researchers struggle to rapidly distill hours of lecture transcripts, long-form PDF papers, and unstructured study notes into actionable summaries.",
+      whatIBuilt:
+        "An intelligent Generative AI summarization assistant leveraging RAG and LangChain to parse dense notes, generate executive summaries, and generate quiz flashcards.",
+      technologies: ["LangChain", "LLM", "RAG", "FastAPI", "React", "Python"],
+      keyFeatures: [
+        "Multi-document PDF & text parsing with semantic chunking",
+        "Context-grounded question answering with source citation pills",
+        "Automated flashcard generation for spaced repetition",
+        "Export to Markdown, PDF, and Notion-compatible formats",
+      ],
+      githubUrl: "https://github.com/himanshux64/ai-notes-summarizer",
+      liveUrl: "https://notes-summarizer.vercel.app",
+    },
+    {
+      id: "smart-ewaste-repairability",
+      title: "Smart E-Waste Repairability",
+      category: "AI/ML & GenAI",
+      badge: "Sustainability AI",
+      problemStatement:
+        "Over 50 million tons of e-waste are discarded annually because consumers lack transparent information regarding repair costs, modularity, and part availability.",
+      whatIBuilt:
+        "A machine learning diagnostic and scoring web system that calculates a repairability index for consumer electronics and provides step-by-step disassembly guides.",
+      technologies: ["Python", "Scikit-learn", "Pandas", "Django", "Tailwind CSS"],
+      keyFeatures: [
+        "Predictive repairability score calculated via Random Forest regression",
+        "Component breakdown checklist with cost-benefit analysis",
+        "Searchable database of certified local e-waste recycling hubs",
+        "Environmental impact calculator measuring carbon offset",
+      ],
+      githubUrl: "https://github.com/himanshux64/ewaste-repairability",
+      liveUrl: "https://smart-ewaste.vercel.app",
+    },
+    {
+      id: "target-groww",
+      title: "Target Groww",
+      category: "Frontend",
+      badge: "FinTech Dashboard",
+      problemStatement:
+        "Modern retail investors need high-speed, uncluttered financial dashboards to track portfolio allocations, SIP growth, and stock metrics in real-time.",
+      whatIBuilt:
+        "A responsive financial investment analytics dashboard mimicking premier FinTech platforms with real-time stock simulation, CAGR calculators, and interactive charts.",
+      technologies: ["React", "Next.js", "Tailwind CSS", "JavaScript", "Chart.js"],
+      keyFeatures: [
+        "Interactive SIP & Lumpsum compound interest growth projection calculator",
+        "Dynamic asset allocation donut chart with rebalancing indicators",
+        "Dark/Light high-contrast financial theme optimized for night trading",
+        "Zero-latency client-side caching for instant metric recalculations",
+      ],
+      githubUrl: "https://github.com/himanshux64/target-groww",
+      liveUrl: "https://target-groww.vercel.app",
+    },
+  ] as ProjectItem[],
+
+  experienceEducation: [
+    {
+      type: "education",
+      period: "2022 — 2026",
+      title: "B.Tech in Artificial Intelligence & Machine Learning",
+      organization: "Engineering & Technology Institute",
+      grade: "CGPA: 8.6 / 10.0",
+      description:
+        "Focused coursework in Deep Learning, Natural Language Processing, Data Structures & Algorithms, Computer Vision, Operating Systems, and Distributed Computing.",
+    },
+    {
+      type: "experience",
+      period: "2023 — Present",
+      title: "Independent AI/ML & Full-Stack Developer",
+      organization: "Open Source & Autonomous Projects",
+      grade: "25+ Repositories",
+      description:
+        "Built production-ready Generative AI systems, RAG document pipelines, deep learning models, and modern Next.js client web applications.",
+    },
+    {
+      type: "experience",
+      period: "2024",
+      title: "Lead Frontend & ML Contributor",
+      organization: "University AI Hackathon Team",
+      grade: "Finalist Rank",
+      description:
+        "Spearheaded UI/UX architecture and integrated FastAPI backend inference pipelines into responsive client interfaces under 36-hour sprint constraints.",
     },
   ],
-  navigation: [
-    { label: "01 / Philosophy", slideIndex: 0 },
-    { label: "02 / Services & Sphere", slideIndex: 1 },
-    { label: "03 / DRIP Case Study", slideIndex: 2 },
-    { label: "04 / Player Portal App", slideIndex: 3 },
-    { label: "05 / Works Archive", slideIndex: 4 },
-    { label: "06 / Get Started", slideIndex: 5 },
-    { label: "07 / Studio Index & Awards", slideIndex: 6 },
+
+  services: [
+    {
+      id: "ai-ml-dev",
+      title: "AI/ML Application Development",
+      description:
+        "Designing custom machine learning models, training deep learning pipelines (PyTorch/TensorFlow), and creating computer vision or predictive classification solutions.",
+      deliverables: ["Custom Model Training", "Data Preprocessing & Evaluation", "RESTful Model Serving"],
+    },
+    {
+      id: "gen-ai-rag",
+      title: "Generative AI & RAG Solutions",
+      description:
+        "Building intelligent retrieval-augmented generation pipelines, custom agentic workflows, and semantic document search systems using LangChain and LLMs.",
+      deliverables: ["Vector Search Pipelines", "Multi-Agent Workflows", "Prompt Engineering & Evaluation"],
+    },
+    {
+      id: "frontend-dev",
+      title: "Modern Frontend Development",
+      description:
+        "Engineering responsive, accessible, ultra-fast web interfaces using Next.js, React, TypeScript, Tailwind CSS, and fluid Framer Motion animations.",
+      deliverables: ["Next.js App Router Architecture", "Responsive & Accessible UI", "Micro-Interactions"],
+    },
+    {
+      id: "fullstack-apps",
+      title: "Full-Stack Web Applications",
+      description:
+        "Developing scalable end-to-end applications from database design (Supabase/MongoDB) and Python APIs (FastAPI/Django) to interactive user interfaces.",
+      deliverables: ["Full-Stack Architecture", "Database Schema Design", "Secure Authentication"],
+    },
+    {
+      id: "api-integration",
+      title: "API Integration & Automation",
+      description:
+        "Integrating external APIs, building automated data processing pipelines, and connecting third-party AI services into existing business workflows.",
+      deliverables: ["Third-Party Service Sync", "Async Task Queues", "System Telemetry"],
+    },
+  ] as ServiceItem[],
+
+  statistics: [
+    { label: "Completed Projects", value: "15+", subtext: "Production & Academic Works" },
+    { label: "Technologies Mastered", value: "20+", subtext: "AI/ML, Web, Tools & DBs" },
+    { label: "GitHub Repositories", value: "25+", subtext: "Open Source Codebases" },
+    { label: "Hands-on Learning", value: "2+ Years", subtext: "Continuous Practical Practice" },
   ],
-  socials: [
-    { label: "Twitter / X", href: "https://x.com" },
-    { label: "Instagram", href: "https://instagram.com" },
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "YouTube", href: "https://youtube.com" },
-    { label: "TikTok", href: "https://tiktok.com" },
-    { label: "Facebook", href: "https://facebook.com" },
-  ],
+
+  resume: {
+    fileName: "Himanshu_Kumar_Resume.pdf",
+    downloadUrl: "/Himanshu_Kumar_Resume.pdf",
+    lastUpdated: "September 2025",
+    summary:
+      "B.Tech AI & ML student with a 8.6 CGPA and extensive hands-on expertise in Python, PyTorch, TensorFlow, LangChain, RAG, Next.js, and React. Passionate about engineering production-quality software at the intersection of machine intelligence and intuitive web design.",
+  },
 };

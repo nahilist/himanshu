@@ -23,7 +23,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
   const handleCopyEmail = () => {
     soundFx.playTick();
-    navigator.clipboard.writeText(PORTFOLIO_DATA.brand.email);
+    navigator.clipboard.writeText(PORTFOLIO_DATA.personal.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -77,7 +77,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             {/* Email quick action */}
             <div className="flex items-center justify-between p-3.5 rounded-xl bg-neutral-50 border border-neutral-200 mb-6">
               <span className="font-mono text-xs md:text-sm text-neutral-800 font-medium">
-                {PORTFOLIO_DATA.brand.email}
+                {PORTFOLIO_DATA.personal.email}
               </span>
               <button
                 type="button"
