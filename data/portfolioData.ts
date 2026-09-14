@@ -1,7 +1,7 @@
 export interface ProjectItem {
   id: string;
   title: string;
-  category: "AI/ML" | "Frontend" | "Full Stack";
+  category: "AI/ML" | "AI/ML & GenAI" | "Frontend" | "Full Stack";
   problemStatement: string;
   whatIBuilt: string;
   technologies: string[];
