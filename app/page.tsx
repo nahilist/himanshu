@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
-import { BottomTickSlider } from "@/components/BottomTickSlider";
+import { TopProgressBar } from "@/components/TopProgressBar";
 import { MenuOverlay } from "@/components/MenuOverlay";
 import { ContactModal } from "@/components/ContactModal";
 import { ResumeModal } from "@/components/ResumeModal";
@@ -163,6 +163,13 @@ export default function PortfolioPage() {
         isDarkSlide ? "bg-black text-white" : "bg-white text-neutral-900"
       }`}
     >
+      {/* Sleek Top Edge Scroll Progress Line */}
+      <TopProgressBar
+        currentSlide={currentSlide}
+        totalSlides={totalSlides}
+        isDark={isDarkSlide}
+      />
+
       {/* 1. Persistent Top Navbar */}
       <Navbar
         onOpenMenu={() => setIsMenuOpen(true)}
@@ -230,15 +237,7 @@ export default function PortfolioPage() {
         </AnimatePresence>
       </div>
 
-      {/* 3. Persistent Bottom Tick Slider */}
-      <BottomTickSlider
-        totalSlides={totalSlides}
-        currentSlide={currentSlide}
-        onSelectSlide={changeSlide}
-        theme={isDarkSlide ? "dark" : "light"}
-      />
-
-      {/* 4. Fullscreen Editorial Menu */}
+      {/* 3. Fullscreen Editorial Menu */}
       <MenuOverlay
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
