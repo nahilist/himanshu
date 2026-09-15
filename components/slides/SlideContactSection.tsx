@@ -63,7 +63,7 @@ export const SlideContactSection: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full h-full min-h-screen flex items-center justify-center p-4 sm:p-8 md:p-12 lg:p-14 bg-white select-none">
+    <section className="relative w-full h-full min-h-screen flex items-center justify-center p-4 sm:p-8 md:p-12 lg:p-14 bg-white">
       {/* Outer rounded card container */}
       <motion.div
         initial={{ opacity: 0, scale: 0.97 }}

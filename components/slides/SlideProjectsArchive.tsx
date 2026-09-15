@@ -24,7 +24,7 @@ export const SlideProjectsArchive: React.FC = () => {
   });
 
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col justify-between p-6 md:p-14 bg-black text-white overflow-y-auto select-none">
+    <section className="relative w-full h-full min-h-screen flex flex-col justify-between p-6 md:p-14 bg-black text-white overflow-y-auto">
       {/* Top Header matching dark theme */}
       <div className="relative z-10 pt-16 md:pt-14 pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10">
         <div>
