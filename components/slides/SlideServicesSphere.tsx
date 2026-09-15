@@ -32,7 +32,7 @@ export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onCont
   };
 
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col items-center justify-center p-6 md:p-14 bg-white overflow-hidden select-none">
+    <section className="relative w-full h-full min-h-screen flex flex-col items-center justify-center p-6 md:p-14 bg-white overflow-hidden">
       {/* Subtle warm ambient lighting */}
       <div className="absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-amber-100/40 blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-purple-100/30 blur-3xl pointer-events-none" />

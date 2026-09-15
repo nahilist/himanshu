@@ -16,7 +16,7 @@ export const SlideHero: React.FC<SlideHeroProps> = () => {
   const { personal } = PORTFOLIO_DATA;
 
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 md:px-12 bg-white overflow-hidden select-none">
+    <section className="relative w-full h-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 md:px-12 bg-white overflow-hidden">
       {/* Main Content */}
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center pt-2 sm:pt-4">
         {/* Portrait Image with aligned Amber Glow */}

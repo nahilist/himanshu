@@ -23,9 +23,13 @@ body {
   overflow: hidden;
   height: 100%;
   width: 100%;
-  user-select: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #fef3c7;
+  color: #171717;
 }
 
 /* Custom subtle scrollbar hiding for fullscreen experience */
