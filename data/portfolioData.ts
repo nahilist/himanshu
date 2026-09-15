@@ -45,8 +45,12 @@ export const PORTFOLIO_DATA = {
     college: "Sanskriti University, Mathura, India",
     currentYear: "4th Year",
     cgpa: "8.6 / 10.0",
+    bio: [
+      "I'm an AI & ML student and Frontend Developer focused on building intelligent solutions and clean, modern web experiences.",
+      "I enjoy turning ideas into real-world products through AI, engineering, and frontend development.",
+    ],
     careerObjective:
-      "Aspiring AI/ML & Frontend Engineer dedicated to building end-to-end intelligent software. Combining deep learning, retrieval-augmented generation (RAG), and agentic systems with clean, accessible, and high-performance web interfaces to solve complex real-world challenges.",
+      "I'm an AI & ML student and Frontend Developer focused on building intelligent solutions and clean, modern web experiences. I enjoy turning ideas into real-world products through AI, engineering, and frontend development.",
     availability: "Actively seeking Summer/Winter 2025-2026 Internships and high-impact collaborative projects.",
     highlights: [
       { label: "Degree", value: "B.Tech AI & ML" },

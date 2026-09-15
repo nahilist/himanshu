@@ -41,7 +41,7 @@ export const SlideSkills: React.FC<SlideSkillsProps> = ({ onViewProjects }) => {
   };
 
   return (
-    <section className="relative w-full h-full min-h-screen flex items-center justify-center p-4 sm:p-8 md:p-12 lg:p-14 bg-white select-none overflow-y-auto">
+    <section className="relative w-full h-full min-h-screen flex items-center justify-center p-4 sm:p-8 md:p-12 lg:p-14 bg-white overflow-y-auto">
       {/* Outer rounded card container */}
       <motion.div
         initial={{ opacity: 0, scale: 0.97 }}

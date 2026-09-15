@@ -19,7 +19,7 @@ export const SlideDripHero: React.FC<SlideDripHeroProps> = ({ onOpenShowreel }) 
   };
 
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 lg:p-14 bg-white select-none">
+    <section className="relative w-full h-full min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 lg:p-14 bg-white">
       {/* Sub-view Navigation Pills */}
       <div className="absolute top-20 z-30 flex items-center gap-2">
         <div className="flex items-center gap-1 p-1 rounded-full bg-neutral-100/90 border border-neutral-200/80 backdrop-blur-md shadow-xs">

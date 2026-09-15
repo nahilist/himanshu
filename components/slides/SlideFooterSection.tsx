@@ -20,7 +20,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
   const { personal, statistics, projects } = PORTFOLIO_DATA;
 
   return (
-    <footer className="relative w-full h-full min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-14 bg-black text-white overflow-y-auto select-none">
+    <footer className="relative w-full h-full min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-14 bg-black text-white overflow-y-auto">
       {/* 1. TOP SECTION: Headline + Stats matching dark theme */}
       <div className="relative z-10 pt-16 md:pt-14 pb-10 flex flex-col lg:flex-row lg:items-start justify-between gap-8 border-b border-neutral-800">
         {/* Left: Call to Action Headline + Email */}
@@ -190,7 +190,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
       </div>
 
       {/* 3. GIANT BRAND IDENTITY: Emblem & Himanshu Kumar */}
-      <div className="relative z-10 py-8 sm:py-12 flex flex-col items-center justify-center w-full overflow-hidden select-none">
+      <div className="relative z-10 py-8 sm:py-12 flex flex-col items-center justify-center w-full overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
