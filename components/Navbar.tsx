@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import { ArrowUpRight, FileText } from "lucide-react";
 import { soundFx } from "@/utils/audio";
-import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 interface NavbarProps {
   onOpenMenu: () => void;
@@ -29,7 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 px-6 md:px-12 py-5 flex items-center justify-between pointer-events-none transition-colors duration-500">
-      {/* Left section: Logo + Himanshu Kumar | Sound pill */}
+      {/* Left section: Logo | Sound pill */}
       <div className="flex items-center gap-3.5 pointer-events-auto select-none">
         <div
           onClick={() => {
@@ -53,23 +52,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             />
           </div>
 
-          {/* Name & Role Badge */}
-          <div className="flex flex-col">
-            <span
-              className={`font-black tracking-tight text-base sm:text-lg transition-colors leading-tight ${
-                isDark ? "text-white" : "text-neutral-950"
-              }`}
-            >
-              {PORTFOLIO_DATA.personal.name}
-            </span>
-            <span
-              className={`text-[9px] font-mono tracking-wider transition-colors hidden sm:block ${
-                isDark ? "text-neutral-400" : "text-neutral-500"
-              }`}
-            >
-              AI/ML & Frontend Dev
-            </span>
-          </div>
         </div>
 
         {/* Separator */}
