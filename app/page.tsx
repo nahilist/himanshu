@@ -10,7 +10,6 @@ import { ResumeModal } from "@/components/ResumeModal";
 
 import { SlideHero } from "@/components/slides/SlideHero";
 import { SlideAbout } from "@/components/slides/SlideAbout";
-import { SlideSkills } from "@/components/slides/SlideSkills";
 import { SlideProjectsArchive } from "@/components/slides/SlideProjectsArchive";
 import { SlideServicesSphere } from "@/components/slides/SlideServicesSphere";
 import { SlideContactSection } from "@/components/slides/SlideContactSection";
@@ -25,12 +24,12 @@ export default function PortfolioPage() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [isAudioActive, setIsAudioActive] = useState(false);
 
-  const totalSlides = 7;
+  const totalSlides = 6;
   const isScrollingRef = useRef(false);
   const touchStartYRef = useRef<number | null>(null);
 
-  // Slides 3 (Projects Archive) and 6 (Grand Finale Footer) are luxury dark theme
-  const isDarkSlide = currentSlide === 3 || currentSlide === 6;
+  // Slides 2 (Projects Archive) and 5 (Grand Finale Footer) are luxury dark theme
+  const isDarkSlide = currentSlide === 2 || currentSlide === 5;
 
   const changeSlide = useCallback(
     (newIndex: number) => {
@@ -54,10 +53,22 @@ export default function PortfolioPage() {
     }
   }, [currentSlide, changeSlide]);
 
+  // Check if any modal or scrollable overlay is currently open
+  const isModalActive = useCallback((target?: HTMLElement | null) => {
+    if (isMenuOpen || isContactOpen || isResumeOpen) return true;
+    if (typeof document !== "undefined") {
+      if (document.body.getAttribute("data-modal-open") === "true") return true;
+      if (target?.closest("[data-modal='true'], [role='dialog']")) return true;
+      if (document.querySelector("[data-modal='true'], [role='dialog']")) return true;
+    }
+    return false;
+  }, [isMenuOpen, isContactOpen, isResumeOpen]);
+
   // Wheel listener for smooth slide transitions
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (isMenuOpen || isContactOpen || isResumeOpen) return;
+      const target = e.target as HTMLElement | null;
+      if (isModalActive(target)) return;
 
       if (isScrollingRef.current) return;
       if (Math.abs(e.deltaY) < 30) return;
@@ -76,12 +87,12 @@ export default function PortfolioPage() {
 
     window.addEventListener("wheel", handleWheel, { passive: true });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [isMenuOpen, isContactOpen, isResumeOpen, nextSlide, prevSlide]);
+  }, [isModalActive, nextSlide, prevSlide]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isMenuOpen || isContactOpen || isResumeOpen) return;
+      if (isModalActive()) return;
 
       if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") {
         nextSlide();
@@ -92,7 +103,7 @@ export default function PortfolioPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isMenuOpen, isContactOpen, isResumeOpen, nextSlide, prevSlide]);
+  }, [isModalActive, nextSlide, prevSlide]);
 
   // Touch gesture navigation for mobile / tablet
   useEffect(() => {
@@ -101,7 +112,8 @@ export default function PortfolioPage() {
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (isMenuOpen || isContactOpen || isResumeOpen) return;
+      const target = e.target as HTMLElement | null;
+      if (isModalActive(target)) return;
       if (touchStartYRef.current === null) return;
 
       const touchEndY = e.changedTouches[0].clientY;
@@ -123,7 +135,7 @@ export default function PortfolioPage() {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [isMenuOpen, isContactOpen, isResumeOpen, nextSlide, prevSlide]);
+  }, [isModalActive, nextSlide, prevSlide]);
 
   const toggleAudio = () => {
     const isMuted = soundFx.toggleMute();
@@ -173,7 +185,7 @@ export default function PortfolioPage() {
       {/* 1. Persistent Top Navbar */}
       <Navbar
         onOpenMenu={() => setIsMenuOpen(true)}
-        onOpenContact={() => changeSlide(5)}
+        onOpenContact={() => changeSlide(4)}
         onOpenResume={() => setIsResumeOpen(true)}
         isMenuOpen={isMenuOpen}
         isAudioActive={isAudioActive}
@@ -193,41 +205,36 @@ export default function PortfolioPage() {
             exit="exit"
             className="absolute inset-0 w-full h-full"
           >
-            {/* Slide 0: Hero Section (Himanshu Kumar, AI/ML & Frontend, 3 CTAs) */}
+            {/* Slide 0: Hero Section */}
             {currentSlide === 0 && (
               <SlideHero
-                onViewProjects={() => changeSlide(3)}
+                onViewProjects={() => changeSlide(2)}
                 onOpenResume={() => setIsResumeOpen(true)}
-                onContactMe={() => changeSlide(5)}
+                onContactMe={() => changeSlide(4)}
               />
             )}
 
-            {/* Slide 1: About Me & Education (B.Tech AI & ML, CGPA 8.6, Objective) */}
+            {/* Slide 1: About Me & Philosophy */}
             {currentSlide === 1 && (
               <SlideAbout
-                onContactMe={() => changeSlide(5)}
-                onViewSkills={() => changeSlide(2)}
+                onContactMe={() => changeSlide(4)}
+                onViewProjects={() => changeSlide(2)}
               />
             )}
 
-            {/* Slide 2: Specialized Skills Matrix (6 Categories) */}
-            {currentSlide === 2 && (
-              <SlideSkills onViewProjects={() => changeSlide(3)} />
+            {/* Slide 2: Featured Projects (Archive with Filters & Modals) */}
+            {currentSlide === 2 && <SlideProjectsArchive />}
+
+            {/* Slide 3: Services & Capabilities (3D Sphere & Stats) */}
+            {currentSlide === 3 && (
+              <SlideServicesSphere onContactMe={() => changeSlide(4)} />
             )}
 
-            {/* Slide 3: Featured Projects (The 6 Projects with Filters & Modals) */}
-            {currentSlide === 3 && <SlideProjectsArchive />}
+            {/* Slide 4: Contact Section (Form, Email, Socials, Calendly) */}
+            {currentSlide === 4 && <SlideContactSection />}
 
-            {/* Slide 4: Services & Capabilities (3D Sphere & Stats) */}
-            {currentSlide === 4 && (
-              <SlideServicesSphere onContactMe={() => changeSlide(5)} />
-            )}
-
-            {/* Slide 5: Contact Section (Form, Email, Socials, Calendly) */}
-            {currentSlide === 5 && <SlideContactSection />}
-
-            {/* Slide 6: Grand Finale Footer (Stats, Directory, Scroll Top) */}
-            {currentSlide === 6 && (
+            {/* Slide 5: Grand Finale Footer (Stats, Directory, Scroll Top) */}
+            {currentSlide === 5 && (
               <SlideFooterSection
                 onScrollTop={() => changeSlide(0)}
                 onOpenResume={() => setIsResumeOpen(true)}
@@ -242,7 +249,7 @@ export default function PortfolioPage() {
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
         onSelectSlide={changeSlide}
-        onOpenContact={() => changeSlide(5)}
+        onOpenContact={() => changeSlide(4)}
         onOpenResume={() => setIsResumeOpen(true)}
       />
 
