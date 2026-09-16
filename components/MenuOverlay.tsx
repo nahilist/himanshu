@@ -44,12 +44,11 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
 
   const slideLinks = [
     { label: "HERO & PHILOSOPHY", subtitle: "Himanshu Kumar • AI/ML & Frontend Developer", slideIndex: 0 },
-    { label: "ABOUT & ACADEMICS", subtitle: "B.Tech AI & ML • CGPA 8.6 • Career Objective", slideIndex: 1 },
-    { label: "TECHNICAL SKILLS", subtitle: "AI/ML, GenAI, Frontend, Backend, Tools & Databases", slideIndex: 2 },
-    { label: "FEATURED PROJECTS", subtitle: "Elementum 3D, ATLAS, Digit Classifier, AI Notes & more", slideIndex: 3 },
-    { label: "SERVICES & CAPABILITIES", subtitle: "AI/ML Systems, RAG Pipelines & Modern Web Engineering", slideIndex: 4 },
-    { label: "CONTACT & COLLABORATION", subtitle: "Direct Inquiries, Email & Calendly Scheduler", slideIndex: 5 },
-    { label: "DIRECTORY & VERIFIED STATS", subtitle: "Achievements, Repositories & Academic Credits", slideIndex: 6 },
+    { label: "ABOUT & PHILOSOPHY", subtitle: "AI/ML Student & Modern Web Experiences", slideIndex: 1 },
+    { label: "FEATURED PROJECTS", subtitle: "Elementum 3D, ATLAS, Digit Classifier, AI Notes & more", slideIndex: 2 },
+    { label: "SERVICES & CAPABILITIES", subtitle: "AI/ML Systems, RAG Pipelines & Modern Web Engineering", slideIndex: 3 },
+    { label: "CONTACT & COLLABORATION", subtitle: "Direct Inquiries, Email & Calendly Scheduler", slideIndex: 4 },
+    { label: "DIRECTORY & VERIFIED STATS", subtitle: "Achievements, Repositories & Academic Credits", slideIndex: 5 },
   ];
 
   return (

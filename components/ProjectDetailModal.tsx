@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, CheckCircle2, Sparkles, AlertCircle } from "lucide-react";
+import { X, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { GithubIcon } from "@/components/Icons";
 import { soundFx } from "@/utils/audio";
 import { ProjectItem } from "@/data/portfolioData";
+import { projectMockups, categoryTags } from "@/components/ProjectMockups";
 
 interface ProjectDetailModalProps {
   project: ProjectItem | null;
@@ -13,7 +14,18 @@ interface ProjectDetailModalProps {
 }
 
 export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClose }) => {
+  useEffect(() => {
+    if (project) {
+      document.body.setAttribute("data-modal-open", "true");
+      return () => {
+        document.body.removeAttribute("data-modal-open");
+      };
+    }
+  }, [project]);
+
   if (!project) return null;
+
+  const categoryTag = categoryTags[project.id] || "UI/UX / DEVELOPMENT";
 
   return (
     <AnimatePresence>
@@ -21,112 +33,146 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/85 backdrop-blur-xl overflow-y-auto"
+        data-modal="true"
+        role="dialog"
+        aria-modal="true"
+        onWheelCapture={(e) => e.stopPropagation()}
+        onTouchStartCapture={(e) => e.stopPropagation()}
+        onTouchEndCapture={(e) => e.stopPropagation()}
+        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/95 backdrop-blur-2xl overflow-y-auto"
       >
         <motion.div
-          initial={{ scale: 0.95, opacity: 0, y: 20 }}
+          initial={{ scale: 0.97, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.95, opacity: 0, y: 20 }}
+          exit={{ scale: 0.97, opacity: 0, y: 20 }}
           transition={{ type: "spring", stiffness: 320, damping: 28 }}
-          className="relative w-full max-w-3xl bg-neutral-950 text-white rounded-3xl p-6 sm:p-10 border border-white/15 shadow-2xl overflow-hidden my-auto"
+          className="relative w-full max-w-5xl max-h-[92vh] bg-black text-white rounded-3xl p-6 sm:p-10 border border-neutral-800 shadow-2xl flex flex-col justify-between overflow-y-auto"
         >
-          {/* Ambient Glow */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
-          {/* Top Bar */}
-          <div className="flex items-start justify-between border-b border-white/10 pb-5 mb-6">
+          {/* Top Header */}
+          <div className="flex items-start justify-between border-b border-neutral-800 pb-5 mb-6">
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-[10px] font-mono tracking-widest text-amber-400 uppercase font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#ff6600]" />
+                <span className="text-[11px] font-mono tracking-widest uppercase text-neutral-400 font-medium">
+                  {categoryTag}
+                </span>
+                <span className="text-neutral-600 font-mono text-[11px]">•</span>
+                <span className="text-[11px] font-mono text-amber-400 font-semibold">
                   {project.badge}
                 </span>
-                <span className="text-[10px] font-mono text-neutral-400">
-                  • {project.category}
-                </span>
               </div>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                {project.title}
+
+              {/* Title with orange slanted arrow */}
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-white flex items-center gap-2.5">
+                <span>{project.title}</span>
+                <span className="text-[#ff6600] font-light">↗</span>
               </h2>
             </div>
 
+            {/* Close Button */}
             <button
               onClick={() => {
                 soundFx.playTick();
                 onClose();
               }}
-              className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+              className="group inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-neutral-700 bg-neutral-900/80 hover:bg-neutral-800 hover:border-white transition-all text-xs font-mono tracking-wider uppercase cursor-pointer"
             >
-              <X className="w-4 h-4" />
+              <span>CLOSE</span>
+              <div className="w-6 h-6 rounded-full bg-white text-black flex items-center justify-center transition-transform group-hover:scale-110">
+                <X className="w-3.5 h-3.5" />
+              </div>
             </button>
           </div>
 
-          <div className="space-y-6 text-sm">
-            {/* Problem Statement Card */}
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-              <div className="flex items-center gap-2 text-rose-400 text-xs font-mono font-semibold uppercase tracking-wider mb-1.5">
-                <AlertCircle className="w-3.5 h-3.5" />
-                <span>Problem Statement</span>
+          {/* Hero Viewport (Large realistic project preview) */}
+          <div className="relative w-full aspect-[16/10] sm:aspect-[16/8.5] rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-800/90 shadow-2xl bg-neutral-950 mb-8 shrink-0">
+            {projectMockups[project.id] || (
+              <div className="w-full h-full bg-neutral-900 flex items-center justify-center text-sm font-mono text-neutral-400">
+                {project.title}
               </div>
-              <p className="text-neutral-300 leading-relaxed text-xs sm:text-sm">
-                {project.problemStatement}
-              </p>
-            </div>
+            )}
+          </div>
 
-            {/* What Was Built */}
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-              <div className="flex items-center gap-2 text-amber-400 text-xs font-mono font-semibold uppercase tracking-wider mb-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Engineering Solution</span>
+          {/* Architectural Content Grid (Studio Editorial Layout) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 py-2">
+            {/* Left: Challenge & Solution */}
+            <div className="space-y-6">
+              {/* Challenge */}
+              <div>
+                <span className="text-[10px] font-mono tracking-widest text-[#ff6600] uppercase font-bold block mb-2">
+                  01 / THE CHALLENGE
+                </span>
+                <p className="text-sm sm:text-base text-neutral-300 font-light leading-relaxed">
+                  {project.problemStatement}
+                </p>
               </div>
-              <p className="text-neutral-200 leading-relaxed text-xs sm:text-sm">
-                {project.whatIBuilt}
-              </p>
-            </div>
 
-            {/* Key Features */}
-            <div>
-              <h4 className="text-xs font-mono text-neutral-400 uppercase tracking-widest mb-3">
-                Key Architectural Features
-              </h4>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {project.keyFeatures.map((feature, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-start gap-2 text-xs text-neutral-300 p-2 rounded-xl bg-white/5 border border-white/5"
-                  >
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Tech Stack */}
-            <div>
-              <h4 className="text-xs font-mono text-neutral-400 uppercase tracking-widest mb-2.5">
-                Technologies & Frameworks
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech, idx) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1 rounded-full bg-white/10 text-xs font-mono text-neutral-200 border border-white/10"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              {/* Engineering Solution */}
+              <div>
+                <span className="text-[10px] font-mono tracking-widest text-[#ff6600] uppercase font-bold block mb-2">
+                  02 / ENGINEERING SOLUTION
+                </span>
+                <p className="text-sm sm:text-base text-neutral-200 leading-relaxed font-light">
+                  {project.whatIBuilt}
+                </p>
               </div>
             </div>
 
-            {/* Action Links */}
-            <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-end gap-3">
+            {/* Right: Core Capabilities & Tech Stack */}
+            <div className="space-y-6">
+              {/* Key Features */}
+              <div>
+                <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase font-bold block mb-3">
+                  03 / CORE CAPABILITIES
+                </span>
+                <ul className="space-y-2.5">
+                  {project.keyFeatures.map((feature, idx) => (
+                    <li
+                      key={idx}
+                      className="p-3 rounded-xl bg-neutral-900/60 border border-neutral-800/80 flex items-start gap-3 text-xs sm:text-sm text-neutral-300"
+                    >
+                      <span className="text-[10px] font-mono text-amber-400 font-bold shrink-0 mt-0.5">
+                        0{idx + 1}
+                      </span>
+                      <span className="leading-snug">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Technologies */}
+              <div>
+                <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase font-bold block mb-2.5">
+                  04 / TECHNOLOGIES & TOOLING
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Action Bar */}
+          <div className="mt-8 pt-6 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-xs font-mono text-neutral-500">
+              Architected & Developed by Himanshu Kumar
+            </div>
+
+            <div className="flex items-center gap-3 w-full sm:w-auto">
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-white/20 hover:border-white text-xs font-mono tracking-wider uppercase text-white transition-colors"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-neutral-700 bg-neutral-900 hover:bg-neutral-800 hover:border-white text-xs font-mono tracking-wider uppercase text-white transition-colors"
               >
-                <GithubIcon className="w-4 h-4" />
+                <GithubIcon className="w-3.5 h-3.5" />
                 <span>Source Code</span>
               </a>
 
@@ -134,10 +180,14 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                 href={project.liveUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs font-mono tracking-wider uppercase transition-colors shadow-lg"
+                className="flex-1 sm:flex-initial group inline-flex items-center justify-center gap-3 pl-6 pr-2 py-2 rounded-full border border-[#ff6600]/80 bg-[#ff6600]/10 hover:bg-[#ff6600] hover:text-black text-white transition-all duration-300 shadow-lg"
               >
-                <span>Launch Live Project</span>
-                <ExternalLink className="w-4 h-4" />
+                <span className="text-xs font-mono tracking-wider uppercase font-semibold">
+                  Launch Live Demo
+                </span>
+                <div className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center transition-transform group-hover:scale-110 group-hover:rotate-45">
+                  <ArrowUpRight className="w-3.5 h-3.5 text-black stroke-[2.5]" />
+                </div>
               </a>
             </div>
           </div>

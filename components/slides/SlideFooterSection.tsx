@@ -17,11 +17,11 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
   onScrollTop,
   onOpenResume,
 }) => {
-  const { personal, statistics, projects } = PORTFOLIO_DATA;
+  const { personal, projects } = PORTFOLIO_DATA;
 
   return (
     <footer className="relative w-full h-full min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-14 bg-black text-white overflow-y-auto">
-      {/* 1. TOP SECTION: Headline + Stats matching dark theme */}
+      {/* 1. TOP SECTION: Headline + Dark theme identity */}
       <div className="relative z-10 pt-16 md:pt-14 pb-10 flex flex-col lg:flex-row lg:items-start justify-between gap-8 border-b border-neutral-800">
         {/* Left: Call to Action Headline + Email */}
         <div className="max-w-xl">
@@ -49,33 +49,14 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           </div>
         </div>
 
-        {/* Right: Verified Statistics & Badges */}
-        <div className="lg:text-right space-y-4">
-          <div>
-            <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">
-              Himanshu Kumar
-            </h3>
-            <p className="text-xs text-neutral-400 font-mono mt-1">
-              AI/ML & Frontend Developer • B.Tech AI & ML
-            </p>
-          </div>
-
-          {/* Statistics Row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-            {statistics.map((stat, idx) => (
-              <div
-                key={idx}
-                className="p-3 rounded-xl bg-neutral-900/80 border border-neutral-800 text-left lg:text-right"
-              >
-                <span className="text-xl sm:text-2xl font-black text-amber-400 block leading-tight">
-                  {stat.value}
-                </span>
-                <span className="text-[10px] font-mono text-neutral-400 uppercase block mt-0.5">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
+        {/* Right: Author info */}
+        <div className="lg:text-right space-y-1">
+          <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">
+            Himanshu Kumar
+          </h3>
+          <p className="text-xs text-neutral-400 font-mono">
+            AI/ML & Frontend Developer • B.Tech AI & ML
+          </p>
         </div>
       </div>
 
