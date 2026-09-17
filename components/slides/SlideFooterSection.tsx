@@ -6,7 +6,6 @@ import {
   ChevronUp,
   Copy,
   Check,
-  ArrowUpRight,
 } from "lucide-react";
 import {
   GithubIcon,
@@ -20,12 +19,12 @@ import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 interface SlideFooterSectionProps {
   onScrollTop: () => void;
-  onOpenResume: () => void;
+  onOpenResume?: () => void;
 }
 
 export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
   onScrollTop,
-  onOpenResume: _onOpenResume,
+  onOpenResume,
 }) => {
   const { personal } = PORTFOLIO_DATA;
   const [isCopied, setIsCopied] = useState(false);
@@ -165,7 +164,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
             <ul className="space-y-3 text-sm sm:text-[15px] font-sans text-neutral-200">
               <li>
                 <a
-                  href="https://tiktok.com"
+                  href="https://tiktok.com/@himanshux64"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors"
@@ -175,7 +174,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
               </li>
               <li>
                 <a
-                  href="https://instagram.com"
+                  href="https://instagram.com/himanshux64"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors"
@@ -215,7 +214,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
               </li>
               <li>
                 <a
-                  href="https://x.com"
+                  href="https://x.com/himanshux64"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors"
@@ -223,6 +222,19 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
                   X
                 </a>
               </li>
+              {onOpenResume && (
+                <li>
+                  <button
+                    onClick={() => {
+                      soundFx.playTick();
+                      onOpenResume();
+                    }}
+                    className="hover:text-white transition-colors cursor-pointer text-left"
+                  >
+                    Resume
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -270,7 +282,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
             <LinkedinIcon className="w-4 h-4" />
           </a>
           <a
-            href="https://x.com"
+            href="https://x.com/himanshux64"
             target="_blank"
             rel="noreferrer"
             onClick={() => soundFx.playTick()}
