@@ -63,14 +63,13 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
           {/* Top Bar inside menu */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="relative w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+              <div className="relative h-10 w-auto flex items-center justify-center">
                 <Image
-                  src="/logo.png"
+                  src="/logo-monogram-white.png"
                   alt="nahilist logo"
-                  width={36}
-                  height={36}
-                  className="w-full h-full object-cover invert contrast-125 brightness-110"
-                  style={{ objectPosition: "50% 28%", transform: "scale(1.28)" }}
+                  width={40}
+                  height={48}
+                  className="h-9 w-auto object-contain"
                 />
               </div>
               <span className="font-extrabold tracking-tight text-lg text-white">
