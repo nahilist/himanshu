@@ -31,7 +31,7 @@ export const PORTFOLIO_DATA = {
     role: "AI/ML & Frontend Developer",
     shortIntro:
       "",
-    status: "",
+    status: "Available for Select Projects & Roles",
     location: "India",
     email: "himanshukx64@gmail.com",
     github: "https://github.com/nahilist",

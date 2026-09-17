@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowUpRight, FileText } from "lucide-react";
+import { X, ArrowUpRight, FileText, BookOpen } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/Icons";
 import { soundFx } from "@/utils/audio";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
@@ -43,12 +44,12 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
   }, []);
 
   const slideLinks = [
-    { label: "HERO & PHILOSOPHY", subtitle: "Himanshu Kumar • AI/ML & Frontend Developer", slideIndex: 0 },
-    { label: "ABOUT & PHILOSOPHY", subtitle: "AI/ML Student & Modern Web Experiences", slideIndex: 1 },
-    { label: "FEATURED PROJECTS", subtitle: "Elementum 3D, ATLAS, Digit Classifier, AI Notes & more", slideIndex: 2 },
-    { label: "SERVICES & CAPABILITIES", subtitle: "AI/ML Systems, RAG Pipelines & Modern Web Engineering", slideIndex: 3 },
-    { label: "CONTACT & COLLABORATION", subtitle: "Direct Inquiries, Email & Calendly Scheduler", slideIndex: 4 },
-    { label: "DIRECTORY & VERIFIED STATS", subtitle: "Achievements, Repositories & Academic Credits", slideIndex: 5 },
+    { label: "HERO & PHILOSOPHY", slideIndex: 0 },
+    { label: "ABOUT & PHILOSOPHY", slideIndex: 1 },
+    { label: "FEATURED PROJECTS", slideIndex: 2 },
+    { label: "SERVICES & CAPABILITIES", slideIndex: 3 },
+    { label: "CONTACT & COLLABORATION", slideIndex: 4 },
+    { label: "DIRECTORY & VERIFIED STATS", slideIndex: 5 },
   ];
 
   return (
@@ -110,7 +111,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                     onSelectSlide(item.slideIndex);
                     onClose();
                   }}
-                  className="group cursor-pointer flex flex-col sm:flex-row sm:items-baseline justify-between border-b border-white/10 pb-3 hover:border-amber-400 transition-colors"
+                  className="group cursor-pointer flex items-center justify-between border-b border-white/10 py-3 hover:border-amber-400 transition-colors"
                 >
                   <div className="flex items-baseline gap-4 md:gap-8">
                     <span className="font-mono text-xs text-neutral-500 group-hover:text-amber-400 transition-colors">
@@ -120,11 +121,34 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                       {item.label}
                     </h2>
                   </div>
-                  <span className="text-xs text-neutral-400 font-mono mt-1 sm:mt-0 opacity-70 group-hover:opacity-100 transition-opacity">
-                    {item.subtitle}
-                  </span>
                 </motion.div>
               ))}
+
+              {/* Dedicated Activity Link */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.28, duration: 0.4 }}
+              >
+                <Link
+                  href="/activity"
+                  onClick={() => {
+                    soundFx.playSlideTransition();
+                    onClose();
+                  }}
+                  className="group cursor-pointer flex items-center justify-between border-b border-amber-500/30 py-3 hover:border-amber-400 transition-colors"
+                >
+                  <div className="flex items-baseline gap-4 md:gap-8">
+                    <span className="font-mono text-xs text-amber-400 font-bold group-hover:text-amber-300 transition-colors">
+                      ✦ 07
+                    </span>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-amber-300 group-hover:text-white group-hover:translate-x-2 transition-all duration-300 flex items-center gap-2">
+                      <span>ACTIVITY</span>
+                      <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </h2>
+                  </div>
+                </Link>
+              </motion.div>
             </div>
           </div>
 
@@ -147,6 +171,18 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
 
             {/* Quick Actions & Socials */}
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
+              <Link
+                href="/activity"
+                onClick={() => {
+                  soundFx.playTick();
+                  onClose();
+                }}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 hover:border-amber-400 hover:bg-amber-500/20 text-amber-300 transition-colors cursor-pointer"
+              >
+                <BookOpen className="w-3 h-3 text-amber-400" />
+                <span>Activity</span>
+              </Link>
+
               <button
                 onClick={() => {
                   soundFx.playTick();
