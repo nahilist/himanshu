@@ -1,10 +1,20 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { Send, ChevronUp, Calendar, ArrowUpRight, Sparkles } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/Icons";
+import React, { useState } from "react";
+import {
+  Send,
+  ChevronUp,
+  Copy,
+  Check,
+  ArrowUpRight,
+} from "lucide-react";
+import {
+  GithubIcon,
+  LinkedinIcon,
+  XIcon,
+  YoutubeIcon,
+  FacebookIcon,
+} from "@/components/Icons";
 import { soundFx } from "@/utils/audio";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
@@ -15,290 +25,291 @@ interface SlideFooterSectionProps {
 
 export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
   onScrollTop,
-  onOpenResume,
+  onOpenResume: _onOpenResume,
 }) => {
-  const { personal, projects } = PORTFOLIO_DATA;
+  const { personal } = PORTFOLIO_DATA;
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(personal.email);
+    soundFx.playOpenModal();
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2200);
+  };
 
   return (
-    <footer className="relative w-full h-full min-h-screen flex flex-col justify-between px-5 sm:px-10 md:px-14 lg:px-20 pt-16 sm:pt-20 md:pt-14 pb-6 sm:pb-8 bg-neutral-950 text-white overflow-y-auto overscroll-contain selection:bg-amber-400 selection:text-black">
-      {/* Ambient Atmospheric Lighting & Precision Grid */}
-      <div className="absolute inset-0 bg-[radial-gradient(#262626_1px,transparent_1px)] [background-size:24px_24px] opacity-35 pointer-events-none" />
-      <div className="absolute top-1/4 -left-40 w-[28rem] h-[28rem] rounded-full bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -right-40 w-[28rem] h-[28rem] rounded-full bg-gradient-to-tl from-purple-500/10 via-pink-500/5 to-transparent blur-3xl pointer-events-none" />
+    <footer className="relative w-full h-full min-h-screen flex flex-col justify-between px-6 sm:px-10 md:px-14 lg:px-20 pt-24 sm:pt-28 md:pt-32 pb-6 sm:pb-8 bg-black text-white overflow-y-auto overscroll-contain selection:bg-white selection:text-black">
+      {/* 1. TOP SECTION: Monumental Headline */}
+      <div className="pb-6 sm:pb-10">
+        <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] xl:text-[4.6rem] font-light tracking-tight leading-[1.06] text-white">
+          Is there an{" "}
+          <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-orange-300">
+            intelligent project
+          </span>
+          <br className="hidden sm:inline" />{" "}
+          brewing in your{" "}
+          <span className="font-serif italic font-normal text-neutral-500">
+            mind?
+          </span>
+        </h2>
+      </div>
 
-      {/* 1. TOP SECTION: Headline + Dark Theme Identity */}
-      <div className="relative z-10 pb-8 sm:pb-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-neutral-800/90">
-        {/* Left: Call to Action Headline + Direct Email */}
-        <div className="max-w-2xl">
-          {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-[10.5px] sm:text-xs font-mono text-neutral-300 mb-4 sm:mb-6 shadow-2xs w-fit">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            <span className="tracking-widest uppercase font-semibold text-neutral-200">
-              INITIATE COLLABORATION
-            </span>
-          </div>
+      {/* 2. ULTRA-PREMIUM EXECUTIVE EMAIL CONSOLE */}
+      <div className="pb-8 sm:pb-12 flex flex-col md:flex-row md:items-center justify-between gap-5">
+        {/* The Executive Dispatch Capsule */}
+        <div className="group relative inline-flex items-center gap-3 sm:gap-4 p-2 sm:p-2.5 pr-4 sm:pr-6 rounded-2xl sm:rounded-full bg-neutral-900/90 hover:bg-neutral-900 border border-neutral-800 hover:border-neutral-700 shadow-2xl backdrop-blur-2xl transition-all duration-300 w-fit">
+          {/* Subtle Ambient Hover Glow */}
+          <div className="absolute -inset-0.5 rounded-2xl sm:rounded-full bg-gradient-to-r from-amber-500/20 via-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm pointer-events-none -z-10" />
 
-          {/* Monumental Editorial Headline */}
-          <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-light tracking-tight leading-[1.06] text-white">
-            Is there an{" "}
-            <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-orange-300">
-              intelligent project
-            </span>
-            <br className="hidden sm:inline" />{" "}
-            brewing in your{" "}
-            <span className="font-serif italic font-normal text-neutral-500">
-              mind?
-            </span>
-          </h2>
+          {/* Primary Clickable Mailto Action */}
+          <a
+            href={`mailto:${personal.email}`}
+            onClick={() => soundFx.playTick()}
+            className="flex items-center gap-3 sm:gap-4 group/link"
+          >
+            {/* Animated Interactive Icon Pod */}
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-full bg-white text-black flex items-center justify-center shrink-0 shadow-md transition-all duration-300 group-hover:scale-105 group-hover:bg-amber-400">
+              <Send className="w-4 h-4 sm:w-5 sm:h-5 -rotate-45 ml-0.5 text-neutral-950 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </div>
 
-          {/* Direct Email Action Pill */}
-          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href={`mailto:${personal.email}`}
-              onClick={() => soundFx.playTick()}
-              className="group relative inline-flex items-center gap-3 px-5 sm:px-6 py-3 rounded-full bg-neutral-900/90 hover:bg-neutral-850 border border-neutral-800 hover:border-neutral-700 transition-all duration-300 shadow-[0_8px_24px_rgba(0,0,0,0.4)] cursor-pointer"
-            >
-              <div className="w-7 h-7 rounded-full bg-amber-400 text-neutral-950 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
-                <Send className="w-3.5 h-3.5 -rotate-45 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
-              <span className="text-sm sm:text-base font-mono font-semibold tracking-tight text-white group-hover:text-amber-300 transition-colors">
+            {/* Email Address & Subtitle */}
+            <div className="flex flex-col text-left pr-1 sm:pr-2">
+              <span className="text-[10px] sm:text-[10.5px] font-mono tracking-widest uppercase text-neutral-400 font-semibold flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>DIRECT INBOX • SAY HELLO</span>
+              </span>
+              <span className="text-base xs:text-lg sm:text-2xl md:text-[1.65rem] font-bold tracking-tight text-white group-hover/link:text-amber-300 transition-colors font-sans">
                 {personal.email}
               </span>
-              <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest pl-1 hidden xs:inline">
-                DIRECT INBOX ↗
-              </span>
-            </a>
-          </div>
+            </div>
+          </a>
+
+          {/* Divider */}
+          <div className="hidden xs:block h-7 w-[1px] bg-neutral-800 my-auto mx-1" />
+
+          {/* Tactile 1-Click Copy Button with Visual Feedback */}
+          <button
+            onClick={handleCopyEmail}
+            title="Copy email address"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg sm:rounded-full bg-neutral-800/80 hover:bg-neutral-700 text-neutral-300 hover:text-white transition-all duration-200 font-mono text-xs cursor-pointer shrink-0"
+          >
+            {isCopied ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="text-emerald-400 font-semibold text-[11px]">COPIED</span>
+              </>
+            ) : (
+              <>
+                <Copy className="w-3.5 h-3.5 text-neutral-400" />
+                <span className="hidden sm:inline text-[11px] font-medium tracking-wide">COPY</span>
+              </>
+            )}
+          </button>
         </div>
 
-        {/* Right: Author info & Live Status */}
-        <div className="lg:text-right space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/40 border border-emerald-800/50 text-[10.5px] font-mono text-emerald-400 mb-1">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+        {/* Right: Operational Status / Dispatch SLA */}
+        <div className="hidden md:flex items-center gap-3.5 text-neutral-400 text-xs font-mono">
+          <div className="flex flex-col items-end">
+            <span className="text-[10px] tracking-widest uppercase text-neutral-500 font-semibold">
+              ESTIMATED SLA
             </span>
-            <span>Available for Q3/Q4 Projects</span>
+            <span className="text-neutral-300 text-xs font-medium">
+              &lt; 24h Response Guaranteed
+            </span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            Himanshu Kumar
-          </h3>
-          <p className="text-xs text-neutral-400 font-mono">
-            AI/ML &amp; Production Web Engineer • New Delhi, India
-          </p>
+          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
         </div>
       </div>
 
-      {/* 2. MIDDLE SECTION: 4 Navigation Directory Columns */}
-      <div className="relative z-10 py-8 sm:py-10 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 border-b border-neutral-800/90 text-xs font-mono">
-        {/* Col 1: ABOUT HIMANSHU */}
-        <div className="space-y-3">
-          <span className="text-[10px] tracking-widest uppercase text-amber-400 font-bold block">
-            ABOUT HIMANSHU
-          </span>
-          <ul className="space-y-2 text-neutral-300 font-sans text-xs sm:text-sm">
-            <li className="text-neutral-400">B.Tech in AI &amp; ML (2022-2026)</li>
-            <li className="text-neutral-400">Academic CGPA: 8.6 / 10.0</li>
-            <li>
-              <button
-                onClick={() => {
-                  soundFx.playTick();
-                  onOpenResume();
-                }}
-                className="hover:text-amber-300 text-amber-400 transition-colors cursor-pointer font-semibold underline underline-offset-4 flex items-center gap-1"
-              >
-                <span>Curriculum Vitae</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </button>
-            </li>
-            <li className="text-emerald-400 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>Open for Internships</span>
-            </li>
-          </ul>
-        </div>
+      {/* 3. DIRECTORY COLUMNS */}
+      <div className="py-10 sm:py-12 md:py-16 border-t border-b border-neutral-850">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 md:gap-16 lg:gap-24">
 
-        {/* Col 2: CORE PROJECTS */}
-        <div className="space-y-3">
-          <span className="text-[10px] tracking-widest uppercase text-amber-400 font-bold block">
-            CORE PROJECTS
-          </span>
-          <ul className="space-y-2 text-neutral-300 font-sans text-xs sm:text-sm">
-            {projects.slice(0, 5).map((p) => (
-              <li key={p.id}>
+          {/* Col 2: SERVICES */}
+          <div>
+            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold block mb-5">
+              SERVICES
+            </span>
+            <ul className="space-y-3 text-sm sm:text-[15px] font-sans text-neutral-200">
+              <li className="hover:text-white transition-colors cursor-pointer">UI/UX</li>
+              <li className="hover:text-white transition-colors cursor-pointer">Custom web dev</li>
+              <li className="hover:text-white transition-colors cursor-pointer">Branding</li>
+              <li className="hover:text-white transition-colors cursor-pointer">3D animation</li>
+              <li className="hover:text-white transition-colors cursor-pointer">App Development</li>
+              <li className="hover:text-white transition-colors cursor-pointer">Business automation</li>
+            </ul>
+          </div>
+
+          {/* Col 3: OTHER SERVICES */}
+          <div>
+            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold block mb-5">
+              OTHER SERVICES
+            </span>
+            <ul className="space-y-3 text-sm sm:text-[15px] font-sans text-neutral-200">
+              <li className="hover:text-white transition-colors cursor-pointer">3D Web Design</li>
+              <li className="hover:text-white transition-colors cursor-pointer">3D Rendering</li>
+              <li className="hover:text-white transition-colors cursor-pointer">Web App Development</li>
+              <li className="hover:text-white transition-colors cursor-pointer">E-commerce Development</li>
+              <li className="hover:text-white transition-colors cursor-pointer">Brand Identity</li>
+              <li className="hover:text-white transition-colors cursor-pointer">Motion Design</li>
+            </ul>
+          </div>
+
+          {/* Col 4: SOCIAL MEDIA */}
+          <div>
+            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold block mb-5">
+              SOCIAL MEDIA
+            </span>
+            <ul className="space-y-3 text-sm sm:text-[15px] font-sans text-neutral-200">
+              <li>
                 <a
-                  href={p.liveUrl}
+                  href="https://tiktok.com"
                   target="_blank"
                   rel="noreferrer"
-                  onClick={() => soundFx.playTick()}
-                  className="hover:text-white text-neutral-400 transition-colors flex items-center justify-between group"
+                  className="hover:text-white transition-colors"
                 >
-                  <span className="group-hover:translate-x-0.5 transition-transform truncate pr-2">
-                    {p.title}
-                  </span>
-                  <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 text-amber-400 transition-opacity shrink-0" />
+                  Tiktok
                 </a>
               </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Col 3: KEY CAPABILITIES */}
-        <div className="space-y-3">
-          <span className="text-[10px] tracking-widest uppercase text-amber-400 font-bold block">
-            KEY CAPABILITIES
-          </span>
-          <ul className="space-y-2 text-neutral-400 font-sans text-xs sm:text-sm">
-            <li className="hover:text-neutral-200 transition-colors">PyTorch &amp; TensorFlow Models</li>
-            <li className="hover:text-neutral-200 transition-colors">Generative AI, LLMs &amp; RAG</li>
-            <li className="hover:text-neutral-200 transition-colors">Autonomous AI Agents</li>
-            <li className="hover:text-neutral-200 transition-colors">Next.js 16, React &amp; Tailwind</li>
-            <li className="hover:text-neutral-200 transition-colors">FastAPI &amp; High-Throughput APIs</li>
-          </ul>
-        </div>
-
-        {/* Col 4: SOCIAL CHANNELS */}
-        <div className="space-y-3">
-          <span className="text-[10px] tracking-widest uppercase text-amber-400 font-bold block">
-            CONNECT &amp; CODE
-          </span>
-          <ul className="space-y-2 text-neutral-300 font-sans text-xs sm:text-sm">
-            <li>
-              <a
-                href={personal.github}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => soundFx.playTick()}
-                className="hover:text-white text-neutral-400 flex items-center gap-2 transition-colors group"
-              >
-                <GithubIcon className="w-3.5 h-3.5 text-neutral-400 group-hover:text-white transition-colors" />
-                <span>GitHub (@himanshux64)</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href={personal.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => soundFx.playTick()}
-                className="hover:text-white text-neutral-400 flex items-center gap-2 transition-colors group"
-              >
-                <LinkedinIcon className="w-3.5 h-3.5 text-neutral-400 group-hover:text-white transition-colors" />
-                <span>LinkedIn Profile</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href={personal.medium}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => soundFx.playTick()}
-                className="hover:text-white text-neutral-400 flex items-center gap-2 transition-colors group"
-              >
-                <span>Medium Articles</span>
-                <ArrowUpRight className="w-3 h-3 opacity-60 group-hover:opacity-100 text-amber-400" />
-              </a>
-            </li>
-            <li>
-              <a
-                href={personal.calendly}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => soundFx.playTick()}
-                className="hover:text-amber-300 text-amber-400 flex items-center gap-2 transition-colors font-semibold"
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Schedule a Meeting</span>
-              </a>
-            </li>
-          </ul>
+              <li>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href={personal.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Linkedin
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Youtube
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://x.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  X
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      {/* 3. GIANT BRAND IDENTITY: Emblem & Himanshu */}
-      <div className="relative z-10 py-6 sm:py-8 md:py-10 flex flex-col items-center justify-center w-full overflow-hidden">
-        {/* Subtle Brand Aura */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
-          <div className="w-[32rem] h-[12rem] bg-gradient-to-r from-amber-500/10 via-white/5 to-purple-500/10 blur-3xl rounded-full" />
+      {/* 4. BRAND WORDMARK */}
+      <div className="py-6 sm:py-8 md:py-10 flex items-center justify-center w-full select-none overflow-hidden">
+        <div className="w-full text-[11.5vw] sm:text-[11vw] md:text-[10.5vw] font-black tracking-normal sm:tracking-[0.02em] text-white leading-none uppercase text-center select-none">
+          NAHILIST
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 font-black text-white leading-none tracking-tighter"
-        >
-          <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 flex items-center justify-center">
-            <Image
-              src="/logo-monogram-white.png"
-              alt="nahilist logo emblem"
-              width={140}
-              height={160}
-              className="w-full h-full object-contain drop-shadow-[0_0_24px_rgba(255,255,255,0.18)]"
-              priority
-            />
-          </div>
-
-          <div className="text-[12vw] sm:text-[8vw] font-black tracking-tighter text-neutral-200 select-none hover:text-white transition-colors duration-300">
-            HIMANSHU
-          </div>
-        </motion.div>
       </div>
 
-      {/* 4. BOTTOM UTILITY & SCROLL TOP BAR */}
-      <div className="relative z-10 pt-4 pb-2 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-[10px] sm:text-[11px] font-mono text-neutral-500 border-t border-neutral-900">
-        {/* Social shortcuts */}
-        <div className="flex items-center gap-2 text-xs font-semibold text-neutral-400">
+      {/* 5. BOTTOM UTILITY BAR (Reference: Monochrome Icons Left | Copyright & Legal Center | SCROLL TOP Right) */}
+      <div className="pt-6 pb-2 flex flex-col sm:flex-row items-center justify-between gap-5 text-xs text-neutral-400 font-sans border-t border-neutral-900">
+        {/* Left: Minimalist Monochrome Social Icons (f, yt, in, x, gh) */}
+        <div className="flex items-center gap-5 sm:gap-6 text-neutral-400 order-2 sm:order-1">
           <a
-            href={personal.github}
+            href="https://facebook.com"
             target="_blank"
             rel="noreferrer"
-            className="px-2.5 py-1 rounded-md bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-neutral-800/80 transition-colors"
+            onClick={() => soundFx.playTick()}
+            title="Facebook"
+            className="hover:text-white transition-colors cursor-pointer"
           >
-            gh
+            <FacebookIcon className="w-4 h-4" />
+          </a>
+          <a
+            href="https://youtube.com"
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => soundFx.playTick()}
+            title="YouTube"
+            className="hover:text-white transition-colors cursor-pointer"
+          >
+            <YoutubeIcon className="w-4 h-4" />
           </a>
           <a
             href={personal.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="px-2.5 py-1 rounded-md bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-neutral-800/80 transition-colors"
+            onClick={() => soundFx.playTick()}
+            title="LinkedIn"
+            className="hover:text-white transition-colors cursor-pointer"
           >
-            in
+            <LinkedinIcon className="w-4 h-4" />
           </a>
           <a
-            href={personal.medium}
+            href="https://x.com"
             target="_blank"
             rel="noreferrer"
-            className="px-2.5 py-1 rounded-md bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-neutral-800/80 transition-colors"
+            onClick={() => soundFx.playTick()}
+            title="X"
+            className="hover:text-white transition-colors cursor-pointer"
           >
-            med
+            <XIcon className="w-4 h-4" />
           </a>
           <a
-            href={`mailto:${personal.email}`}
-            className="px-2.5 py-1 rounded-md bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-neutral-800/80 transition-colors"
+            href={personal.github}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => soundFx.playTick()}
+            title="GitHub"
+            className="hover:text-white transition-colors cursor-pointer"
           >
-            mail
+            <GithubIcon className="w-4 h-4" />
           </a>
         </div>
 
-        {/* Legal Notices */}
-        <div className="flex items-center gap-4 text-center sm:text-left text-neutral-500">
-          <span>© 2026 Himanshu Kumar • All Rights Reserved</span>
+        {/* Center: Copyright */}
+        <div className="text-[11px] sm:text-xs text-neutral-400 order-1 sm:order-2 text-center">
+          <span>2026 NAHILIST. All rights reserved</span>
         </div>
 
-        {/* Functional SCROLL TOP Button */}
+        {/* Right: SCROLL TOP with circle arrow */}
         <button
           onClick={() => {
             soundFx.playSlideTransition();
             onScrollTop();
           }}
-          className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-900 hover:bg-white text-neutral-300 hover:text-black border border-neutral-800 hover:border-white transition-all duration-300 cursor-pointer shadow-xs"
+          className="group flex items-center gap-2 text-neutral-300 hover:text-white transition-colors cursor-pointer text-[11px] font-mono tracking-widest uppercase order-3"
         >
-          <span className="tracking-widest uppercase text-[10px] font-bold">SCROLL TOP</span>
-          <ChevronUp className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />
+          <span>SCROLL TOP</span>
+          <div className="w-5 h-5 rounded-full border border-neutral-600 group-hover:border-white flex items-center justify-center transition-colors">
+            <ChevronUp className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />
+          </div>
         </button>
       </div>
     </footer>
   );
 };
-
