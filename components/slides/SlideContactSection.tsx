@@ -13,6 +13,7 @@ import { soundFx } from "@/utils/audio";
 export const SlideContactSection: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     fullName: "",
     company: "",
@@ -21,27 +22,62 @@ export const SlideContactSection: React.FC = () => {
     projectDetails: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
     soundFx.playTick();
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      soundFx.playOpenModal();
+    const apiKey =
+      process.env.NEXT_PUBLIC_WEB3FORMS_KEY ||
+      "a25a0f34-2e51-461d-a6dc-6d1e72fb4a24";
 
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({
-          fullName: "",
-          company: "",
-          email: "",
-          phone: "",
-          projectDetails: "",
-        });
-      }, 4000);
-    }, 550);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: apiKey,
+          subject: `Portfolio Inquiry from ${formData.fullName}`,
+          from_name: formData.fullName,
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone || "Not provided",
+          company: formData.company || "Not provided",
+          message: formData.projectDetails || "No project details provided",
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+        soundFx.playOpenModal();
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            fullName: "",
+            company: "",
+            email: "",
+            phone: "",
+            projectDetails: "",
+          });
+        }, 6000);
+      } else {
+        setErrorMessage(
+          result.message || "Failed to dispatch message. Please try again or email directly."
+        );
+      }
+    } catch {
+      setErrorMessage(
+        "Network connection error. Please check your internet or send direct email."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -214,6 +250,13 @@ export const SlideContactSection: React.FC = () => {
                       className="w-full bg-transparent text-xs sm:text-sm text-neutral-950 placeholder:text-neutral-400 placeholder:italic focus:outline-none resize-none font-sans leading-relaxed h-14 sm:h-20"
                     />
                   </div>
+
+                  {/* Optional Error Alert */}
+                  {errorMessage && (
+                    <div className="p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-mono text-center">
+                      {errorMessage}
+                    </div>
+                  )}
 
                   {/* Submit CTA Button & Security Footnote */}
                   <div className="pt-1 space-y-2">
