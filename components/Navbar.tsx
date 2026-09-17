@@ -37,19 +37,31 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
           className="group cursor-pointer flex items-center gap-2.5 transition-all duration-300 hover:opacity-85"
         >
-          {/* Logo Monogram */}
-          <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg overflow-hidden flex items-center justify-center">
-            <Image
-              src="/logo.png"
-              alt="nahilist logo"
-              width={48}
-              height={48}
-              className={`w-full h-full object-cover transition-all duration-300 ${
-                isDark ? "invert contrast-125 brightness-110" : "mix-blend-multiply"
-              }`}
-              style={{ objectPosition: "50% 28%", transform: "scale(1.28)" }}
-              priority
-            />
+          {/* Premium Logo Monogram & Wordmark */}
+          <div className="flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 group-hover:scale-[1.02]">
+            {/* Geometric Monogram Emblem (Large & Razor Sharp) */}
+            <div className="relative h-10 w-auto sm:h-11 md:h-12 flex items-center justify-center">
+              <Image
+                src={isDark ? "/logo-monogram-white.png" : "/logo-monogram.png"}
+                alt="nahilist emblem"
+                width={48}
+                height={56}
+                className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-all duration-300 drop-shadow-sm"
+                priority
+              />
+            </div>
+
+            {/* Signature Wordmark */}
+            <div className="relative h-4 sm:h-4.5 w-auto flex items-center opacity-90 group-hover:opacity-100 transition-opacity">
+              <Image
+                src={isDark ? "/logo-wordmark-white.png" : "/logo-wordmark.png"}
+                alt="nahilist wordmark"
+                width={105}
+                height={24}
+                className="h-3.5 sm:h-4 w-auto object-contain transition-all duration-300"
+                priority
+              />
+            </div>
           </div>
 
         </div>

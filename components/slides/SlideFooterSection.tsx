@@ -178,13 +178,13 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           transition={{ duration: 0.8 }}
           className="w-full flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 font-black text-white leading-none tracking-tighter"
         >
-          <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl overflow-hidden flex items-center justify-center">
+          <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 flex items-center justify-center">
             <Image
-              src="/logo.png"
-              alt="nahilist logo"
-              width={160}
-              height={160}
-              className="w-full h-full object-contain invert contrast-125 brightness-110"
+              src="/logo-monogram-white.png"
+              alt="nahilist logo emblem"
+              width={180}
+              height={210}
+              className="w-full h-full object-contain drop-shadow-[0_0_24px_rgba(255,255,255,0.15)]"
               priority
             />
           </div>
