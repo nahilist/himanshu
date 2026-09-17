@@ -11,8 +11,7 @@ import {
 } from "lucide-react";
 import { GithubIcon } from "@/components/Icons";
 import { soundFx } from "@/utils/audio";
-import { PORTFOLIO_DATA, ProjectItem } from "@/data/portfolioData";
-import { ProjectDetailModal } from "@/components/ProjectDetailModal";
+import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 import { projectMockups, categoryTags } from "@/components/ProjectMockups";
 
@@ -28,19 +27,18 @@ export const SlideProjectsArchive: React.FC = () => {
   ];
 
   const [currentPairIndex, setCurrentPairIndex] = useState<number>(0);
-  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [isArchiveOpen, setIsArchiveOpen] = useState<boolean>(false);
   const [activeFilter, setActiveFilter] = useState<string>("ALL");
 
-  // Prevent global portfolio slide navigation when archive or project detail modal is open
+  // Prevent global portfolio slide navigation when archive modal is open
   React.useEffect(() => {
-    if (isArchiveOpen || selectedProject) {
+    if (isArchiveOpen) {
       document.body.setAttribute("data-modal-open", "true");
       return () => {
         document.body.removeAttribute("data-modal-open");
       };
     }
-  }, [isArchiveOpen, selectedProject]);
+  }, [isArchiveOpen]);
 
   const currentPair = projectPairs[currentPairIndex] || projectPairs[0];
 
@@ -139,13 +137,13 @@ export const SlideProjectsArchive: React.FC = () => {
               const categoryTag = categoryTags[project.id] || "UI/UX / DEVELOPMENT";
 
               return (
-                <div
+                <a
                   key={project.id}
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex flex-col cursor-pointer"
-                  onClick={() => {
-                    soundFx.playOpenModal();
-                    setSelectedProject(project);
-                  }}
+                  onClick={() => soundFx.playTick()}
                 >
                   {/* Rounded Preview Container */}
                   <div className="relative w-full aspect-[16/10] sm:aspect-[16/9.5] rounded-2xl sm:rounded-3xl lg:rounded-[28px] overflow-hidden border border-neutral-800/90 shadow-2xl transition-all duration-500 group-hover:border-neutral-700 group-hover:shadow-neutral-900/80">
@@ -178,20 +176,15 @@ export const SlideProjectsArchive: React.FC = () => {
                       </h3>
 
                       {/* Direct Live Link Action */}
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity text-xs font-mono text-neutral-400 hover:text-white flex items-center gap-1"
-                        title="Open Live Preview"
+                      <span
+                        className="opacity-0 group-hover:opacity-100 transition-opacity text-xs font-mono text-[#ff6600] flex items-center gap-1 font-semibold"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
-                        <span className="hidden sm:inline">Live</span>
-                      </a>
+                        <span className="hidden sm:inline">Open Live</span>
+                      </span>
                     </div>
                   </div>
-                </div>
+                </a>
               );
             })}
           </motion.div>
@@ -300,13 +293,13 @@ export const SlideProjectsArchive: React.FC = () => {
                   const categoryTag = categoryTags[project.id] || "UI/UX / DEVELOPMENT";
 
                   return (
-                    <div
+                    <a
                       key={project.id}
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="group flex flex-col cursor-pointer"
-                      onClick={() => {
-                        soundFx.playOpenModal();
-                        setSelectedProject(project);
-                      }}
+                      onClick={() => soundFx.playTick()}
                     >
                       {/* Rounded Preview Container */}
                       <div className="relative w-full aspect-[16/10] sm:aspect-[16/9.5] rounded-2xl sm:rounded-3xl lg:rounded-[28px] overflow-hidden border border-neutral-800/90 shadow-2xl transition-all duration-500 group-hover:border-neutral-700 group-hover:shadow-neutral-900/80 bg-neutral-950">
@@ -340,32 +333,29 @@ export const SlideProjectsArchive: React.FC = () => {
 
                           {/* Direct Actions: GitHub & Live */}
                           <div className="flex items-center gap-3 text-xs font-mono">
-                            <a
-                              href={project.githubUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(e) => e.stopPropagation()}
+                            <span
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                window.open(project.githubUrl, "_blank", "noopener,noreferrer");
+                              }}
                               className="text-neutral-400 hover:text-white flex items-center gap-1 transition-colors"
                               title="GitHub Repository"
                             >
                               <GithubIcon className="w-3.5 h-3.5" />
                               <span className="hidden sm:inline">Code</span>
-                            </a>
-                            <a
-                              href={project.liveUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(e) => e.stopPropagation()}
+                            </span>
+                            <span
                               className="text-[#ff6600] hover:text-amber-300 flex items-center gap-1 transition-colors font-semibold"
                               title="Live Website"
                             >
                               <ExternalLink className="w-3.5 h-3.5" />
                               <span className="hidden sm:inline">Live</span>
-                            </a>
+                            </span>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   );
                 })}
               </div>
@@ -373,12 +363,6 @@ export const SlideProjectsArchive: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Deep-Dive Project Detail Modal */}
-      <ProjectDetailModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
     </section>
   );
 };
