@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Terminal, Code2 } from "lucide-react";
 import { soundFx } from "@/utils/audio";
-import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 interface SlideAboutProps {
   onContactMe: () => void;
@@ -12,7 +11,6 @@ interface SlideAboutProps {
 }
 
 export const SlideAbout: React.FC<SlideAboutProps> = ({ onContactMe, onViewProjects }) => {
-  const { about, personal } = PORTFOLIO_DATA;
 
   return (
     <section className="relative w-full h-full min-h-[100dvh] flex flex-col justify-center pl-6 pr-6 sm:pl-14 sm:pr-12 md:pl-24 md:pr-16 lg:pl-36 lg:pr-24 pt-20 pb-16 sm:py-20 bg-white overflow-y-auto">
@@ -82,19 +80,6 @@ export const SlideAbout: React.FC<SlideAboutProps> = ({ onContactMe, onViewProje
           >
             Let&apos;s Connect
           </button>
-        </div>
-
-        {/* Cohesive Footer Details */}
-        <div className="pt-6 sm:pt-8 border-t border-neutral-200/70 w-full max-w-4xl flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs font-mono text-neutral-500 mt-2">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-            <span>Bachelor of Technology • AI &amp; ML</span>
-          </div>
-          <div className="flex items-center gap-2 text-neutral-400">
-            <span>Based in {personal.location}</span>
-            <span>•</span>
-            <span>Available Worldwide</span>
-          </div>
         </div>
       </motion.div>
     </section>
