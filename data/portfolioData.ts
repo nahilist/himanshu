@@ -281,13 +281,6 @@ export const PORTFOLIO_DATA = {
         "Developing scalable end-to-end applications from database design (Supabase/MongoDB) and Python APIs (FastAPI/Django) to interactive user interfaces.",
       deliverables: ["Full-Stack Architecture", "Database Schema Design", "Secure Authentication"],
     },
-    {
-      id: "api-integration",
-      title: "API Integration & Automation",
-      description:
-        "Integrating external APIs, building automated data processing pipelines, and connecting third-party AI services into existing business workflows.",
-      deliverables: ["Third-Party Service Sync", "Async Task Queues", "System Telemetry"],
-    },
   ] as ServiceItem[],
 
   statistics: [

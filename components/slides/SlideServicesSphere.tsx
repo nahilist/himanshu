@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Brain, Cpu, Layout, Server, Network, CheckCircle2, ArrowRight } from "lucide-react";
+import { Sparkles, Brain, Cpu, Layout, Server, CheckCircle2, ArrowRight } from "lucide-react";
 import { soundFx } from "@/utils/audio";
 import { PORTFOLIO_DATA, ServiceItem } from "@/data/portfolioData";
 
@@ -12,7 +12,17 @@ interface SlideServicesSphereProps {
 
 export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onContactMe }) => {
   const [activeService, setActiveService] = useState<ServiceItem | null>(null);
-  const { services, statistics } = PORTFOLIO_DATA;
+  const { services } = PORTFOLIO_DATA;
+
+  // Prevent background slide navigation when service detail modal is open
+  useEffect(() => {
+    if (activeService) {
+      document.body.setAttribute("data-modal-open", "true");
+      return () => {
+        document.body.removeAttribute("data-modal-open");
+      };
+    }
+  }, [activeService]);
 
   const getServiceIcon = (id: string) => {
     switch (id) {
@@ -24,8 +34,6 @@ export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onCont
         return <Layout className="w-4 h-4 text-blue-600" />;
       case "fullstack-apps":
         return <Server className="w-4 h-4 text-emerald-600" />;
-      case "api-integration":
-        return <Network className="w-4 h-4 text-rose-600" />;
       default:
         return <Cpu className="w-4 h-4 text-amber-600" />;
     }
@@ -38,7 +46,7 @@ export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onCont
       <div className="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-purple-100/30 blur-3xl pointer-events-none" />
 
       {/* Top Header */}
-      <div className="absolute top-20 md:top-24 inset-x-6 md:inset-x-14 z-20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-100 pb-4">
+      <div className="absolute top-20 md:top-24 inset-x-6 md:inset-x-14 z-20 flex items-center justify-between border-b border-neutral-100 pb-4">
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
@@ -50,23 +58,9 @@ export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onCont
             AI Engineering & Web Services
           </h2>
         </div>
-
-        {/* Verified Stats Row */}
-        <div className="flex items-center gap-4 sm:gap-6 text-right">
-          {statistics.slice(0, 3).map((stat, i) => (
-            <div key={i} className="text-left sm:text-right">
-              <span className="text-lg sm:text-2xl font-black text-neutral-950 block leading-tight">
-                {stat.value}
-              </span>
-              <span className="text-[10px] font-mono text-neutral-500 block uppercase">
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
 
-      {/* Center 3D Tactile Fuzzy Sphere Scene with 5 Service Pills */}
+      {/* Center 3D Tactile Fuzzy Sphere Scene with 4 Service Pills */}
       <div className="relative w-full max-w-3xl h-[420px] sm:h-[480px] md:h-[520px] flex items-center justify-center my-auto z-10 pt-16">
         {/* Organic Fuzzy Sandy Sphere Graphic */}
         <motion.div
@@ -177,19 +171,6 @@ export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onCont
           {getServiceIcon(services[3].id)}
           <span>{services[3].title}</span>
         </motion.button>
-
-        {/* 5. API Integration & Automation (Bottom-Center) */}
-        <motion.button
-          onClick={() => {
-            soundFx.playOpenModal();
-            setActiveService(services[4]);
-          }}
-          whileHover={{ scale: 1.05 }}
-          className="absolute -bottom-2 sm:bottom-0 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-950 text-white shadow-lg hover:bg-neutral-800 text-xs sm:text-sm font-medium transition-all cursor-pointer"
-        >
-          {getServiceIcon(services[4].id)}
-          <span>{services[4].title}</span>
-        </motion.button>
       </div>
 
       {/* Service Detail Modal */}
@@ -199,6 +180,9 @@ export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onCont
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            data-modal="true"
+            role="dialog"
+            aria-modal="true"
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
           >
             <motion.div
