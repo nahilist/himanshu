@@ -2,13 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
-import { ArrowUpRight, FileText } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { soundFx } from "@/utils/audio";
 
 interface NavbarProps {
   onOpenMenu: () => void;
   onOpenContact: () => void;
-  onOpenResume: () => void;
+  onOpenResume?: () => void;
   isMenuOpen: boolean;
   isAudioActive: boolean;
   onToggleAudio: () => void;
@@ -18,7 +18,6 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenMenu,
   onOpenContact,
-  onOpenResume,
   isMenuOpen,
   isAudioActive,
   onToggleAudio,
@@ -117,24 +116,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
       </div>
 
-      {/* Right section: Resume | Let's talk ↗ | Hamburger icon */}
+      {/* Right section: Let's talk ↗ | Hamburger icon */}
       <div className="flex items-center gap-3.5 sm:gap-4 pointer-events-auto">
-        {/* View Resume Button */}
-        <button
-          onClick={() => {
-            soundFx.playOpenModal();
-            onOpenResume();
-          }}
-          className={`group hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono tracking-wide transition-colors cursor-pointer border ${
-            isDark
-              ? "border-white/20 hover:border-white text-neutral-200"
-              : "border-neutral-300 hover:border-black text-neutral-700 hover:text-black"
-          }`}
-        >
-          <FileText className="w-3 h-3 text-amber-500" />
-          <span>Resume</span>
-        </button>
-
         {/* Luxury "Let's talk" Primary CTA Button */}
         <button
           onClick={() => {
@@ -174,25 +157,57 @@ export const Navbar: React.FC<NavbarProps> = ({
           |
         </span>
 
-        {/* 2-bar minimalist Hamburger menu icon */}
+        {/* Ultra-Premium 3-Dot Executive Menu Capsule */}
         <button
           onClick={() => {
             soundFx.playTick();
             onOpenMenu();
           }}
-          className="group p-1 flex flex-col justify-center items-end gap-1.5 w-7 h-6 cursor-pointer focus:outline-none"
+          className={`group relative flex items-center gap-2 h-8 sm:h-9 px-3 sm:px-3.5 rounded-full border backdrop-blur-md transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-[1.03] active:scale-[0.98] ${
+            isDark
+              ? "border-white/20 bg-neutral-950/80 hover:border-white/50 hover:bg-neutral-900 text-white"
+              : "border-neutral-200 bg-white/80 hover:border-neutral-400 hover:bg-white text-neutral-900 shadow-neutral-950/5"
+          }`}
           aria-label="Open Menu"
         >
-          <span
-            className={`h-[1.75px] transition-all duration-300 rounded-full ${
-              isDark ? "bg-white" : "bg-neutral-900"
-            } ${isMenuOpen ? "w-6 rotate-45 translate-y-[4.5px]" : "w-6 group-hover:w-5"}`}
-          />
-          <span
-            className={`h-[1.75px] transition-all duration-300 rounded-full ${
-              isDark ? "bg-white" : "bg-neutral-900"
-            } ${isMenuOpen ? "w-6 -rotate-45 -translate-y-[4px]" : "w-4 group-hover:w-6"}`}
-          />
+          {/* Subtle Ambient Sheen */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+          {/* Micro "MENU" / "CLOSE" Label */}
+          <span className="font-mono text-[10.5px] sm:text-[11px] font-semibold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity">
+            {isMenuOpen ? "CLOSE" : "MENU"}
+          </span>
+
+          {/* 3-Dot Precision Array with Dynamic States */}
+          <div className="flex items-center gap-1 sm:gap-1.5 pl-0.5">
+            <span
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                isMenuOpen
+                  ? "bg-[#ff6600] scale-110"
+                  : isDark
+                  ? "bg-white group-hover:scale-125 group-hover:bg-[#ff6600]"
+                  : "bg-neutral-950 group-hover:scale-125 group-hover:bg-[#ff6600]"
+              }`}
+            />
+            <span
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 delay-75 ${
+                isMenuOpen
+                  ? "bg-amber-400 scale-110"
+                  : isDark
+                  ? "bg-white/80 group-hover:scale-125 group-hover:bg-amber-400"
+                  : "bg-neutral-950/80 group-hover:scale-125 group-hover:bg-amber-400"
+              }`}
+            />
+            <span
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 delay-150 ${
+                isMenuOpen
+                  ? "bg-[#ff6600] scale-110"
+                  : isDark
+                  ? "bg-white/60 group-hover:scale-125 group-hover:bg-[#ff6600]"
+                  : "bg-neutral-950/60 group-hover:scale-125 group-hover:bg-[#ff6600]"
+              }`}
+            />
+          </div>
         </button>
       </div>
     </header>
