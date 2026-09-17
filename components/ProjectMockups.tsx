@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Sparkles } from "lucide-react";
 
 // -------------------------------------------------------------
@@ -46,42 +47,46 @@ export const MockupElementum3D: React.FC = () => (
           CONNECTING
         </span>
       </h4>
-      <p className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-neutral-300 mt-1 font-semibold">
+      <p className="text-[10px] sm:xs font-mono uppercase tracking-widest text-neutral-300 mt-1 font-semibold">
         BRANDS <span className="text-cyan-400 font-bold">✱</span> IN THE SAFEST HANDS
       </p>
 
       {/* Floating 3D Tilted Photo Cards */}
       <div className="relative mt-3 sm:mt-5 h-24 sm:h-32 flex items-center justify-center gap-2 sm:gap-3">
-        <div className="w-12 sm:w-16 h-18 sm:h-24 rounded-xl overflow-hidden border border-white/20 shadow-2xl transform -rotate-14 -translate-y-2 bg-neutral-900 transition-transform duration-500 hover:rotate-0">
-          <img
+        <div className="relative w-12 sm:w-16 h-18 sm:h-24 rounded-xl overflow-hidden border border-white/20 shadow-2xl transform -rotate-14 -translate-y-2 bg-neutral-900 transition-transform duration-500 hover:rotate-0">
+          <Image
             src="/projects/elem_1.jpg"
             alt="WebGL Cyber Aesthetic"
-            className="w-full h-full object-cover brightness-90 contrast-125"
-            loading="eager"
+            fill
+            sizes="(max-width: 640px) 48px, 64px"
+            className="object-cover brightness-90 contrast-125"
           />
         </div>
-        <div className="w-14 sm:w-20 h-20 sm:h-26 rounded-xl overflow-hidden border border-fuchsia-400/50 shadow-2xl shadow-fuchsia-950 transform -rotate-4 -translate-y-3 bg-neutral-900 transition-transform duration-500 hover:rotate-0">
-          <img
+        <div className="relative w-14 sm:w-20 h-20 sm:h-26 rounded-xl overflow-hidden border border-fuchsia-400/50 shadow-2xl shadow-fuchsia-950 transform -rotate-4 -translate-y-3 bg-neutral-900 transition-transform duration-500 hover:rotate-0">
+          <Image
             src="/projects/elem_2.jpg"
             alt="3D Architecture"
-            className="w-full h-full object-cover brightness-95 contrast-125"
-            loading="eager"
+            fill
+            sizes="(max-width: 640px) 56px, 80px"
+            className="object-cover brightness-95 contrast-125"
           />
         </div>
-        <div className="w-14 sm:w-20 h-20 sm:h-26 rounded-xl overflow-hidden border border-purple-400/50 shadow-2xl shadow-purple-950 transform rotate-4 -translate-y-3 bg-neutral-900 transition-transform duration-500 hover:rotate-0">
-          <img
+        <div className="relative w-14 sm:w-20 h-20 sm:h-26 rounded-xl overflow-hidden border border-purple-400/50 shadow-2xl shadow-purple-950 transform rotate-4 -translate-y-3 bg-neutral-900 transition-transform duration-500 hover:rotate-0">
+          <Image
             src="/projects/elem_3.jpg"
             alt="Glass Distortion Shader"
-            className="w-full h-full object-cover brightness-95 contrast-125"
-            loading="eager"
+            fill
+            sizes="(max-width: 640px) 56px, 80px"
+            className="object-cover brightness-95 contrast-125"
           />
         </div>
-        <div className="w-12 sm:w-16 h-18 sm:h-24 rounded-xl overflow-hidden border border-white/20 shadow-2xl transform rotate-14 -translate-y-2 bg-neutral-900 transition-transform duration-500 hover:rotate-0">
-          <img
+        <div className="relative w-12 sm:w-16 h-18 sm:h-24 rounded-xl overflow-hidden border border-white/20 shadow-2xl transform rotate-14 -translate-y-2 bg-neutral-900 transition-transform duration-500 hover:rotate-0">
+          <Image
             src="/projects/elem_4.jpg"
             alt="Minimalist Art"
-            className="w-full h-full object-cover brightness-90 contrast-125"
-            loading="eager"
+            fill
+            sizes="(max-width: 640px) 48px, 64px"
+            className="object-cover brightness-90 contrast-125"
           />
         </div>
       </div>
@@ -138,23 +143,59 @@ export const MockupTargetGroww: React.FC = () => (
 
       {/* 6 Rounded Pill Portrait Cards */}
       <div className="mt-3 sm:mt-5 flex items-center justify-center gap-1.5 sm:gap-2.5 overflow-hidden px-1">
-        <div className="w-11 sm:w-15 h-20 sm:h-28 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xs transform -translate-y-1">
-          <img src="/projects/groww_1.jpg" alt="Creator Portrait" className="w-full h-full object-cover" loading="eager" />
+        <div className="relative w-11 sm:w-15 h-20 sm:h-28 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xs transform -translate-y-1">
+          <Image
+            src="/projects/groww_1.jpg"
+            alt="Creator Portrait"
+            fill
+            sizes="(max-width: 640px) 44px, 60px"
+            className="object-cover"
+          />
         </div>
-        <div className="w-12 sm:w-16 h-22 sm:h-30 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-sm transform -translate-y-2">
-          <img src="/projects/groww_2.jpg" alt="Creator Portrait" className="w-full h-full object-cover" loading="eager" />
+        <div className="relative w-12 sm:w-16 h-22 sm:h-30 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-sm transform -translate-y-2">
+          <Image
+            src="/projects/groww_2.jpg"
+            alt="Creator Portrait"
+            fill
+            sizes="(max-width: 640px) 48px, 64px"
+            className="object-cover"
+          />
         </div>
-        <div className="w-13 sm:w-18 h-24 sm:h-32 rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-neutral-900 shadow-md transform -translate-y-3">
-          <img src="/projects/groww_3.jpg" alt="Creator Portrait" className="w-full h-full object-cover" loading="eager" />
+        <div className="relative w-13 sm:w-18 h-24 sm:h-32 rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-neutral-900 shadow-md transform -translate-y-3">
+          <Image
+            src="/projects/groww_3.jpg"
+            alt="Creator Portrait"
+            fill
+            sizes="(max-width: 640px) 52px, 72px"
+            className="object-cover"
+          />
         </div>
-        <div className="w-13 sm:w-18 h-24 sm:h-32 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-md transform -translate-y-3">
-          <img src="/projects/groww_4.jpg" alt="Creator Portrait" className="w-full h-full object-cover" loading="eager" />
+        <div className="relative w-13 sm:w-18 h-24 sm:h-32 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-md transform -translate-y-3">
+          <Image
+            src="/projects/groww_4.jpg"
+            alt="Creator Portrait"
+            fill
+            sizes="(max-width: 640px) 52px, 72px"
+            className="object-cover"
+          />
         </div>
-        <div className="w-12 sm:w-16 h-22 sm:h-30 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-sm transform -translate-y-2">
-          <img src="/projects/groww_5.jpg" alt="Creator Portrait" className="w-full h-full object-cover" loading="eager" />
+        <div className="relative w-12 sm:w-16 h-22 sm:h-30 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-sm transform -translate-y-2">
+          <Image
+            src="/projects/groww_5.jpg"
+            alt="Creator Portrait"
+            fill
+            sizes="(max-width: 640px) 48px, 64px"
+            className="object-cover"
+          />
         </div>
-        <div className="w-11 sm:w-15 h-20 sm:h-28 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xs transform -translate-y-1">
-          <img src="/projects/groww_6.jpg" alt="Creator Portrait" className="w-full h-full object-cover" loading="eager" />
+        <div className="relative w-11 sm:w-15 h-20 sm:h-28 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xs transform -translate-y-1">
+          <Image
+            src="/projects/groww_6.jpg"
+            alt="Creator Portrait"
+            fill
+            sizes="(max-width: 640px) 44px, 60px"
+            className="object-cover"
+          />
         </div>
       </div>
     </div>
@@ -170,7 +211,13 @@ export const MockupTargetGroww: React.FC = () => (
 export const MockupAtlasSystems: React.FC = () => (
   <div className="w-full h-full bg-[#050912] text-white relative overflow-hidden flex flex-col justify-between p-4 sm:p-6 select-none">
     <div className="absolute inset-0 opacity-25">
-      <img src="/projects/atlas_server.jpg" alt="Datacenter Server Racks" className="w-full h-full object-cover" loading="eager" />
+      <Image
+        src="/projects/atlas_server.jpg"
+        alt="Datacenter Server Racks"
+        fill
+        sizes="(max-width: 768px) 100vw, 650px"
+        className="object-cover"
+      />
     </div>
     <div className="absolute inset-0 bg-gradient-to-t from-[#050912] via-[#050912]/80 to-[#050912]/90 pointer-events-none" />
 
@@ -220,7 +267,13 @@ export const MockupAtlasSystems: React.FC = () => (
 export const MockupDigitClassifier: React.FC = () => (
   <div className="w-full h-full bg-[#0a0c16] text-white relative overflow-hidden flex flex-col justify-between p-4 sm:p-6 select-none">
     <div className="absolute inset-0 opacity-20">
-      <img src="/projects/ai_neural.jpg" alt="Neural Network Graph" className="w-full h-full object-cover" loading="eager" />
+      <Image
+        src="/projects/ai_neural.jpg"
+        alt="Neural Network Graph"
+        fill
+        sizes="(max-width: 768px) 100vw, 650px"
+        className="object-cover"
+      />
     </div>
     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0c16] via-[#0a0c16]/85 to-[#0a0c16]/90 pointer-events-none" />
 
@@ -270,7 +323,13 @@ export const MockupDigitClassifier: React.FC = () => (
 export const MockupAiNotes: React.FC = () => (
   <div className="w-full h-full bg-[#080d19] text-white relative overflow-hidden flex flex-col justify-between p-4 sm:p-6 select-none">
     <div className="absolute inset-0 opacity-20">
-      <img src="/projects/ai_notes.jpg" alt="Study Workspace" className="w-full h-full object-cover" loading="eager" />
+      <Image
+        src="/projects/ai_notes.jpg"
+        alt="Study Workspace"
+        fill
+        sizes="(max-width: 768px) 100vw, 650px"
+        className="object-cover"
+      />
     </div>
     <div className="absolute inset-0 bg-gradient-to-t from-[#080d19] via-[#080d19]/85 to-[#080d19]/90 pointer-events-none" />
 
@@ -306,7 +365,13 @@ export const MockupAiNotes: React.FC = () => (
 export const MockupSmartEwaste: React.FC = () => (
   <div className="w-full h-full bg-[#05140e] text-white relative overflow-hidden flex flex-col justify-between p-4 sm:p-6 select-none">
     <div className="absolute inset-0 opacity-20">
-      <img src="/projects/ewaste_chip.jpg" alt="Electronics Motherboard" className="w-full h-full object-cover" loading="eager" />
+      <Image
+        src="/projects/ewaste_chip.jpg"
+        alt="Electronics Motherboard"
+        fill
+        sizes="(max-width: 768px) 100vw, 650px"
+        className="object-cover"
+      />
     </div>
     <div className="absolute inset-0 bg-gradient-to-t from-[#05140e] via-[#05140e]/85 to-[#05140e]/90 pointer-events-none" />
 
@@ -358,4 +423,3 @@ export const categoryTags: Record<string, string> = {
   "ai-notes-summarizer": "GENAI / RAG PIPELINES",
   "smart-ewaste-repairability": "ML / SUSTAINABILITY AI",
 };
-

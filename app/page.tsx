@@ -117,7 +117,7 @@ export default function PortfolioPage() {
 
       setTimeout(() => {
         isScrollingRef.current = false;
-      }, 750);
+      }, 500);
     };
 
     window.addEventListener("wheel", handleWheel, { passive: true });
@@ -246,7 +246,7 @@ export default function PortfolioPage() {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.6,
+        duration: 0.45,
         ease: [0.16, 1, 0.3, 1] as const,
       },
     },
@@ -255,7 +255,7 @@ export default function PortfolioPage() {
       opacity: 0,
       scale: 0.98,
       transition: {
-        duration: 0.5,
+        duration: 0.35,
         ease: [0.16, 1, 0.3, 1] as const,
       },
     }),
@@ -295,7 +295,7 @@ export default function PortfolioPage() {
             initial="enter"
             animate="center"
             exit="exit"
-            className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full will-change-transform transform-gpu"
           >
             {/* Slide 0: Hero Section */}
             {currentSlide === 0 && (
