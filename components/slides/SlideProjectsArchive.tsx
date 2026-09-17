@@ -8,8 +8,6 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  Sparkles,
-  Layers,
 } from "lucide-react";
 import { GithubIcon } from "@/components/Icons";
 import { soundFx } from "@/utils/audio";

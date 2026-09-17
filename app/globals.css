@@ -25,6 +25,8 @@ body {
   width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-overflow-scrolling: touch;
 }
 
 ::selection {
@@ -35,4 +37,9 @@ body {
 /* Custom subtle scrollbar hiding for fullscreen experience */
 ::-webkit-scrollbar {
   display: none;
+}
+
+/* Image rendering and browser paint optimization */
+img {
+  content-visibility: auto;
 }

@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Check,
   ArrowRight,
-  Sparkles,
   ShieldCheck,
   Send,
 } from "lucide-react";

@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { X, ArrowUpRight } from "lucide-react";
 import { GithubIcon } from "@/components/Icons";
 import { soundFx } from "@/utils/audio";
 import { ProjectItem } from "@/data/portfolioData";
