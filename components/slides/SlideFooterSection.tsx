@@ -20,7 +20,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
   const { personal, projects } = PORTFOLIO_DATA;
 
   return (
-    <footer className="relative w-full h-full min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-14 bg-black text-white overflow-y-auto">
+    <footer className="relative w-full h-full min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-14 bg-black text-white overflow-y-auto overscroll-contain">
       {/* 1. TOP SECTION: Headline + Dark theme identity */}
       <div className="relative z-10 pt-16 md:pt-14 pb-10 flex flex-col lg:flex-row lg:items-start justify-between gap-8 border-b border-neutral-800">
         {/* Left: Call to Action Headline + Email */}

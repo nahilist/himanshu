@@ -13,7 +13,7 @@ interface SlideAboutProps {
 export const SlideAbout: React.FC<SlideAboutProps> = ({ onContactMe, onViewProjects }) => {
 
   return (
-    <section className="relative w-full h-full min-h-[100dvh] flex flex-col justify-center pl-6 pr-6 sm:pl-14 sm:pr-12 md:pl-24 md:pr-16 lg:pl-36 lg:pr-24 pt-20 pb-16 sm:py-20 bg-white overflow-y-auto">
+    <section className="relative w-full h-full min-h-[100dvh] flex flex-col justify-center pl-6 pr-6 sm:pl-14 sm:pr-12 md:pl-24 md:pr-16 lg:pl-36 lg:pr-24 pt-20 pb-16 sm:py-20 bg-white overflow-y-auto overscroll-contain">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

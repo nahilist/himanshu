@@ -26,7 +26,28 @@ export default function PortfolioPage() {
 
   const totalSlides = 6;
   const isScrollingRef = useRef(false);
+  const touchStartXRef = useRef<number | null>(null);
   const touchStartYRef = useRef<number | null>(null);
+  const scrollContainerRef = useRef<HTMLElement | null>(null);
+  const startScrollTopRef = useRef<number>(0);
+  const startCanScrollDownRef = useRef<boolean>(false);
+  const startCanScrollUpRef = useRef<boolean>(false);
+
+  // Helper to detect if a target or any of its ancestors has scrollable overflow content
+  const getScrollableAncestor = useCallback((element: HTMLElement | null): HTMLElement | null => {
+    let curr = element;
+    while (curr && curr !== document.body && curr !== document.documentElement) {
+      const style = window.getComputedStyle(curr);
+      const overflowY = style.overflowY;
+      if (overflowY === "auto" || overflowY === "scroll") {
+        if (curr.scrollHeight > curr.clientHeight + 6) {
+          return curr;
+        }
+      }
+      curr = curr.parentElement;
+    }
+    return null;
+  }, []);
 
   // Slides 2 (Projects Archive) and 5 (Grand Finale Footer) are luxury dark theme
   const isDarkSlide = currentSlide === 2 || currentSlide === 5;
@@ -64,14 +85,28 @@ export default function PortfolioPage() {
     return false;
   }, [isMenuOpen, isContactOpen, isResumeOpen]);
 
-  // Wheel listener for smooth slide transitions
+  // Wheel listener for smooth slide transitions (respects internal slide scrolling)
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       const target = e.target as HTMLElement | null;
       if (isModalActive(target)) return;
 
       if (isScrollingRef.current) return;
-      if (Math.abs(e.deltaY) < 30) return;
+      if (Math.abs(e.deltaY) < 25) return;
+
+      const scrollable = getScrollableAncestor(target);
+      if (scrollable) {
+        const maxScroll = scrollable.scrollHeight - scrollable.clientHeight;
+        if (e.deltaY > 0) {
+          // User scrolling down - allow natural scrolling if not at bottom edge
+          const canScrollDown = scrollable.scrollTop < maxScroll - 8;
+          if (canScrollDown) return;
+        } else {
+          // User scrolling up - allow natural scrolling if not at top edge
+          const canScrollUp = scrollable.scrollTop > 8;
+          if (canScrollUp) return;
+        }
+      }
 
       isScrollingRef.current = true;
       if (e.deltaY > 0) {
@@ -87,7 +122,7 @@ export default function PortfolioPage() {
 
     window.addEventListener("wheel", handleWheel, { passive: true });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [isModalActive, nextSlide, prevSlide]);
+  }, [isModalActive, nextSlide, prevSlide, getScrollableAncestor]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -105,28 +140,85 @@ export default function PortfolioPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isModalActive, nextSlide, prevSlide]);
 
-  // Touch gesture navigation for mobile / tablet
+  // Touch gesture navigation for mobile / tablet (allows smooth internal scrolling of long slides)
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
-      touchStartYRef.current = e.touches[0].clientY;
+      if (e.touches.length !== 1) return;
+      const touch = e.touches[0];
+      touchStartXRef.current = touch.clientX;
+      touchStartYRef.current = touch.clientY;
+
+      const target = e.target as HTMLElement | null;
+      const scrollable = getScrollableAncestor(target);
+      scrollContainerRef.current = scrollable;
+
+      if (scrollable) {
+        startScrollTopRef.current = scrollable.scrollTop;
+        const maxScroll = scrollable.scrollHeight - scrollable.clientHeight;
+        startCanScrollDownRef.current = scrollable.scrollTop < maxScroll - 8;
+        startCanScrollUpRef.current = scrollable.scrollTop > 8;
+      } else {
+        startCanScrollDownRef.current = false;
+        startCanScrollUpRef.current = false;
+      }
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
       const target = e.target as HTMLElement | null;
       if (isModalActive(target)) return;
-      if (touchStartYRef.current === null) return;
+      if (touchStartYRef.current === null || touchStartXRef.current === null) return;
 
-      const touchEndY = e.changedTouches[0].clientY;
-      const diffY = touchStartYRef.current - touchEndY;
+      const touch = e.changedTouches[0];
+      const diffX = touchStartXRef.current - touch.clientX;
+      const diffY = touchStartYRef.current - touch.clientY;
 
-      if (Math.abs(diffY) > 50) {
+      const scrollContainer = scrollContainerRef.current;
+      const canScrollDownAtStart = startCanScrollDownRef.current;
+      const canScrollUpAtStart = startCanScrollUpRef.current;
+      const startScrollTop = startScrollTopRef.current;
+
+      touchStartXRef.current = null;
+      touchStartYRef.current = null;
+      scrollContainerRef.current = null;
+
+      // Ignore horizontal swipes (allow horizontal interaction or accidental sideways gestures)
+      if (Math.abs(diffX) > Math.abs(diffY)) return;
+
+      // Minimum vertical distance required to trigger a slide transition
+      if (Math.abs(diffY) < 55) return;
+
+      if (scrollContainer) {
+        const currentScrollTop = scrollContainer.scrollTop;
+        const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+
         if (diffY > 0) {
-          nextSlide();
+          // User swiped UP (intended to scroll DOWN)
+          // If container could scroll down at start or actually scrolled during gesture, do NOT transition!
+          if (canScrollDownAtStart || currentScrollTop > startScrollTop + 4) {
+            return;
+          }
+          // Only trigger next slide if we are already at the bottom boundary
+          if (currentScrollTop < maxScroll - 8) {
+            return;
+          }
         } else {
-          prevSlide();
+          // User swiped DOWN (intended to scroll UP)
+          // If container could scroll up at start or actually scrolled during gesture, do NOT transition!
+          if (canScrollUpAtStart || currentScrollTop < startScrollTop - 4) {
+            return;
+          }
+          // Only trigger prev slide if we are already at the top boundary
+          if (currentScrollTop > 8) {
+            return;
+          }
         }
       }
-      touchStartYRef.current = null;
+
+      if (diffY > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
     };
 
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
@@ -135,7 +227,7 @@ export default function PortfolioPage() {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [isModalActive, nextSlide, prevSlide]);
+  }, [isModalActive, nextSlide, prevSlide, getScrollableAncestor]);
 
   const toggleAudio = () => {
     const isMuted = soundFx.toggleMute();

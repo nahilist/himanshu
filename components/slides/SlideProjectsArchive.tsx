@@ -64,10 +64,35 @@ export const SlideProjectsArchive: React.FC = () => {
     return true;
   });
 
+  // Mobile horizontal swipe detection to easily switch between project pairs
+  const touchStartXRef = React.useRef<number | null>(null);
+  const touchStartYRef = React.useRef<number | null>(null);
+
+  const handleCardTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+
+  const handleCardTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const diffX = touchStartXRef.current - e.changedTouches[0].clientX;
+    const diffY = touchStartYRef.current - e.changedTouches[0].clientY;
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+      if (diffX > 0) {
+        handleNextPair();
+      } else {
+        handlePrevPair();
+      }
+    }
+  };
+
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col justify-between px-4 sm:px-8 md:px-14 lg:px-16 py-4 md:py-12 bg-black text-white overflow-y-auto">
-      {/* Top Header / Subtle Breadcrumb (Proper clearance below fixed navbar) */}
-      <div className="relative z-10 pt-20 sm:pt-24 md:pt-16 pb-3 flex items-center justify-between text-xs font-mono text-neutral-400">
+    <section className="relative w-full h-full min-h-screen flex flex-col justify-between px-4 sm:px-8 md:px-14 lg:px-16 py-4 md:py-12 bg-black text-white overflow-y-auto overscroll-contain">
+      {/* Top Header / Subtle Breadcrumb (Generous clearance below fixed navbar) */}
+      <div className="relative z-10 pt-24 sm:pt-28 md:pt-16 pb-3 flex items-center justify-between text-xs font-mono text-neutral-400">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-amber-500" />
           <span className="tracking-widest uppercase font-semibold text-neutral-300 text-[11px] sm:text-xs">
@@ -98,7 +123,11 @@ export const SlideProjectsArchive: React.FC = () => {
       </div>
 
       {/* 2 SHOWCASE CARDS (Exact match to reference screenshot) */}
-      <div className="relative z-10 my-auto py-3 sm:py-6 w-full max-w-7xl mx-auto">
+      <div
+        onTouchStart={handleCardTouchStart}
+        onTouchEnd={handleCardTouchEnd}
+        className="relative z-10 my-2 md:my-auto py-3 sm:py-6 w-full max-w-7xl mx-auto"
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPairIndex}
@@ -172,7 +201,7 @@ export const SlideProjectsArchive: React.FC = () => {
       </div>
 
       {/* BOTTOM CENTER PILL: [ VIEW ALL PROJECTS ↗ ] (Exact match to reference screenshot) */}
-      <div className="relative z-10 pt-4 pb-24 sm:pb-10 md:pb-6 flex items-center justify-center shrink-0">
+      <div className="relative z-10 pt-4 pb-28 sm:pb-10 md:pb-6 flex items-center justify-center shrink-0">
         <button
           onClick={() => {
             soundFx.playTick();
