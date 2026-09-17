@@ -27,48 +27,47 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isDark = theme === "dark";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 px-6 md:px-12 py-5 flex items-center justify-between pointer-events-none transition-colors duration-500">
+    <header className="fixed top-0 left-0 right-0 z-40 px-4 sm:px-6 md:px-12 py-3.5 sm:py-5 flex items-center justify-between pointer-events-none transition-colors duration-500">
       {/* Left section: Logo | Sound pill */}
-      <div className="flex items-center gap-3.5 pointer-events-auto select-none">
+      <div className="flex items-center gap-2 sm:gap-3.5 pointer-events-auto select-none">
         <div
           onClick={() => {
             soundFx.playTick();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="group cursor-pointer flex items-center gap-2.5 transition-all duration-300 hover:opacity-85"
+          className="group cursor-pointer flex items-center gap-2 sm:gap-2.5 transition-all duration-300 hover:opacity-85"
         >
           {/* Premium Logo Monogram & Wordmark */}
-          <div className="flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 group-hover:scale-[1.02]">
+          <div className="flex items-center gap-2 sm:gap-3 transition-transform duration-300 group-hover:scale-[1.02]">
             {/* Geometric Monogram Emblem (Large & Razor Sharp) */}
-            <div className="relative h-10 w-auto sm:h-11 md:h-12 flex items-center justify-center">
+            <div className="relative h-8 sm:h-10 md:h-12 w-auto flex items-center justify-center">
               <Image
                 src={isDark ? "/logo-monogram-white.png" : "/logo-monogram.png"}
                 alt="nahilist emblem"
                 width={48}
                 height={56}
-                className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-all duration-300 drop-shadow-sm"
+                className="h-7.5 sm:h-9 md:h-11 w-auto object-contain transition-all duration-300 drop-shadow-sm"
                 priority
               />
             </div>
 
             {/* Signature Wordmark */}
-            <div className="relative h-4 sm:h-4.5 w-auto flex items-center opacity-90 group-hover:opacity-100 transition-opacity">
+            <div className="relative h-3.5 sm:h-4.5 w-auto flex items-center opacity-90 group-hover:opacity-100 transition-opacity">
               <Image
                 src={isDark ? "/logo-wordmark-white.png" : "/logo-wordmark.png"}
                 alt="nahilist wordmark"
                 width={105}
                 height={24}
-                className="h-3.5 sm:h-4 w-auto object-contain transition-all duration-300"
+                className="h-3 sm:h-4 w-auto object-contain transition-all duration-300"
                 priority
               />
             </div>
           </div>
-
         </div>
 
         {/* Separator */}
         <span
-          className={`font-light select-none transition-colors ${
+          className={`font-light select-none text-xs sm:text-sm transition-colors ${
             isDark ? "text-neutral-600" : "text-neutral-300"
           }`}
         >
@@ -136,26 +135,34 @@ export const Navbar: React.FC<NavbarProps> = ({
           <span>Resume</span>
         </button>
 
-        {/* Let's talk button */}
+        {/* Luxury "Let's talk" Primary CTA Button */}
         <button
           onClick={() => {
             soundFx.playOpenModal();
             onOpenContact();
           }}
-          className={`group relative flex items-center gap-1 text-xs md:text-sm font-medium transition-colors cursor-pointer ${
-            isDark ? "text-neutral-200 hover:text-white" : "text-neutral-800 hover:text-neutral-950"
+          className={`group relative inline-flex items-center gap-2 px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm tracking-tight transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-[1.03] active:scale-[0.98] ${
+            isDark
+              ? "bg-white text-black hover:bg-neutral-100 shadow-white/5"
+              : "bg-neutral-950 text-white hover:bg-neutral-800 shadow-black/10"
           }`}
+          aria-label="Let's talk"
         >
-          <span
-            className={`border-b pb-[1px] transition-all ${
-              isDark
-                ? "border-neutral-400 group-hover:border-white"
-                : "border-neutral-800 group-hover:border-neutral-950"
-            }`}
-          >
+          {/* Subtle live availability pulse dot */}
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
+
+          <span className="font-bold tracking-tight whitespace-nowrap">
             Let&apos;s talk
           </span>
-          <ArrowUpRight className="w-3.5 h-3.5 text-amber-500 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+
+          <ArrowUpRight
+            className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
+              isDark ? "text-neutral-900" : "text-[#ff6600]"
+            }`}
+          />
         </button>
 
         {/* Separator */}

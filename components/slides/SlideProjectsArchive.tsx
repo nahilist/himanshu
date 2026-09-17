@@ -65,31 +65,31 @@ export const SlideProjectsArchive: React.FC = () => {
   });
 
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col justify-between px-6 sm:px-10 md:px-14 lg:px-16 py-8 md:py-12 bg-black text-white overflow-y-auto">
-      {/* Top Header / Subtle Breadcrumb */}
-      <div className="relative z-10 pt-10 sm:pt-6 flex items-center justify-between text-xs font-mono text-neutral-400">
+    <section className="relative w-full h-full min-h-screen flex flex-col justify-between px-4 sm:px-8 md:px-14 lg:px-16 py-4 md:py-12 bg-black text-white overflow-y-auto">
+      {/* Top Header / Subtle Breadcrumb (Proper clearance below fixed navbar) */}
+      <div className="relative z-10 pt-20 sm:pt-24 md:pt-16 pb-3 flex items-center justify-between text-xs font-mono text-neutral-400">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-amber-500" />
-          <span className="tracking-widest uppercase font-semibold text-neutral-300">
+          <span className="tracking-widest uppercase font-semibold text-neutral-300 text-[11px] sm:text-xs">
             SELECTED WORKS
           </span>
         </div>
 
         {/* Pair Pagination Controls */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3">
           <button
             onClick={handlePrevPair}
-            className="w-7 h-7 rounded-full border border-neutral-800 hover:border-white hover:text-white flex items-center justify-center transition-colors cursor-pointer text-neutral-400"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-neutral-800 hover:border-white hover:text-white flex items-center justify-center transition-colors cursor-pointer text-neutral-400"
             aria-label="Previous pair"
           >
             <ChevronLeft className="w-3.5 h-3.5" />
           </button>
-          <span className="text-[11px] font-mono tracking-widest text-neutral-500">
+          <span className="text-[10px] sm:text-[11px] font-mono tracking-widest text-neutral-400">
             0{currentPairIndex + 1} / 0{projectPairs.length}
           </span>
           <button
             onClick={handleNextPair}
-            className="w-7 h-7 rounded-full border border-neutral-800 hover:border-white hover:text-white flex items-center justify-center transition-colors cursor-pointer text-neutral-400"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-neutral-800 hover:border-white hover:text-white flex items-center justify-center transition-colors cursor-pointer text-neutral-400"
             aria-label="Next pair"
           >
             <ChevronRight className="w-3.5 h-3.5" />
@@ -98,7 +98,7 @@ export const SlideProjectsArchive: React.FC = () => {
       </div>
 
       {/* 2 SHOWCASE CARDS (Exact match to reference screenshot) */}
-      <div className="relative z-10 my-auto py-6 sm:py-8 w-full max-w-7xl mx-auto">
+      <div className="relative z-10 my-auto py-3 sm:py-6 w-full max-w-7xl mx-auto">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPairIndex}
@@ -106,7 +106,7 @@ export const SlideProjectsArchive: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-stretch w-full"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-stretch w-full"
           >
             {currentPair.map((project) => {
               const categoryTag = categoryTags[project.id] || "UI/UX / DEVELOPMENT";
@@ -172,21 +172,21 @@ export const SlideProjectsArchive: React.FC = () => {
       </div>
 
       {/* BOTTOM CENTER PILL: [ VIEW ALL PROJECTS ↗ ] (Exact match to reference screenshot) */}
-      <div className="relative z-10 pt-4 pb-4 sm:pb-2 flex items-center justify-center">
+      <div className="relative z-10 pt-4 pb-24 sm:pb-10 md:pb-6 flex items-center justify-center shrink-0">
         <button
           onClick={() => {
             soundFx.playTick();
             setIsArchiveOpen(true);
           }}
-          className="group inline-flex items-center gap-3.5 pl-6 pr-2 py-2 rounded-full border border-neutral-700/80 bg-neutral-950/80 hover:bg-neutral-900 hover:border-neutral-500 transition-all duration-300 cursor-pointer shadow-xl backdrop-blur-md"
+          className="group inline-flex items-center gap-3.5 pl-5 sm:pl-6 pr-2 py-2 rounded-full border border-neutral-700/80 bg-neutral-950/80 hover:bg-neutral-900 hover:border-neutral-500 transition-all duration-300 cursor-pointer shadow-xl backdrop-blur-md"
         >
-          <span className="text-[11px] sm:text-xs font-mono tracking-widest uppercase font-semibold text-neutral-200 group-hover:text-white">
+          <span className="text-[10.5px] sm:text-xs font-mono tracking-widest uppercase font-semibold text-neutral-200 group-hover:text-white">
             VIEW ALL PROJECTS
           </span>
 
           {/* White Circular Badge with Arrow inside */}
-          <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-45">
-            <ArrowUpRight className="w-4 h-4 text-black stroke-[2.5]" />
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-45">
+            <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black stroke-[2.5]" />
           </div>
         </button>
       </div>
@@ -206,17 +206,17 @@ export const SlideProjectsArchive: React.FC = () => {
             onWheelCapture={(e) => e.stopPropagation()}
             onTouchStartCapture={(e) => e.stopPropagation()}
             onTouchEndCapture={(e) => e.stopPropagation()}
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/95 backdrop-blur-2xl overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 md:p-8 bg-black/95 backdrop-blur-2xl overflow-y-auto"
           >
             <motion.div
               initial={{ scale: 0.97, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.97, opacity: 0, y: 20 }}
               transition={{ type: "spring", stiffness: 320, damping: 28 }}
-              className="relative w-full max-w-7xl h-[92vh] bg-black text-white rounded-3xl p-6 sm:p-10 border border-neutral-800 shadow-2xl flex flex-col justify-between overflow-hidden"
+              className="relative w-full max-w-7xl h-[95vh] sm:h-[92vh] bg-black text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 border border-neutral-800 shadow-2xl flex flex-col justify-between overflow-hidden"
             >
               {/* Modal Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800 pb-5 mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-neutral-800 pb-4 sm:pb-5 mb-4 sm:mb-6">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#ff6600]" />

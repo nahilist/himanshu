@@ -39,17 +39,17 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
         onWheelCapture={(e) => e.stopPropagation()}
         onTouchStartCapture={(e) => e.stopPropagation()}
         onTouchEndCapture={(e) => e.stopPropagation()}
-        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/95 backdrop-blur-2xl overflow-y-auto"
+        className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 md:p-8 bg-black/95 backdrop-blur-2xl overflow-y-auto"
       >
         <motion.div
           initial={{ scale: 0.97, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.97, opacity: 0, y: 20 }}
           transition={{ type: "spring", stiffness: 320, damping: 28 }}
-          className="relative w-full max-w-5xl max-h-[92vh] bg-black text-white rounded-3xl p-6 sm:p-10 border border-neutral-800 shadow-2xl flex flex-col justify-between overflow-y-auto"
+          className="relative w-full max-w-5xl max-h-[95vh] sm:max-h-[92vh] bg-black text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 border border-neutral-800 shadow-2xl flex flex-col justify-between overflow-y-auto"
         >
           {/* Top Header */}
-          <div className="flex items-start justify-between border-b border-neutral-800 pb-5 mb-6">
+          <div className="flex items-start justify-between border-b border-neutral-800 pb-4 sm:pb-5 mb-4 sm:mb-6">
             <div>
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#ff6600]" />
@@ -63,7 +63,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
               </div>
 
               {/* Title with orange slanted arrow */}
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-white flex items-center gap-2.5">
+              <h2 className="text-xl sm:text-3xl md:text-5xl font-normal tracking-tight text-white flex items-center gap-2">
                 <span>{project.title}</span>
                 <span className="text-[#ff6600] font-light">↗</span>
               </h2>
