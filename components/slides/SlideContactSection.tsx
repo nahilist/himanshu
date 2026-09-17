@@ -1,18 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Check, ArrowRight, Calendar, ExternalLink, Copy } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/Icons";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Check,
+  ArrowRight,
+  Sparkles,
+  ShieldCheck,
+  Send,
+} from "lucide-react";
 import { soundFx } from "@/utils/audio";
-import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 export const SlideContactSection: React.FC = () => {
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([
-    "AI/ML Development",
-  ]);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isCopied, setIsCopied] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     company: "",
@@ -21,290 +22,268 @@ export const SlideContactSection: React.FC = () => {
     projectDetails: "",
   });
 
-  const { personal } = PORTFOLIO_DATA;
-
-  const interestOptions = [
-    "AI/ML Development",
-    "Generative AI & RAG",
-    "Frontend Engineering",
-    "Full-Stack Web App",
-    "Internship Inquiry",
-    "Collaboration",
-  ];
-
-  const toggleInterest = (tag: string) => {
-    soundFx.playTick();
-    setSelectedInterests((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
-  };
-
-  const copyEmail = () => {
-    soundFx.playTick();
-    navigator.clipboard.writeText(personal.email);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    soundFx.playOpenModal();
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    soundFx.playTick();
+
     setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        fullName: "",
-        company: "",
-        email: "",
-        phone: "",
-        projectDetails: "",
-      });
-    }, 3500);
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      soundFx.playOpenModal();
+
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          fullName: "",
+          company: "",
+          email: "",
+          phone: "",
+          projectDetails: "",
+        });
+      }, 4000);
+    }, 550);
   };
 
   return (
-    <section className="relative w-full h-full min-h-screen flex items-center justify-center p-4 sm:p-8 md:p-12 lg:p-14 bg-white">
-      {/* Outer rounded card container */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.97 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full h-[84vh] max-h-[840px] rounded-3xl md:rounded-[32px] overflow-hidden shadow-2xl bg-white border border-neutral-200/80 p-6 sm:p-10 md:p-14 flex flex-col justify-between"
-      >
-        {/* Soft Warm Ambient Lighting */}
-        <div className="absolute -top-16 -left-16 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-16 -right-16 w-96 h-96 rounded-full bg-orange-400/10 blur-3xl pointer-events-none" />
+    <section className="relative w-full h-full min-h-screen flex flex-col justify-between px-4 sm:px-8 md:px-14 lg:px-20 pt-16 sm:pt-20 md:pt-14 pb-4 sm:pb-8 bg-white overflow-y-auto overscroll-contain selection:bg-amber-100 selection:text-neutral-900">
+      {/* Subtle Ambient Background Watermark & Lighting */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+      <div className="absolute top-1/4 -left-32 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-amber-200/20 via-orange-100/10 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 -right-32 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-tl from-purple-200/20 via-pink-100/10 to-transparent blur-3xl pointer-events-none" />
 
-        {/* 2-Column Split: Left Contact Channels & Calendly | Right Inquiry Form */}
-        <div className="relative z-10 w-full h-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* LEFT COLUMN: Get Started, Contact Links, Calendly */}
-          <div className="lg:col-span-5 flex flex-col justify-between h-full py-2">
-            <div>
-              {/* Badge: • Get Started */}
-              <div className="flex items-center gap-2 text-xs md:text-sm font-semibold text-[#d97706] mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-                <span>Get in Touch</span>
-              </div>
+      {/* 1. TOP HEADER: Status Breadcrumb */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between pb-2.5 sm:pb-3.5 border-b border-neutral-200/80 mb-3 sm:mb-6 shrink-0">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-neutral-950 text-white font-mono text-[9.5px] sm:text-[10px] font-semibold tracking-widest uppercase shadow-2xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            <span>04 // INQUIRY</span>
+          </div>
+          <span className="text-[10.5px] sm:text-xs font-mono tracking-widest uppercase font-semibold text-neutral-800">
+            GET IN TOUCH • DIRECT COLLABORATION
+          </span>
+        </div>
 
-              {/* Big Headline */}
-              <h2 className="text-3xl sm:text-5xl md:text-[3.1rem] font-light tracking-tight text-neutral-900 leading-[1.08]">
-                Let&apos;s build your next
-                <br />
-                <span className="font-bold text-neutral-950">intelligent project</span>
-              </h2>
+        <div className="hidden xs:flex items-center gap-2 text-[11px] sm:text-xs font-mono text-neutral-600 bg-neutral-50 px-3 py-1 rounded-full border border-neutral-200/80 shadow-2xs">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
+          <span className="font-medium text-neutral-700">
+            Available Worldwide // Remote &amp; On-Site
+          </span>
+        </div>
+      </div>
 
-              {/* Divider */}
-              <div className="w-16 h-[1.5px] bg-neutral-300 my-5" />
-
-              {/* Subtitle */}
-              <p className="text-xs sm:text-sm text-neutral-600 max-w-sm leading-relaxed mb-6">
-                Available for software engineering internships, AI/ML research collaborations, and production web development.
-              </p>
-
-              {/* Optional Calendly Meeting Button */}
-              <div className="mb-6">
-                <a
-                  href={personal.calendly}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-50 border border-amber-300/80 text-amber-900 text-xs font-mono font-medium hover:bg-amber-100 transition-colors cursor-pointer"
-                >
-                  <Calendar className="w-4 h-4 text-amber-700" />
-                  <span>Schedule a 1:1 Video Call (Calendly)</span>
-                  <ExternalLink className="w-3 h-3 text-amber-600" />
-                </a>
-              </div>
+      {/* 2. MAIN 2-COLUMN STUDIO CONTENT (Balanced spatial rhythm, no giant dead gaps) */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center my-1 sm:my-2">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-14 items-center">
+          
+          {/* LEFT COLUMN: Editorial Headline */}
+          <div className="lg:col-span-5 flex flex-col justify-center">
+            {/* Status Pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100/90 border border-neutral-200/80 text-[10.5px] sm:text-xs font-mono text-neutral-800 mb-2 sm:mb-4 shadow-2xs w-fit">
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <span className="font-semibold tracking-wide">Let&apos;s Build Together</span>
             </div>
 
-            {/* Bottom Channels: Email, GitHub, LinkedIn, Medium */}
-            <div className="pt-4 mt-auto space-y-3">
-              {/* Email with copy button */}
-              <div className="flex items-center gap-2 text-xs font-mono">
-                <button
-                  type="button"
-                  onClick={copyEmail}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-50 border border-neutral-200 hover:border-black text-neutral-800 transition-colors cursor-pointer"
-                >
-                  <Mail className="w-3.5 h-3.5 text-neutral-500" />
-                  <span>{personal.email}</span>
-                  {isCopied ? (
-                    <Check className="w-3.5 h-3.5 text-emerald-600 ml-1" />
-                  ) : (
-                    <Copy className="w-3.5 h-3.5 text-neutral-400 ml-1" />
-                  )}
-                </button>
-              </div>
-
-              {/* Social Channels Row */}
-              <div className="flex items-center gap-2.5 pt-1">
-                <a
-                  href={personal.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="GitHub Profile"
-                  className="w-8 h-8 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center text-neutral-700 hover:text-black transition-colors"
-                >
-                  <GithubIcon className="w-4 h-4" />
-                </a>
-                <a
-                  href={personal.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="LinkedIn Profile"
-                  className="w-8 h-8 rounded-full border border-neutral-300 hover:border-blue-600 flex items-center justify-center text-neutral-700 hover:text-blue-600 transition-colors"
-                >
-                  <LinkedinIcon className="w-4 h-4" />
-                </a>
-                <a
-                  href={personal.medium}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="Medium Articles"
-                  className="w-8 h-8 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center text-[11px] font-serif font-black text-neutral-800 hover:text-black transition-colors"
-                >
-                  M
-                </a>
-                <span className="text-[11px] font-mono text-neutral-500 pl-1">
-                  @himanshux64
-                </span>
-              </div>
-            </div>
+            {/* Big Bold Editorial Headline */}
+            <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-[3.35rem] font-light tracking-tight text-neutral-950 leading-[1.1] lg:leading-[1.05]">
+              Let&apos;s build your next{" "}
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-amber-950 via-amber-800 to-amber-900 block sm:inline">
+                intelligent project.
+              </span>
+            </h2>
           </div>
 
-          {/* RIGHT COLUMN: Let's Talk Inquiry Form */}
-          <div className="lg:col-span-7 bg-white/60 backdrop-blur-xs p-2 sm:p-6 flex flex-col justify-center">
-            <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-neutral-900 mb-5">
-              Send a Direct Message
-            </h3>
+          {/* RIGHT COLUMN: Luxury Architectural Inquiry Form Card */}
+          <div className="lg:col-span-7 relative bg-gradient-to-b from-white via-white/95 to-neutral-50/90 backdrop-blur-xl rounded-[24px] sm:rounded-[36px] p-4 sm:p-7 md:p-8 border border-neutral-200/90 shadow-[0_16px_45px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] ring-1 ring-black/[0.03] overflow-hidden">
+            {/* Subtle Ambient Sheen */}
+            <div className="absolute -top-16 -right-16 w-40 h-40 bg-gradient-to-bl from-amber-200/30 via-transparent to-transparent rounded-full pointer-events-none blur-2xl" />
 
-            {isSubmitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="py-12 text-center rounded-2xl bg-neutral-50 border border-neutral-200"
-              >
-                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3">
-                  <Check className="w-6 h-6" />
-                </div>
-                <h4 className="text-lg font-bold text-neutral-900">Message Received</h4>
-                <p className="text-xs text-neutral-500 mt-1 max-w-xs mx-auto">
-                  Thank you, Himanshu Kumar will get back to your inquiry directly within 24 hours.
+            {/* Card Top Header */}
+            <div className="relative z-10 flex items-center justify-between border-b border-neutral-200/80 pb-3 mb-3.5 sm:mb-5">
+              <div>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-neutral-950">
+                  Send a Direct Message
+                </h3>
+                <p className="text-[11px] sm:text-xs font-mono text-neutral-500 mt-0.5">
+                  Direct inquiry to Himanshu Kumar
                 </p>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {/* 2x2 Input Fields */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-                  <div>
-                    <label className="block text-[11px] font-mono text-neutral-500 mb-1">
-                      Full name *
+              </div>
+
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-[10.5px] sm:text-xs font-mono font-medium text-emerald-800 shadow-2xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span>Replies within 24h</span>
+              </div>
+            </div>
+
+            <AnimatePresence mode="wait">
+              {isSubmitted ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="py-10 sm:py-14 px-4 text-center rounded-2xl bg-white border border-neutral-200/90 shadow-sm"
+                >
+                  <div className="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-600 flex items-center justify-center mx-auto mb-3 shadow-xs">
+                    <Check className="w-6 h-6 stroke-[2.5]" />
+                  </div>
+                  <h4 className="text-lg sm:text-xl font-bold tracking-tight text-neutral-950">
+                    Message Dispatched Successfully
+                  </h4>
+                  <p className="text-xs sm:text-sm text-neutral-600 mt-1 max-w-xs mx-auto leading-relaxed">
+                    Thank you! Your inquiry has been sent directly to Himanshu. Expect a response within 24 hours.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  onSubmit={handleSubmit}
+                  className="space-y-2.5 sm:space-y-3.5 relative z-10"
+                >
+                  {/* Clean 2-Column Responsive Precision Wells */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5">
+                    {/* Field 1: Your Name */}
+                    <div className="group/field relative rounded-xl sm:rounded-2xl bg-white border border-neutral-200/90 hover:border-neutral-300 focus-within:border-neutral-950 focus-within:ring-2 sm:focus-within:ring-4 focus-within:ring-neutral-950/[0.03] transition-all duration-200 p-2.5 sm:p-3 shadow-2xs">
+                      <label className="block text-[10px] sm:text-[10.5px] font-mono tracking-wider uppercase font-semibold text-neutral-500 mb-0.5 sm:mb-1 transition-colors group-focus-within/field:text-neutral-950">
+                        Your Name <span className="text-amber-600 font-bold">*</span>
+                      </label>
+                      <input
+                        required
+                        type="text"
+                        placeholder="Jane Doe"
+                        value={formData.fullName}
+                        onFocus={() => soundFx.playTick()}
+                        onChange={(e) =>
+                          setFormData({ ...formData, fullName: e.target.value })
+                        }
+                        className="w-full bg-transparent text-xs sm:text-sm text-neutral-950 placeholder:text-neutral-400 placeholder:italic focus:outline-none font-sans"
+                      />
+                    </div>
+
+                    {/* Field 2: Company / Organization */}
+                    <div className="group/field relative rounded-xl sm:rounded-2xl bg-white border border-neutral-200/90 hover:border-neutral-300 focus-within:border-neutral-950 focus-within:ring-2 sm:focus-within:ring-4 focus-within:ring-neutral-950/[0.03] transition-all duration-200 p-2.5 sm:p-3 shadow-2xs">
+                      <label className="block text-[10px] sm:text-[10.5px] font-mono tracking-wider uppercase font-semibold text-neutral-500 mb-0.5 sm:mb-1 transition-colors group-focus-within/field:text-neutral-950">
+                        Company / Organization
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Acme Inc / University"
+                        value={formData.company}
+                        onFocus={() => soundFx.playTick()}
+                        onChange={(e) =>
+                          setFormData({ ...formData, company: e.target.value })
+                        }
+                        className="w-full bg-transparent text-xs sm:text-sm text-neutral-950 placeholder:text-neutral-400 placeholder:italic focus:outline-none font-sans"
+                      />
+                    </div>
+
+                    {/* Field 3: Email Address */}
+                    <div className="group/field relative rounded-xl sm:rounded-2xl bg-white border border-neutral-200/90 hover:border-neutral-300 focus-within:border-neutral-950 focus-within:ring-2 sm:focus-within:ring-4 focus-within:ring-neutral-950/[0.03] transition-all duration-200 p-2.5 sm:p-3 shadow-2xs">
+                      <label className="block text-[10px] sm:text-[10.5px] font-mono tracking-wider uppercase font-semibold text-neutral-500 mb-0.5 sm:mb-1 transition-colors group-focus-within/field:text-neutral-950">
+                        Email Address <span className="text-amber-600 font-bold">*</span>
+                      </label>
+                      <input
+                        required
+                        type="email"
+                        placeholder="jane@company.com"
+                        value={formData.email}
+                        onFocus={() => soundFx.playTick()}
+                        onChange={(e) =>
+                          setFormData({ ...formData, email: e.target.value })
+                        }
+                        className="w-full bg-transparent text-xs sm:text-sm text-neutral-950 placeholder:text-neutral-400 placeholder:italic focus:outline-none font-sans"
+                      />
+                    </div>
+
+                    {/* Field 4: Phone / Telegram (Optional) */}
+                    <div className="group/field relative rounded-xl sm:rounded-2xl bg-white border border-neutral-200/90 hover:border-neutral-300 focus-within:border-neutral-950 focus-within:ring-2 sm:focus-within:ring-4 focus-within:ring-neutral-950/[0.03] transition-all duration-200 p-2.5 sm:p-3 shadow-2xs">
+                      <label className="block text-[10px] sm:text-[10.5px] font-mono tracking-wider uppercase font-semibold text-neutral-500 mb-0.5 sm:mb-1 transition-colors group-focus-within/field:text-neutral-950">
+                        Phone / Telegram (Optional)
+                      </label>
+                      <input
+                        type="tel"
+                        placeholder="+91 98765 43210"
+                        value={formData.phone}
+                        onFocus={() => soundFx.playTick()}
+                        onChange={(e) =>
+                          setFormData({ ...formData, phone: e.target.value })
+                        }
+                        className="w-full bg-transparent text-xs sm:text-sm text-neutral-950 placeholder:text-neutral-400 placeholder:italic focus:outline-none font-sans"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Field 5: Message / Project Goals */}
+                  <div className="group/field relative rounded-xl sm:rounded-2xl bg-white border border-neutral-200/90 hover:border-neutral-300 focus-within:border-neutral-950 focus-within:ring-2 sm:focus-within:ring-4 focus-within:ring-neutral-950/[0.03] transition-all duration-200 p-2.5 sm:p-3 shadow-2xs">
+                    <label className="block text-[10px] sm:text-[10.5px] font-mono tracking-wider uppercase font-semibold text-neutral-500 mb-0.5 sm:mb-1 transition-colors group-focus-within/field:text-neutral-950">
+                      Message / Project Goals
                     </label>
-                    <input
-                      required
-                      type="text"
-                      placeholder="Jane Doe"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full pb-1.5 bg-transparent border-b border-neutral-300 text-xs sm:text-sm text-neutral-900 focus:outline-none focus:border-black transition-colors"
+                    <textarea
+                      rows={2}
+                      placeholder="Tell me about your project, timeline, or engineering challenge..."
+                      value={formData.projectDetails}
+                      onFocus={() => soundFx.playTick()}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          projectDetails: e.target.value,
+                        })
+                      }
+                      className="w-full bg-transparent text-xs sm:text-sm text-neutral-950 placeholder:text-neutral-400 placeholder:italic focus:outline-none resize-none font-sans leading-relaxed h-14 sm:h-20"
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-mono text-neutral-500 mb-1">
-                      Company / College
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Acme Inc / University"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full pb-1.5 bg-transparent border-b border-neutral-300 text-xs sm:text-sm text-neutral-900 focus:outline-none focus:border-black transition-colors"
-                    />
+                  {/* Submit CTA Button & Security Footnote */}
+                  <div className="pt-1 space-y-2">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="relative group w-full py-3 sm:py-3.5 px-5 rounded-full bg-neutral-950 hover:bg-neutral-900 active:scale-[0.99] text-white font-mono text-xs sm:text-[12.5px] tracking-widest uppercase flex items-center justify-center gap-2.5 shadow-[0_8px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.18)] transition-all duration-300 cursor-pointer overflow-hidden disabled:opacity-75"
+                    >
+                      {/* Hover ambient sheen */}
+                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
+
+                      <span className="relative z-10 font-bold tracking-widest">
+                        {isSubmitting ? "TRANSMITTING BRIEF..." : "SEND INQUIRY"}
+                      </span>
+                      <div className="relative z-10 w-6 h-6 rounded-full bg-neutral-800 group-hover:bg-amber-400 text-amber-400 group-hover:text-neutral-950 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                        {isSubmitting ? (
+                          <Send className="w-3 h-3 animate-pulse" />
+                        ) : (
+                          <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        )}
+                      </div>
+                    </button>
+
+                    <div className="flex items-center justify-center gap-1.5 text-[10px] sm:text-[10.5px] font-mono text-neutral-400">
+                      <ShieldCheck className="w-3.5 h-3.5 text-neutral-400" />
+                      <span>256-Bit Encrypted • Direct Dispatch • Zero Brokers</span>
+                    </div>
                   </div>
-
-                  <div>
-                    <label className="block text-[11px] font-mono text-neutral-500 mb-1">
-                      Email address *
-                    </label>
-                    <input
-                      required
-                      type="email"
-                      placeholder="jane@company.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full pb-1.5 bg-transparent border-b border-neutral-300 text-xs sm:text-sm text-neutral-900 focus:outline-none focus:border-black transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-mono text-neutral-500 mb-1">
-                      Phone (Optional)
-                    </label>
-                    <input
-                      type="tel"
-                      placeholder="+91 98765 43210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full pb-1.5 bg-transparent border-b border-neutral-300 text-xs sm:text-sm text-neutral-900 focus:outline-none focus:border-black transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Interest Pills Selection */}
-                <div className="pt-1">
-                  <span className="block text-[11px] font-mono text-neutral-500 mb-2">
-                    I&apos;m Interested in
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {interestOptions.map((tag) => {
-                      const isSelected = selectedInterests.includes(tag);
-                      return (
-                        <button
-                          key={tag}
-                          type="button"
-                          onClick={() => toggleInterest(tag)}
-                          className={`px-3.5 py-1 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer ${
-                            isSelected
-                              ? "bg-neutral-950 text-white shadow-xs"
-                              : "bg-white text-neutral-700 border border-neutral-300 hover:border-neutral-500"
-                          }`}
-                        >
-                          {tag}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Project Details Textarea */}
-                <div>
-                  <label className="block text-[11px] font-mono text-neutral-500 mb-1">
-                    Tell us more about your project or role!
-                  </label>
-                  <textarea
-                    rows={2}
-                    placeholder="We'd love to collaborate on an AI/Web application..."
-                    value={formData.projectDetails}
-                    onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
-                    className="w-full pb-1.5 bg-transparent border-b border-neutral-300 text-xs sm:text-sm text-neutral-900 focus:outline-none focus:border-black transition-colors resize-none"
-                  />
-                </div>
-
-                {/* Submit SEND button */}
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    className="group w-full py-3.5 px-6 rounded-full bg-neutral-950 hover:bg-neutral-900 text-white font-mono text-xs tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg transition-all duration-300 cursor-pointer"
-                  >
-                    <span>SEND MESSAGE</span>
-                    <ArrowRight className="w-4 h-4 text-[#f59e0b] transition-transform group-hover:translate-x-1" />
-                  </button>
-                </div>
-              </form>
-            )}
+                </motion.form>
+              )}
+            </AnimatePresence>
           </div>
         </div>
-      </motion.div>
+      </div>
+
+      {/* 3. BOTTOM FOOTER BAR */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto pt-2.5 sm:pt-3 pb-1 flex items-center justify-center sm:justify-between text-[10.5px] sm:text-[11px] font-mono text-neutral-400 border-t border-neutral-200/70 shrink-0">
+        <span className="text-center sm:text-left">
+          Himanshu Kumar • AI &amp; ML Engineer • Based in India
+        </span>
+        <span className="hidden sm:inline">
+          Designed with Editorial Precision
+        </span>
+      </div>
     </section>
   );
 };
+
+
