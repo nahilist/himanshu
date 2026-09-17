@@ -149,13 +149,14 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
               <button
                 onClick={() => {
+                  soundFx.playTick();
                   onClose();
                   onOpenResume();
                 }}
                 className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/20 hover:border-white text-white transition-colors cursor-pointer"
               >
                 <FileText className="w-3 h-3 text-amber-400" />
-                <span>Curriculum Vitae</span>
+                <span>Resume</span>
               </button>
 
               <a

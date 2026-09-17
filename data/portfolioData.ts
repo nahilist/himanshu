@@ -44,7 +44,6 @@ export const PORTFOLIO_DATA = {
     degree: "B.Tech in Artificial Intelligence & Machine Learning (AI & ML)",
     college: "Sanskriti University, Mathura, India",
     currentYear: "4th Year",
-    cgpa: "8.6 / 10.0",
     bio: [
       "I'm an AI & ML student and Frontend Developer focused on building intelligent solutions and clean, modern web experiences.",
       "I enjoy turning ideas into real-world products through AI, engineering, and frontend development.",
@@ -54,7 +53,7 @@ export const PORTFOLIO_DATA = {
     availability: "Actively seeking Summer/Winter 2025-2026 Internships and high-impact collaborative projects.",
     highlights: [
       { label: "Degree", value: "B.Tech AI & ML" },
-      { label: "Academic Standing", value: "CGPA 8.6 / 10" },
+      { label: "Academic Standing", value: "4th Year (2022-2026)" },
       { label: "Focus", value: "GenAI, RAG & Next.js" },
       { label: "Status", value: "Open for Internships" },
     ],
@@ -228,7 +227,7 @@ export const PORTFOLIO_DATA = {
       period: "2022 — 2026",
       title: "B.Tech in Artificial Intelligence & Machine Learning",
       organization: "Engineering & Technology Institute",
-      grade: "CGPA: 8.6 / 10.0",
+      grade: "Final Year",
       description:
         "Focused coursework in Deep Learning, Natural Language Processing, Data Structures & Algorithms, Computer Vision, Operating Systems, and Distributed Computing.",
     },
@@ -292,9 +291,9 @@ export const PORTFOLIO_DATA = {
 
   resume: {
     fileName: "Himanshu_Kumar_Resume.pdf",
-    downloadUrl: "/Himanshu_Kumar_Resume.pdf",
+    viewUrl: "https://drive.google.com/file/d/1yGZ26o7WLiyysw6PWk2mlbnqs5TQLeUf/view?usp=drivesdk",
+    previewUrl: "https://drive.google.com/file/d/1yGZ26o7WLiyysw6PWk2mlbnqs5TQLeUf/preview",
+    downloadUrl: "https://drive.google.com/file/d/1yGZ26o7WLiyysw6PWk2mlbnqs5TQLeUf/view?usp=drivesdk",
     lastUpdated: "September 2025",
-    summary:
-      "B.Tech AI & ML student with a 8.6 CGPA and extensive hands-on expertise in Python, PyTorch, TensorFlow, LangChain, RAG, Next.js, and React. Passionate about engineering production-quality software at the intersection of machine intelligence and intuitive web design.",
   },
 };
