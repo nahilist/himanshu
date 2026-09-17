@@ -25,8 +25,11 @@ export const metadata: Metadata = {
     "Frontend Developer",
   ],
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "Himanshu | AI/ML & Frontend Developer",
