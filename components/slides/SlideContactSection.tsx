@@ -52,39 +52,16 @@ export const SlideContactSection: React.FC = () => {
       <div className="absolute top-1/4 -left-32 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-amber-200/20 via-orange-100/10 to-transparent blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 -right-32 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-tl from-purple-200/20 via-pink-100/10 to-transparent blur-3xl pointer-events-none" />
 
-      {/* 1. TOP HEADER: Status Breadcrumb */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex items-center justify-between pb-2.5 sm:pb-3.5 border-b border-neutral-200/80 mb-3 sm:mb-6 shrink-0">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-neutral-950 text-white font-mono text-[9.5px] sm:text-[10px] font-semibold tracking-widest uppercase shadow-2xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            <span>04 // INQUIRY</span>
-          </div>
-          <span className="text-[10.5px] sm:text-xs font-mono tracking-widest uppercase font-semibold text-neutral-800">
-            GET IN TOUCH • DIRECT COLLABORATION
-          </span>
-        </div>
-
-        <div className="hidden xs:flex items-center gap-2 text-[11px] sm:text-xs font-mono text-neutral-600 bg-neutral-50 px-3 py-1 rounded-full border border-neutral-200/80 shadow-2xs">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-          </span>
-          <span className="font-medium text-neutral-700">
-            Available Worldwide // Remote &amp; On-Site
-          </span>
-        </div>
-      </div>
-
-      {/* 2. MAIN 2-COLUMN STUDIO CONTENT (Balanced spatial rhythm, no giant dead gaps) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center my-1 sm:my-2">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-14 items-center">
+      {/* MAIN 2-COLUMN STUDIO CONTENT */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center my-auto py-2 sm:py-4">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-14 items-center">
           
           {/* LEFT COLUMN: Editorial Headline */}
           <div className="lg:col-span-5 flex flex-col justify-center">
             {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100/90 border border-neutral-200/80 text-[10.5px] sm:text-xs font-mono text-neutral-800 mb-2 sm:mb-4 shadow-2xs w-fit">
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-              <span className="font-semibold tracking-wide">Let&apos;s Build Together</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100/90 border border-neutral-200/80 text-[10.5px] sm:text-xs font-mono text-neutral-800 mb-2.5 sm:mb-4 shadow-2xs w-fit">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              <span className="font-semibold tracking-wide">Get in Touch</span>
             </div>
 
             {/* Big Bold Editorial Headline */}
