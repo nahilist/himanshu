@@ -198,7 +198,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
               <a
                 href={personal.github}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/20 hover:border-white text-neutral-300 hover:text-white transition-colors"
               >
                 <GithubIcon className="w-3 h-3" />
@@ -208,7 +208,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
               <a
                 href={personal.linkedin}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/20 hover:border-white text-neutral-300 hover:text-white transition-colors"
               >
                 <LinkedinIcon className="w-3 h-3" />

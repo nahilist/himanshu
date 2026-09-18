@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { ACTIVITY_DATA, ActivityItem } from "@/data/activityData";
 import { ActivityHeader } from "@/components/activity/ActivityHeader";
+import { ArchivalBookShelf } from "@/components/activity/ArchivalBookShelf";
 import { soundFx } from "@/utils/audio";
 import { useActivityLanguage } from "@/context/ActivityLanguageContext";
 
@@ -304,6 +305,12 @@ export default function PoetryPage() {
                 <p className="whitespace-pre-line">&ldquo;{getItemExcerpt(activeDossier)}&rdquo;</p>
               </div>
             </div>
+
+            {/* Live Archival Bibliography & Works via Open Library */}
+            <ArchivalBookShelf
+              author={activeDossier.authorOrOrigin}
+              language={language}
+            />
 
             {/* 5. Colophon Delimiter */}
             <div className="py-12 flex items-center justify-center gap-3 text-neutral-600 select-none">

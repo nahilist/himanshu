@@ -166,7 +166,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
                 <a
                   href="https://tiktok.com/@himanshux64"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
                   Tiktok
@@ -176,7 +176,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
                 <a
                   href="https://instagram.com/himanshux64"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
                   Instagram
@@ -186,7 +186,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
                 <a
                   href={personal.linkedin}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
                   Linkedin
@@ -196,7 +196,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
                 <a
                   href="https://youtube.com"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
                   Youtube
@@ -206,7 +206,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
                 <a
                   href="https://facebook.com"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
                   Facebook
@@ -216,7 +216,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
                 <a
                   href="https://x.com/himanshux64"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
                   X
@@ -254,7 +254,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           <a
             href="https://facebook.com"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             onClick={() => soundFx.playTick()}
             title="Facebook"
             className="hover:text-white transition-colors cursor-pointer"
@@ -264,7 +264,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           <a
             href="https://youtube.com"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             onClick={() => soundFx.playTick()}
             title="YouTube"
             className="hover:text-white transition-colors cursor-pointer"
@@ -274,7 +274,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           <a
             href={personal.linkedin}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             onClick={() => soundFx.playTick()}
             title="LinkedIn"
             className="hover:text-white transition-colors cursor-pointer"
@@ -284,7 +284,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           <a
             href="https://x.com/himanshux64"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             onClick={() => soundFx.playTick()}
             title="X"
             className="hover:text-white transition-colors cursor-pointer"
@@ -294,7 +294,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           <a
             href={personal.github}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             onClick={() => soundFx.playTick()}
             title="GitHub"
             className="hover:text-white transition-colors cursor-pointer"
