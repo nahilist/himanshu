@@ -85,6 +85,23 @@ export default function PortfolioPage() {
     return false;
   }, [isMenuOpen, isContactOpen, isResumeOpen]);
 
+  // Lock window scroll on homepage slide deck
+  useEffect(() => {
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevBodyHeight = document.body.style.height;
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100%";
+
+    return () => {
+      document.documentElement.style.overflow = prevHtmlOverflow;
+      document.body.style.overflow = prevBodyOverflow;
+      document.body.style.height = prevBodyHeight;
+    };
+  }, []);
+
   // Wheel listener for smooth slide transitions (respects internal slide scrolling)
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {

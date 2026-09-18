@@ -3,352 +3,193 @@ export interface ActivityItem {
   title: string;
   category: "philosophy" | "poetry" | "stories" | "reading-shelf";
   subCategory?: "indian" | "western" | "classical" | "modern";
-  authorOrOrigin?: string;
+  authorOrOrigin: string;
+  archetype: string;
+  numeral: string;
+  coreAxiom: string;
   originalText?: string;
   transliteration?: string;
   englishExcerpt: string;
   reflection: string;
+  coreTenets: string[];
   dateOrEra: string;
   tags: string[];
   readTime: string;
 }
 
 export const ACTIVITY_NAV_LINKS = [
-  { href: "/activity", label: "Overview", id: "all" },
-  { href: "/activity/philosophy", label: "Philosophy", id: "philosophy" },
-  { href: "/activity/poetry", label: "Poetry & Verse", id: "poetry" },
-  { href: "/activity/stories", label: "Stories & Fables", id: "stories" },
-  { href: "/activity/other", label: "Other & Shelf", id: "reading-shelf" },
+  { href: "/activity", label: "Philosophy & Darshana", id: "philosophy" },
 ] as const;
 
 export const ACTIVITY_DATA: ActivityItem[] = [
-  // ==========================================
-  // --- PHILOSOPHY: INDIAN TRADITION (DARSHANA) ---
-  // ==========================================
+  // =========================================================================
+  // --- 1. J. KRISHNAMURTI: THE OBSERVER IS THE OBSERVED & PATHLESS LAND ---
+  // =========================================================================
   {
-    id: "nishkama-karma-gita",
-    title: "Nishkama Karma: Action Free from the Burden of Fruit",
+    id: "jk-krishnamurti-pathless-land",
+    title: "Truth is a Pathless Land: The Observer is the Observed",
     category: "philosophy",
     subCategory: "indian",
-    authorOrOrigin: "Bhagavad Gita (Chapter 2, Verse 47)",
-    originalText: `कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।
-मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥`,
-    transliteration: "Karmany-evādhikāras te mā phaleṣu kadāchana...",
+    authorOrOrigin: "J. Krishnamurti",
+    archetype: "The Radical Inquirer",
+    numeral: "I",
+    coreAxiom: "Truth is a pathless land; the observer is the observed.",
+    originalText: `Truth is a pathless land, and you cannot approach it by any path whatsoever, by any religion, by any sect. Truth, being limitless, unconditioned, unapproachable by any path whatsoever, cannot be organized; nor should any organization be formed to lead or to coerce people along any particular path.`,
     englishExcerpt:
-      "You have a right only to work, never to its fruits. Let not the fruit of action be your motive, nor let your attachment be to inaction.",
+      "The moment you have a belief, a dogma, or a fixed conclusion, you have ceased to observe. Observation without the observer—without the past, without the continuous accumulation of psychological residue—is the only state where radical transformation occurs.",
     reflection:
-      "In software and AI engineering, attachment to immediate validation, hype cycles, or market reaction poisons genuine craftsmanship. Nishkama Karma is the purest discipline: committing absolute focus to the algorithmic architecture and the act of coding itself, while remaining radically detached from vanity or outcome.",
-    dateOrEra: "Ancient Indian Classical Darshana",
-    tags: ["Indian Philosophy", "Bhagavad Gita", "Nishkama Karma", "Discipline", "Agency"],
-    readTime: "3 min read",
-  },
-  {
-    id: "nagarjuna-shunyata",
-    title: "Shunyata & Pratityasamutpada: The Web of Emptiness",
-    category: "philosophy",
-    subCategory: "indian",
-    authorOrOrigin: "Nagarjuna — Mulamadhyamakakarika",
-    originalText: `यः प्रतीत्यसमुत्पादः शून्यतां तां प्रचक्ष्महे।
-सा प्रज्ञप्तिरुपादाय प्रतिपत्सैव मध्यमा॥`,
-    transliteration: "Yah pratityasamutpadah shunyataam tam prachakshmahe...",
-    englishExcerpt:
-      "Whatever is dependently co-arisen, that is explained to be emptiness. That, being a dependent designation, is itself the Middle Way.",
-    reflection:
-      "Nagarjuna's insight that nothing has independent, isolated self-nature (svabhava) is the exact ontological blueprint of distributed systems and modern graph neural networks. Every component gains identity only through relation to the whole. To understand 'the void' (Shunyata) is not despair, but freedom from dogmatic fixity.",
-    dateOrEra: "Buddhist Madhyamaka Philosophy (2nd Century CE)",
-    tags: ["Indian Philosophy", "Buddhism", "Nagarjuna", "Shunyata", "Relationality"],
+      "In computational thinking and system design, our legacy assumptions and rigid mental models blind us to emergent realities. Krishnamurti’s core insight—that the observer is the observed—demands unconditioned awareness: approaching every problem, distributed architecture, and neural model without the distorting baggage of prior dogma.",
+    coreTenets: [
+      "Observation without the distorting lens of the accumulated observer",
+      "Rejection of spiritual authority, organized cults, and dogma",
+      "Direct perception of reality unmediated by psychological time",
+      "Transformation occurs only in the silent lucidity of the present",
+    ],
+    dateOrEra: "20th Century Radical Inquirer (1895–1986)",
+    tags: ["J. Krishnamurti", "Pathless Land", "Unconditioned Mind", "Direct Observation", "Sovereign Freedom"],
     readTime: "4 min read",
   },
+
+  // =========================================================================
+  // --- 2. U.G. KRISHNAMURTI: THE NATURAL STATE & BIOLOGICAL REALITY ---
+  // =========================================================================
   {
-    id: "advaita-shankara",
-    title: "Aham Brahmasmi: The Dissolution of Observer & System",
+    id: "ug-krishnamurti-natural-state",
+    title: "The Natural State: Total Deconstruction of the Spiritual Search",
     category: "philosophy",
     subCategory: "indian",
-    authorOrOrigin: "Adi Shankara — Advaita Vedanta & Brihadaranyaka Upanishad",
-    originalText: `अहं ब्रह्मास्मि — अयमात्मा ब्रह्म`,
-    transliteration: "Aham Brahmasmi — Ayam Atma Brahma",
+    authorOrOrigin: "U.G. Krishnamurti",
+    archetype: "The Biological Realist",
+    numeral: "II",
+    coreAxiom: "The search for permanence and enlightenment is itself the disease.",
+    originalText: `There is no 'beyond'. There is no soul, no mind, no enlightenment. What is left when you drop all your questions and the search for answers is the natural functioning of this biological organism. The search for permanence and security is itself the disease.`,
     englishExcerpt:
-      "I am the Absolute Totality. The underlying consciousness that witnesses the world is non-different from the ground of reality itself.",
+      "You are trying to be something other than what you are. That is the whole misery of man. The demand to understand, to be enlightened, to be free, is the very momentum that keeps you trapped in the illusion of psychological continuity.",
     reflection:
-      "Advaita eliminates dualistic friction between the creator and the artifact. When designing computational architectures or training neural models, the programmer is not merely an external observer manipulating an alien machine, but an expressive extension of nature modeling itself.",
-    dateOrEra: "Advaita Vedanta (8th Century CE)",
-    tags: ["Indian Philosophy", "Advaita", "Adi Shankara", "Upanishads", "Non-duality"],
-    readTime: "3 min read",
+      "U.G. was the ultimate iconoclast who dismantled every romanticized spiritual delusion with surgical biological realism. In engineering terms: there is no ghost in the machine. Cognition is an organic substrate processing inputs. Shedding the pretentious vanity of self-importance liberates the builder to focus purely on functional, empirical truth.",
+    coreTenets: [
+      "The physical organism functions perfectly in its natural, unconditioned state",
+      "Total deconstruction of all gurus, spiritual goals, and psychological crutches",
+      "Thought is memory looping continuously on physical hardware",
+      "No cosmic beyond exists; drop the questions and artificial friction ceases",
+    ],
+    dateOrEra: "20th Century Iconoclast (1918–2007)",
+    tags: ["U.G. Krishnamurti", "The Natural State", "Biological Realism", "Anti-Dogma", "Demystification"],
+    readTime: "4 min read",
   },
+
+  // =========================================================================
+  // --- 3. OSHO: ZORBA THE BUDDHA & REBEL CONSCIOUSNESS ---
+  // =========================================================================
   {
-    id: "charvaka-lokayata-empiricism",
-    title: "Charvaka Lokayata: Radical Empiricism & Present Reality",
+    id: "osho-zorba-the-buddha",
+    title: "Zorba the Buddha: The Synthesis of Earthly Vitality & Silent Awareness",
     category: "philosophy",
     subCategory: "indian",
-    authorOrOrigin: "Brihaspati Tradition — Lokayata Philosophy",
+    authorOrOrigin: "Osho (Bhagwan Shree Rajneesh)",
+    archetype: "The Rebel Mystic",
+    numeral: "III",
+    coreAxiom: "Zorba the Buddha: Celebrate the material earth with silent, meditative awareness.",
+    originalText: `Never belong to any crowd, never belong to any nation, never belong to any religion. Belong to the whole existence. Why limit yourself to small things when the whole is available?`,
     englishExcerpt:
-      "Only perception is the valid means of knowledge. What cannot be sensed or directly observed cannot be dogmatically asserted as truth. Live with clear lucidity in this empirical world.",
+      "I celebrate the whole human being: Zorba who loves the earth, the dance, the material reality; and Buddha who embodies meditative silence, stillness, and luminous consciousness. When science and silence embrace, when material craft meets meditative awareness, the true rebel is born.",
     reflection:
-      "Ancient India was not merely metaphysical; the Charvakas were fierce rationalists who discarded dogmatic dogma in favor of empirical verification. In modern data science, this translates to rigorous empirical testing: never accept assumptions without verifiable telemetry and observable ground truth.",
-    dateOrEra: "Ancient Indian Materialism (c. 600 BCE)",
-    tags: ["Indian Philosophy", "Charvaka", "Lokayata", "Empiricism", "Rationalism"],
+      "Osho’s 'Zorba the Buddha' resolves the artificial division between material mastery and inner stillness. Building world-class software and intelligent systems demands the intense, hungry craftsmanship of Zorba, while architectural clarity and calm resilience demand the unperturbed silence of the Buddha.",
+    coreTenets: [
+      "Reconciliation of material creative passion (Zorba) with inner stillness (Buddha)",
+      "Unconditioned rebellion against ideological conformity and inherited guilt",
+      "Witnessing consciousness (Sakshi) active amidst intense engineering engagement",
+      "Freedom from societal dogmas; total presence and celebratory agency",
+    ],
+    dateOrEra: "20th Century Rebel Philosopher (1931–1990)",
+    tags: ["Osho", "Zorba the Buddha", "Rebel Mind", "Consciousness", "Synthesis"],
     readTime: "3 min read",
   },
 
-  // ==========================================
-  // --- PHILOSOPHY: WESTERN TRADITION ---
-  // ==========================================
+  // =========================================================================
+  // --- 4. BHAGAT SINGH: REASON, REALISM & REVOLUTIONARY WILL ---
+  // =========================================================================
   {
-    id: "active-nihilism-creation",
-    title: "On Active Nihilism: The Void as Pure Canvas",
+    id: "bhagat-singh-why-i-am-an-atheist",
+    title: "Why I Am an Atheist: Independent Thinking & Ruthless Rationalism",
     category: "philosophy",
-    subCategory: "western",
-    authorOrOrigin: "Friedrich Nietzsche — Will to Power & Zarathustra",
+    subCategory: "indian",
+    authorOrOrigin: "Bhagat Singh (Lahore Central Jail, 1930)",
+    archetype: "The Revolutionary Rationalist",
+    numeral: "IV",
+    coreAxiom: "Merciless criticism and independent thinking are the two pillars of progress.",
+    originalText: `Any man who stands for progress has to criticize, disbelieve and challenge every item of the old faith. Item by item he has to analyze every nook and corner of prevailing faith. If after considerable reasoning, he is led to believe in any theory, his faith is welcomed. His reasoning can be mistaken, but it is open to correction, because reason is the guiding star of his life.`,
     englishExcerpt:
-      "Nihilism is not the end of meaning; it is the liberation from dogmatic constraints. If the universe possesses no inherent script, every line of code, every architectural choice, and every act of creation becomes an unmediated declaration of will.",
+      "Merciless criticism and independent thinking are the two indispensable qualities of revolutionary thinking. Because I have discarded blind faith and divine crutches, I stand on my own feet. It is not vanity; it is reason and courage.",
     reflection:
-      "When building complex systems and artificial intelligence, one realizes that logic is neutral. The philosophy of 'Nahilist' stems not from despondency, but from radical creative agency: recognizing that absence of cosmic order invites us to engineer our own sublime structures.",
-    dateOrEra: "19th Century Continental Philosophy",
-    tags: ["Western Philosophy", "Nihilism", "Nietzsche", "Existential Agency", "Ontology"],
-    readTime: "3 min read",
-  },
-  {
-    id: "absurdist-hero-camus",
-    title: "The Absurd Architect: Sisyphus and the Machine",
-    category: "philosophy",
-    subCategory: "western",
-    authorOrOrigin: "Albert Camus — The Myth of Sisyphus",
-    englishExcerpt:
-      "The struggle itself toward the heights is enough to fill a man's heart. One must imagine Sisyphus happy.",
-    reflection:
-      "In software engineering and AI research, we repeatedly push boulders up steep hills: models fail to converge, dependencies fracture, edge cases surface. Camus reminds us that true dignity lies in loving the friction of the climb itself, turning repetitive iteration into an art form.",
-    dateOrEra: "20th Century Absurdism",
-    tags: ["Western Philosophy", "Camus", "Absurdism", "Perseverance", "Mindset"],
+      "Beyond his revolutionary martyrdom, Bhagat Singh was a towering rationalist philosopher. His jail treatise 'Why I Am an Atheist' is an uncompromising defense of empirical reason over comfortable superstitions. For an engineer and builder, progress demands the intellectual courage to interrogate established consensus and take sovereign responsibility for one’s creations.",
+    coreTenets: [
+      "Ruthless interrogation of traditional dogmas, rituals, and blind beliefs",
+      "Sovereign reliance on empirical reason and intellectual integrity",
+      "Atheism understood not as vanity, but as scientific clarity and moral courage",
+      "Uncompromising dedication to systemic progress and human dignity",
+    ],
+    dateOrEra: "Modern Indian Rationalist Philosophy (1907–1931)",
+    tags: ["Bhagat Singh", "Why I Am An Atheist", "Rationalism", "Independent Thinking", "Courage"],
     readTime: "4 min read",
   },
-  {
-    id: "marcus-aurelius-stillness",
-    title: "The Citadel Within: Finding Quiet in Distributed Chaos",
-    category: "philosophy",
-    subCategory: "western",
-    authorOrOrigin: "Marcus Aurelius — Meditations",
-    englishExcerpt:
-      "Nowhere can man find a quieter or more untroubled retreat than in his own soul. Constantly then give yourself this retreat, and renew yourself.",
-    reflection:
-      "In an era dominated by hyper-connected telemetry, notifications, and instant synthetic outputs, the ancient Stoic discipline of inner detachment preserves cognitive depth. Before writing a single line of architecture, cultivate unshakeable stillness.",
-    dateOrEra: "Stoic Philosophy (2nd Century CE)",
-    tags: ["Western Philosophy", "Stoicism", "Meditations", "Clarity", "Mindfulness"],
-    readTime: "2 min read",
-  },
-  {
-    id: "spinoza-deus-sive-natura",
-    title: "Substance & System: God as the Unified Algorithm",
-    category: "philosophy",
-    subCategory: "western",
-    authorOrOrigin: "Baruch Spinoza — Ethics",
-    englishExcerpt:
-      "Whatever is, is in God, and nothing can be or be conceived without God (Deus sive Natura — God or Nature).",
-    reflection:
-      "Spinoza’s geometric deduction of nature as a single, coherent mathematical substance mirrors the modern view of physical and computational universes governed by invariant conservation laws and deterministic state transitions.",
-    dateOrEra: "17th Century Rationalism",
-    tags: ["Western Philosophy", "Spinoza", "Rationalism", "Pantheism", "Mathematics"],
-    readTime: "3 min read",
-  },
 
-  // ==========================================
-  // --- POETRY & VERSE ---
-  // ==========================================
+  // =========================================================================
+  // --- 5. GAUTAMA BUDDHA: KALAMA SUTTA & RADICAL EMPIRICAL INQUIRY ---
+  // =========================================================================
   {
-    id: "ghalib-na-tha-kuch-to",
-    title: "Na Tha Kuch To Khuda Tha — The Paradox of Existence",
-    category: "poetry",
-    authorOrOrigin: "Mirza Asadullah Khan Ghalib",
-    originalText: `نہ تھا کچھ تو خدا تھا، کچھ نہ ہوتا تو خدا ہوتا
-ڈبویا مجھ کو ہونے نے، نہ ہوتا میں تو کیا ہوتا`,
+    id: "buddha-kalama-sutta-anatta",
+    title: "Kalama Sutta & Anatta: Radical Empiricism & The Non-Static Self",
+    category: "philosophy",
+    subCategory: "indian",
+    authorOrOrigin: "Gautama Buddha — Shramana Tradition",
+    archetype: "The Empirical Sage",
+    numeral: "V",
+    coreAxiom: "Believe nothing without personal verification; identity is a dynamic process (Anatta).",
+    originalText: `मा अनुस्सवेन, मा परम्पराय, मा इतिकिराय, मा पिटकसम्पदानेन... अत्तना व जानेय्याथ।`,
+    transliteration: "Mā anussavena, mā paramparāya, mā itikirāya, mā piṭakasampadānena... attanā va jāneyyātha.",
     englishExcerpt:
-      "When there was nothing, there was God; had nothing been, God would have been.\nMy very being was my drowning; had I not existed, what would I have been?",
+      "Do not go by oral tradition, by lineage of teaching, by hearsay, by a collection of scriptures, or by the authority of an elder. When you know for yourselves that certain things are wholesome and conducive to benefit and happiness, only then accept and abide by them.",
     reflection:
-      "Ghalib’s verse encapsulates the ultimate existential irony: the sheer weight and consciousness of 'being'. It is a timeless meditation on ontology that resonates deeply with anyone contemplating the birth of intelligence from mathematical silence.",
-    dateOrEra: "19th Century Urdu Ghazal",
-    tags: ["Ghalib", "Urdu Poetry", "Existential Verse", "Ghazal"],
-    readTime: "2 min read",
-  },
-  {
-    id: "faiz-hum-dekhenge",
-    title: "Hum Dekhenge — The Inevitability of Truth",
-    category: "poetry",
-    authorOrOrigin: "Faiz Ahmad Faiz",
-    originalText: `ہم دیکھیں گے، لازم ہے کہ ہم بھی دیکھیں گے
-وہ دن کہ جس کا وعدہ ہے، جو لوحِ ازل پہ لکھا ہے`,
-    englishExcerpt:
-      "We shall bear witness, it is inevitable that we too shall see;\nThe day that was promised, inscribed upon eternity's slate.",
-    reflection:
-      "Faiz's lyricism transforms political hope into transcendent prophecy. Beyond politics, it speaks to an unwavering faith in human resilience and the inevitable surfacing of clarity over obscurity.",
-    dateOrEra: "Modernist Urdu Poetry",
-    tags: ["Faiz Ahmad Faiz", "Resistance", "Lyrical Verse", "Hope"],
-    readTime: "3 min read",
-  },
-  {
-    id: "jaun-elia-nihilism",
-    title: "Shayad — The Melancholy of Self-Awareness",
-    category: "poetry",
-    authorOrOrigin: "Jaun Elia",
-    originalText: `کیا ستم ہے کہ اب تری صورت
-غور کرنے پہ یاد آتی ہے`,
-    englishExcerpt:
-      "What a cruelty it is that your countenance,\nOnly returns to my memory when I consciously strain to recall.",
-    reflection:
-      "Jaun Elia brought raw, unflinching existential philosophy into Urdu poetry. He does not sugarcoat loss, absurdity, or the erosion of identity across time. His lines cut through comfortable illusions like a razor.",
-    dateOrEra: "Contemporary Urdu Poetry",
-    tags: ["Jaun Elia", "Urdu Poetry", "Existential Melancholy", "Verse"],
-    readTime: "2 min read",
-  },
-  {
-    id: "iqbal-khudi",
-    title: "Khudi: The Architecture of the Sovereign Self",
-    category: "poetry",
-    authorOrOrigin: "Allama Muhammad Iqbal — Asrar-e-Khudi",
-    originalText: `خودی کو کر بلند اتنا کہ ہر تقدیر سے پہلے
-خدا بندے سے خود پوچھے بتا تیری رضا کیا ہے`,
-    englishExcerpt:
-      "Elevate your selfhood (Khudi) to such sublime heights that before decreeing your destiny,\nGod Himself shall ask you: Speak, what is your supreme desire?",
-    reflection:
-      "Iqbal's concept of Khudi is the antithesis of fatalism. It is an affirmative demand for self-cultivation, sovereign agency, and mastery over one's craft and circumstance.",
-    dateOrEra: "Early 20th Century Philosophical Poetry",
-    tags: ["Allama Iqbal", "Khudi", "Agency", "Sovereign Mind"],
-    readTime: "2 min read",
-  },
-  {
-    id: "frost-two-roads",
-    title: "The Road Not Taken: Divergence as Calling",
-    category: "poetry",
-    authorOrOrigin: "Robert Frost",
-    englishExcerpt:
-      "Two roads diverged in a wood, and I—\nI took the one less traveled by,\nAnd that has made all the difference.",
-    reflection:
-      "Choosing independent craftsmanship, deep machine learning research, and an unconventional multidisciplinary path is inherently lonely yet immensely rewarding. Frost’s imagery celebrates the quiet courage of embracing uncharted trajectories.",
-    dateOrEra: "20th Century American Verse",
-    tags: ["Robert Frost", "Choice", "Independence", "Verse"],
-    readTime: "2 min read",
-  },
-
-  // ==========================================
-  // --- STORIES & FABLES ---
-  // ==========================================
-  {
-    id: "borges-library-babel",
-    title: "The Endless Hexagons of Babel",
-    category: "stories",
-    authorOrOrigin: "Jorge Luis Borges — The Library of Babel",
-    englishExcerpt:
-      "The universe (which others call the Library) is composed of an indefinite and perhaps infinite number of hexagonal galleries... In each hexagon there are twenty shelves, and on each shelf thirty-five books of uniform size.",
-    reflection:
-      "Borges anticipated modern vector embedding spaces and generative token distributions decades before transformers existed. The story is a chilling, poetic allegory of navigating infinite permutations of information in search of genuine truth.",
-    dateOrEra: "Philosophical Fiction (1941)",
-    tags: ["Borges", "Infinite Libraries", "Generative Tokens", "Allegory"],
-    readTime: "5 min read",
-  },
-  {
-    id: "kafka-before-the-law",
-    title: "Before the Law: The Waiting Seeker",
-    category: "stories",
-    authorOrOrigin: "Franz Kafka — The Trial",
-    englishExcerpt:
-      "Before the law stands a doorkeeper. To this doorkeeper there comes a man from the country and prays for admittance... 'No one else could ever be admitted here, for this entrance was meant solely for you. I am now going to shut it.'",
-    reflection:
-      "Kafka exposes the tragic folly of waiting for external permission. Whether in creative engineering or life, the threshold is uniquely ours—waiting for a green light from gatekeepers is the surest guarantee of never entering.",
-    dateOrEra: "Modernist Parable (1915)",
-    tags: ["Kafka", "Parable", "Agency", "Existential Dread"],
+      "The Buddha was humanity’s first great empirical investigator of mind and reality. His doctrine of Anatta (non-self) reveals that identity is not a fixed, immutable kernel, but a dynamic, relational network of dependent co-arising processes (Pratityasamutpada). This mirrors modern distributed computing: states emerge from interaction, not permanent essence.",
+    coreTenets: [
+      "Kalama Sutta principle: verify through personal observation and empirical reason",
+      "Anatta (Non-Self): consciousness is a relational network of events, not a static core",
+      "Pratityasamutpada: dependent origination governs computational and physical systems",
+      "The Middle Way: navigating beyond dogma with relentless present awareness",
+    ],
+    dateOrEra: "Ancient Indian Shramana Philosophy (c. 6th–5th Century BCE)",
+    tags: ["Gautama Buddha", "Kalama Sutta", "Anatta", "Empirical Inquiry", "Pratityasamutpada"],
     readTime: "4 min read",
   },
-  {
-    id: "dostoevsky-underground-man",
-    title: "Notes from the Labyrinth of Human Contradiction",
-    category: "stories",
-    authorOrOrigin: "Fyodor Dostoevsky — Notes from Underground",
-    englishExcerpt:
-      "I am a sick man... I am a spiteful man. I am an unattractive man. I believe my liver is diseased... But what can a decent man speak of with the greatest pleasure? Answer: Of himself.",
-    reflection:
-      "Dostoevsky dismantles the illusion of pure rationalism. Humans cannot be modeled as simple utility-maximizing algorithms; we possess irrational desires, longing for freedom even at the cost of our own comfort. A vital text for anyone designing systems for human hearts.",
-    dateOrEra: "Russian Classic Fiction (1864)",
-    tags: ["Dostoevsky", "Psychological Realism", "Rationalism", "Human Nature"],
-    readTime: "5 min read",
-  },
-  {
-    id: "premchand-kafan",
-    title: "Kafan (The Shroud): The Tragedy of Extreme Deprivation",
-    category: "stories",
-    authorOrOrigin: "Munshi Premchand — Kafan",
-    englishExcerpt:
-      "What a strange society this is! Those who toil day and night have nothing, while those who exploit their sweat live in luxury. And in death, a piece of cloth is demanded that will simply burn to ashes.",
-    reflection:
-      "Premchand’s unvarnished realism pierces through bourgeois sentimentality. It portrays human nature stripped of social pretenses when crushed by socio-economic despair, serving as a reminder of the real human realities beneath abstract technological progress.",
-    dateOrEra: "Hindi/Urdu Realist Fiction (1936)",
-    tags: ["Premchand", "Indian Literature", "Realism", "Social Critique"],
-    readTime: "4 min read",
-  },
-  {
-    id: "manto-toba-tek-singh",
-    title: "Toba Tek Singh: The Lunacy of Arbitrary Borders",
-    category: "stories",
-    authorOrOrigin: "Saadat Hasan Manto",
-    englishExcerpt:
-      "There, behind barbed wire, on one side lay India and on behind more wire on the other side lay Pakistan. In between, on a bit of earth that had no name, lay Toba Tek Singh.",
-    reflection:
-      "Manto's masterpiece reveals how clinical bureaucratic decisions tear human psyches apart. The insane asylum inmates are wiser than the politicians drawing lines on maps. A profound study of belonging, exile, and the no-man's-land between ideologies.",
-    dateOrEra: "Subcontinental Fiction (1955)",
-    tags: ["Manto", "Partition Literature", "Absurdity", "Humanity"],
-    readTime: "5 min read",
-  },
 
-  // ==========================================
-  // --- READING SHELF & OTHER ---
-  // ==========================================
+  // =========================================================================
+  // --- 6. CHARVAKA: LOKAYATA MATERIALISM & RADICAL SENSORY TRUTH ---
+  // =========================================================================
   {
-    id: "reading-sisyphus",
-    title: "The Myth of Sisyphus",
-    category: "reading-shelf",
-    authorOrOrigin: "Albert Camus",
+    id: "charvaka-lokayata-materialism",
+    title: "Charvaka Lokayata: Radical Empiricism & Direct Perception (Pratyaksha)",
+    category: "philosophy",
+    subCategory: "indian",
+    authorOrOrigin: "Brihaspati Tradition — Charvaka / Lokayata",
+    archetype: "The Materialist Radical",
+    numeral: "VI",
+    coreAxiom: "Direct perception (Pratyaksha) is the sole truth; reject metaphysical speculation.",
+    originalText: `यावज्जीवेत्सुखं जीवेद् ऋणं कृत्वा घृतं पिबेत्।
+भस्मीभूतस्य देहस्य पुनरागमनं कुतः॥`,
+    transliteration: "Yāvaj-jīvet sukhaṁ jīved ṛṇaṁ kṛtvā ghṛtaṁ pibet | Bhasmībhūtasya dehasya punarāgamanaṁ kutaḥ ||",
     englishExcerpt:
-      "A profound examination of suicide, the absurd, and how to live with relentless lucidity without divine reassurance.",
+      "Direct sensory perception (Pratyaksha) is the sole valid means of authentic knowledge. What cannot be observed or empirically verified cannot be dogmatically asserted. Live lucidly in this tangible, material world, free from the manipulation of priests and speculative heavens.",
     reflection:
-      "Currently revisiting the chapter on 'Absurd Creation'. The artist is the supreme absurdist hero because creation requires immense effort with no promise of cosmic permanence.",
-    dateOrEra: "Book Annotation • Completed",
-    tags: ["Philosophy", "Absurdism", "Reading Shelf"],
-    readTime: "Reading Notes",
-  },
-  {
-    id: "reading-beyond-good-evil",
-    title: "Beyond Good and Evil",
-    category: "reading-shelf",
-    authorOrOrigin: "Friedrich Nietzsche",
-    englishExcerpt:
-      "Prelude to a Philosophy of the Future. An unsparing deconstruction of conventional morality, truth, and philosophical dogmatism.",
-    reflection:
-      "Essential study on the 'Will to Power' and perspectivism. Teaches one to interrogate the hidden assumptions behind every established paradigm, including technology.",
-    dateOrEra: "Book Annotation • Active Reading",
-    tags: ["Philosophy", "Nietzsche", "Reading Shelf"],
-    readTime: "Reading Notes",
-  },
-  {
-    id: "reading-kafka-on-the-shore",
-    title: "Kafka on the Shore",
-    category: "reading-shelf",
-    authorOrOrigin: "Haruki Murakami",
-    englishExcerpt:
-      "Magical realism woven with classical tragedy, wandering cats, fish raining from the sky, and journeys into personal subconscious labyrinths.",
-    reflection:
-      "Murakami’s atmospheric silence and surreal liminal spaces inspire the calm, meditative micro-interactions I build into frontend interfaces.",
-    dateOrEra: "Book Annotation • Completed",
-    tags: ["Fiction", "Magical Realism", "Reading Shelf"],
-    readTime: "Reading Notes",
-  },
-  {
-    id: "reading-godel-escher-bach",
-    title: "Gödel, Escher, Bach: An Eternal Golden Braid",
-    category: "reading-shelf",
-    authorOrOrigin: "Douglas Hofstadter",
-    englishExcerpt:
-      "A metaphorical exploration of how cognition, recursive strange loops, and meaning emerge from formal meaningless rules.",
-    reflection:
-      "The foundational bridge between formal mathematical logic, cognitive science, and computational self-reference. Shows how an 'I' can arise from a substrate that contains no 'I'.",
-    dateOrEra: "Cognitive Science & Logic • Core Canon",
-    tags: ["Computation", "Strange Loops", "Cognition", "Reading Shelf"],
-    readTime: "Reading Notes",
+      "Centuries before modern Western scientific materialism, the ancient Indian Charvakas championed ruthless empirical skepticism. In artificial intelligence and software engineering, this is the golden rule of telemetry: never trust untested assertions or marketing mysticism; ground all truth in observable data, verifiable benchmarks, and real-world performance.",
+    coreTenets: [
+      "Pratyaksha Pramana: direct sensory verification is the sole epistemological basis",
+      "Rejection of metaphysical speculation, unseen realms, and ritual exploitation",
+      "Naturalism and material physical reality as the ground of all existence",
+      "Grounded rationalism: anchor every hypothesis in observable, repeatable evidence",
+    ],
+    dateOrEra: "Ancient Indian Materialist Darshana (c. 600 BCE)",
+    tags: ["Charvaka", "Lokayata", "Materialism", "Pratyaksha", "Rationalism", "Atheism"],
+    readTime: "3 min read",
   },
 ];
