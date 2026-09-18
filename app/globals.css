@@ -16,16 +16,17 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  background: #ffffff;
-  color: #171717;
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
+html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) #050505;
+}
+
+body {
+  min-height: 100%;
+  width: 100%;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -34,12 +35,28 @@ body {
   color: #171717;
 }
 
-/* Custom subtle scrollbar hiding for fullscreen experience */
+/* Elegant monochrome custom scrollbar for desktop */
 ::-webkit-scrollbar {
-  display: none;
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  border: 2px solid #050505;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
 }
 
 /* Image rendering and browser paint optimization */
 img {
   content-visibility: auto;
 }
+
