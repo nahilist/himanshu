@@ -37,10 +37,10 @@ export default function PortfolioPage() {
   const getScrollableAncestor = useCallback((element: HTMLElement | null): HTMLElement | null => {
     let curr = element;
     while (curr && curr !== document.body && curr !== document.documentElement) {
-      const style = window.getComputedStyle(curr);
-      const overflowY = style.overflowY;
-      if (overflowY === "auto" || overflowY === "scroll") {
-        if (curr.scrollHeight > curr.clientHeight + 6) {
+      if (curr.scrollHeight > curr.clientHeight + 16) {
+        const style = window.getComputedStyle(curr);
+        const overflowY = style.overflowY;
+        if (overflowY === "auto" || overflowY === "scroll") {
           return curr;
         }
       }
@@ -190,26 +190,29 @@ export default function PortfolioPage() {
       if (scrollContainer) {
         const currentScrollTop = scrollContainer.scrollTop;
         const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+        const hasMeaningfulOverflow = maxScroll > 16;
 
-        if (diffY > 0) {
-          // User swiped UP (intended to scroll DOWN)
-          // If container could scroll down at start or actually scrolled during gesture, do NOT transition!
-          if (canScrollDownAtStart || currentScrollTop > startScrollTop + 4) {
-            return;
-          }
-          // Only trigger next slide if we are already at the bottom boundary
-          if (currentScrollTop < maxScroll - 8) {
-            return;
-          }
-        } else {
-          // User swiped DOWN (intended to scroll UP)
-          // If container could scroll up at start or actually scrolled during gesture, do NOT transition!
-          if (canScrollUpAtStart || currentScrollTop < startScrollTop - 4) {
-            return;
-          }
-          // Only trigger prev slide if we are already at the top boundary
-          if (currentScrollTop > 8) {
-            return;
+        if (hasMeaningfulOverflow) {
+          if (diffY > 0) {
+            // User swiped UP (intended to scroll DOWN)
+            // If container could scroll down at start or actually scrolled during gesture, do NOT transition!
+            if (canScrollDownAtStart || currentScrollTop > startScrollTop + 4) {
+              return;
+            }
+            // Only trigger next slide if we are already at the bottom boundary
+            if (currentScrollTop < maxScroll - 8) {
+              return;
+            }
+          } else {
+            // User swiped DOWN (intended to scroll UP)
+            // If container could scroll up at start or actually scrolled during gesture, do NOT transition!
+            if (canScrollUpAtStart || currentScrollTop < startScrollTop - 4) {
+              return;
+            }
+            // Only trigger prev slide if we are already at the top boundary
+            if (currentScrollTop > 8) {
+              return;
+            }
           }
         }
       }
