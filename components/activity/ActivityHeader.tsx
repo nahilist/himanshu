@@ -3,23 +3,39 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Compass } from "lucide-react";
+import { ArrowLeft, Compass, Feather, BookOpen } from "lucide-react";
 import { soundFx } from "@/utils/audio";
+import { ACTIVITY_NAV_LINKS } from "@/data/activityData";
 
 interface ActivityHeaderProps {
-  currentSection?: string;
+  currentSection?: "philosophy" | "poetry" | "stories";
 }
 
-export const ActivityHeader: React.FC<ActivityHeaderProps> = () => {
+export const ActivityHeader: React.FC<ActivityHeaderProps> = ({
+  currentSection = "philosophy",
+}) => {
+  const getIcon = (id: string) => {
+    switch (id) {
+      case "philosophy":
+        return <Compass className="w-3.5 h-3.5" />;
+      case "poetry":
+        return <Feather className="w-3.5 h-3.5" />;
+      case "stories":
+        return <BookOpen className="w-3.5 h-3.5" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-black/90 border-b border-white/10 transition-colors">
-      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-3.5 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
         {/* Top Left: Logo + Breadcrumb */}
         <div className="w-full md:w-auto flex items-center justify-between md:justify-start gap-4">
           <Link
             href="/"
             onClick={() => soundFx.playTick()}
-            className="flex items-center gap-2.5 group cursor-pointer"
+            className="flex items-center gap-2.5 group cursor-pointer shrink-0"
           >
             <div className="relative h-8 w-auto flex items-center justify-center">
               <Image
@@ -51,13 +67,27 @@ export const ActivityHeader: React.FC<ActivityHeaderProps> = () => {
           </Link>
         </div>
 
-        {/* Center Badge: Indian Radical Philosophy (Monochrome Luxury) */}
-        <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/15 text-xs font-mono text-neutral-300">
-          <Compass className="w-3.5 h-3.5 text-neutral-300" />
-          <span className="text-white font-medium">Indian Radical Philosophy</span>
-          <span className="text-neutral-600">•</span>
-          <span className="text-neutral-400">06 Core Thinkers</span>
-        </div>
+        {/* Center: Triple Category Navigation Tabs */}
+        <nav className="flex items-center gap-1 p-1 rounded-full bg-white/[0.04] border border-white/15 backdrop-blur-md">
+          {ACTIVITY_NAV_LINKS.map((tab) => {
+            const isActive = currentSection === tab.id;
+            return (
+              <Link
+                key={tab.id}
+                href={tab.href}
+                onClick={() => soundFx.playTick()}
+                className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full font-mono text-xs tracking-wider transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? "bg-white text-black font-bold shadow-sm"
+                    : "text-neutral-400 hover:text-white hover:bg-white/[0.08]"
+                }`}
+              >
+                {getIcon(tab.id)}
+                <span>{tab.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
 
         {/* Right Desktop Return CTA */}
         <div className="hidden md:flex items-center gap-3">

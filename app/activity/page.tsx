@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -47,7 +48,9 @@ export default function ActivityPage() {
     { id: "Charvaka", label: "VI. Charvaka Lokayata" },
   ];
 
-  const filteredItems = ACTIVITY_DATA.filter((item) => {
+  const philosophyItems = ACTIVITY_DATA.filter((item) => item.category === "philosophy");
+
+  const filteredItems = philosophyItems.filter((item) => {
     if (selectedAuthor === "all") return true;
     return item.authorOrOrigin?.toLowerCase().includes(selectedAuthor.toLowerCase());
   });
@@ -66,8 +69,8 @@ export default function ActivityPage() {
 
   const handleNextDossier = () => {
     if (!activeDossier) return;
-    const currentIndex = ACTIVITY_DATA.findIndex((i) => i.id === activeDossier.id);
-    const nextItem = ACTIVITY_DATA[(currentIndex + 1) % ACTIVITY_DATA.length];
+    const currentIndex = philosophyItems.findIndex((i) => i.id === activeDossier.id);
+    const nextItem = philosophyItems[(currentIndex + 1) % philosophyItems.length];
     soundFx.playTick();
     setActiveDossier(nextItem);
     scrollToTop();
@@ -75,16 +78,16 @@ export default function ActivityPage() {
 
   const handlePrevDossier = () => {
     if (!activeDossier) return;
-    const currentIndex = ACTIVITY_DATA.findIndex((i) => i.id === activeDossier.id);
-    const prevItem = ACTIVITY_DATA[(currentIndex - 1 + ACTIVITY_DATA.length) % ACTIVITY_DATA.length];
+    const currentIndex = philosophyItems.findIndex((i) => i.id === activeDossier.id);
+    const prevItem = philosophyItems[(currentIndex - 1 + philosophyItems.length) % philosophyItems.length];
     soundFx.playTick();
     setActiveDossier(prevItem);
     scrollToTop();
   };
 
-  const activeIndex = activeDossier ? ACTIVITY_DATA.findIndex((i) => i.id === activeDossier.id) : -1;
-  const prevThinker = activeIndex !== -1 ? ACTIVITY_DATA[(activeIndex - 1 + ACTIVITY_DATA.length) % ACTIVITY_DATA.length] : null;
-  const nextThinker = activeIndex !== -1 ? ACTIVITY_DATA[(activeIndex + 1) % ACTIVITY_DATA.length] : null;
+  const activeIndex = activeDossier ? philosophyItems.findIndex((i) => i.id === activeDossier.id) : -1;
+  const prevThinker = activeIndex !== -1 ? philosophyItems[(activeIndex - 1 + philosophyItems.length) % philosophyItems.length] : null;
+  const nextThinker = activeIndex !== -1 ? philosophyItems[(activeIndex + 1) % philosophyItems.length] : null;
 
   return (
     <div className="relative min-h-screen w-full bg-[#050505] text-white selection:bg-white selection:text-black">
@@ -175,27 +178,55 @@ export default function ActivityPage() {
           {/* Expansive Full Desktop Broadsheet Spread */}
           <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 pt-8 sm:pt-14 space-y-12 sm:space-y-16">
             
-            {/* 1. Full-Width Masthead Header */}
+            {/* 1. Full-Width Masthead Header with Grand Archival Portrait */}
             <div className="border-b border-white/10 pb-10 sm:pb-14">
-              <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="w-9 h-9 rounded-full bg-white text-black font-mono font-bold text-sm flex items-center justify-center shadow-md">
-                  {activeDossier.numeral}
-                </span>
-                <span className="px-3.5 py-1 rounded-full bg-white/[0.05] border border-white/15 text-xs font-mono tracking-widest text-neutral-300 uppercase font-semibold">
-                  {activeDossier.archetype}
-                </span>
-                <span className="text-xs font-mono text-neutral-500">
-                  {activeDossier.dateOrEra} • {activeDossier.readTime}
-                </span>
-              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                {/* Left Text Column */}
+                <div className="lg:col-span-8 space-y-4">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="w-9 h-9 rounded-full bg-white text-black font-mono font-bold text-sm flex items-center justify-center shadow-md">
+                      {activeDossier.numeral}
+                    </span>
+                    <span className="px-3.5 py-1 rounded-full bg-white/[0.05] border border-white/15 text-xs font-mono tracking-widest text-neutral-300 uppercase font-semibold">
+                      {activeDossier.archetype}
+                    </span>
+                    <span className="text-xs font-mono text-neutral-500">
+                      {activeDossier.dateOrEra} • {activeDossier.readTime}
+                    </span>
+                  </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-serif font-normal text-white leading-[1.04] tracking-tight mb-4">
-                {activeDossier.authorOrOrigin}
-              </h1>
-              
-              <p className="text-2xl sm:text-3xl lg:text-4xl font-serif italic text-neutral-300 font-light max-w-5xl leading-tight">
-                {activeDossier.title}
-              </p>
+                  <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-serif font-normal text-white leading-[1.04] tracking-tight mb-2">
+                    {activeDossier.authorOrOrigin}
+                  </h1>
+                  
+                  <p className="text-2xl sm:text-3xl lg:text-4xl font-serif italic text-neutral-300 font-light max-w-5xl leading-tight">
+                    {activeDossier.title}
+                  </p>
+                </div>
+
+                {/* Right: Grand Archival Portrait */}
+                {activeDossier.authorImage && (
+                  <div className="lg:col-span-4 flex justify-start lg:justify-end">
+                    <div className="relative group w-44 h-56 sm:w-52 sm:h-64 rounded-3xl overflow-hidden border border-white/20 bg-neutral-950 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_2px_rgba(255,255,255,0.2)]">
+                      <div className="relative w-full h-full rounded-[22px] overflow-hidden">
+                        <Image
+                          src={activeDossier.authorImage}
+                          alt={activeDossier.authorOrOrigin}
+                          fill
+                          priority
+                          sizes="(max-width: 640px) 176px, 208px"
+                          className="object-cover grayscale contrast-125 brightness-95 group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                        <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[10px] font-mono text-neutral-300 px-2 py-1 rounded-lg bg-black/60 backdrop-blur-md border border-white/10">
+                          <span className="uppercase font-bold tracking-wider">{activeDossier.archetype}</span>
+                          <span className="text-neutral-400">{activeDossier.numeral}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               {/* Full-Width Core Axiom Callout */}
               <div className="mt-8 p-6 sm:p-8 rounded-3xl bg-[#0a0a0c] border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.15)] flex items-start gap-4">
@@ -459,14 +490,29 @@ export default function ActivityPage() {
                       </span>
                     </div>
 
-                    {/* Thinker Name & Treatise Title */}
-                    <div>
-                      <h3 className="text-3xl sm:text-4xl font-serif text-white font-medium tracking-tight group-hover:text-neutral-100 transition-colors">
-                        {item.authorOrOrigin}
-                      </h3>
-                      <p className="text-xs font-mono text-neutral-500 mt-1">
-                        {item.dateOrEra}
-                      </p>
+                    {/* Thinker Name & Treatise Title with Portrait */}
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="space-y-1">
+                        <h3 className="text-3xl sm:text-4xl font-serif text-white font-medium tracking-tight group-hover:text-neutral-100 transition-colors">
+                          {item.authorOrOrigin}
+                        </h3>
+                        <p className="text-xs font-mono text-neutral-500">
+                          {item.dateOrEra}
+                        </p>
+                      </div>
+
+                      {item.authorImage && (
+                        <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-2xl overflow-hidden border border-white/20 bg-neutral-900 group-hover:border-white/50 group-hover:scale-105 transition-all duration-500 shadow-md">
+                          <Image
+                            src={item.authorImage}
+                            alt={item.authorOrOrigin}
+                            fill
+                            sizes="(max-width: 640px) 64px, 80px"
+                            className="object-cover grayscale contrast-125 brightness-95 group-hover:contrast-110 group-hover:brightness-105 transition-all duration-700"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                        </div>
+                      )}
                     </div>
 
                     {/* Core Axiom Callout */}
