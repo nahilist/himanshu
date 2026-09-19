@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, BookOpen, Library, Sparkles } from "lucide-react";
+import { ArrowUpRight, BookOpen, Library } from "lucide-react";
 import { ArchivalBook } from "@/app/api/activity/books/route";
 import { soundFx } from "@/utils/audio";
 
@@ -21,27 +21,27 @@ export const ArchivalBookShelf: React.FC<ArchivalBookShelfProps> = ({
 
   useEffect(() => {
     let isMounted = true;
-    setLoading(true);
 
-    fetch(`/api/activity/books?author=${encodeURIComponent(author)}&limit=8`)
-      .then((res) => res.json())
-      .then((data) => {
+    const loadBooks = async () => {
+      try {
+        const res = await fetch(`/api/activity/books?author=${encodeURIComponent(author)}&limit=8`);
+        const data = await res.json();
         if (isMounted) {
-          if (Array.isArray(data?.books)) {
-            setBooks(data.books);
-          } else {
-            setBooks([]);
-          }
-          setLoading(false);
+          setBooks(Array.isArray(data?.books) ? data.books : []);
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.warn("[ArchivalBookShelf] Fetch failed:", err);
         if (isMounted) {
           setBooks([]);
+        }
+      } finally {
+        if (isMounted) {
           setLoading(false);
         }
-      });
+      }
+    };
+
+    loadBooks();
 
     return () => {
       isMounted = false;
