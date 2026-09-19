@@ -219,6 +219,25 @@ export const PORTFOLIO_DATA = {
       githubUrl: "https://github.com/nahilist/target-groww",
       liveUrl: "https://target-groww.vercel.app",
     },
+    {
+      id: "geoverse",
+      title: "Geoverse Trade Ventures",
+      category: "Frontend",
+      badge: "Industrial Trade & Logistics",
+      problemStatement:
+        "Industrial manufacturing powerhouses and energy plants require transparent, reliable bulk coal procurement and multimodal logistics without delivery bottlenecks.",
+      whatIBuilt:
+        "A premier corporate web platform and procurement portal for industrial coal supply and multimodal logistics across India, featuring grade specs and inquiry workflows.",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Turbopack"],
+      keyFeatures: [
+        "Interactive coal product specification explorer & grade comparison",
+        "Multimodal supply chain logistics tracking & inquiry pipeline",
+        "Responsive luxury corporate UI with fluid micro-interactions",
+        "Sub-second TTFB with high-speed Turbopack build optimization",
+      ],
+      githubUrl: "https://github.com/nahilist",
+      liveUrl: "https://www.geoverse.in/",
+    },
   ] as ProjectItem[],
 
   experienceEducation: [

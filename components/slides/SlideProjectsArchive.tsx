@@ -19,11 +19,15 @@ export const SlideProjectsArchive: React.FC = () => {
   const projects = PORTFOLIO_DATA.projects;
 
   // Pairs of projects to showcase in the 2-column view
-  // Pair 0: Elementum 3D (Dark Neon) + Target Groww (Clean White) -> EXACT match to user's reference image!
+  // Pair 0: Elementum 3D & Target Groww
+  // Pair 1: Geoverse Trade Ventures & Atlas Systems
+  // Pair 2: Digit Classifier & AI Notes
+  // Pair 3: Smart E-Waste Repairability
   const projectPairs = [
-    [projects[0], projects[5]], // Elementum 3D & Target Groww
-    [projects[1], projects[2]], // Atlas Systems & Digit Classifier
-    [projects[3], projects[4]], // AI Notes & Smart E-Waste
+    [projects[0], projects[5]],
+    [projects[6], projects[1]],
+    [projects[2], projects[3]],
+    [projects[4]],
   ];
 
   const [currentPairIndex, setCurrentPairIndex] = useState<number>(0);
@@ -131,7 +135,11 @@ export const SlideProjectsArchive: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-stretch w-full"
+            className={`grid grid-cols-1 ${
+              currentPair.length === 1
+                ? "md:grid-cols-1 max-w-xl mx-auto"
+                : "md:grid-cols-2"
+            } gap-6 sm:gap-8 lg:gap-12 items-stretch w-full`}
           >
             {currentPair.map((project) => {
               const categoryTag = categoryTags[project.id] || "UI/UX / DEVELOPMENT";
