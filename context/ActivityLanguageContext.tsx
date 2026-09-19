@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export type Language = "en" | "hi";
 
@@ -17,18 +17,17 @@ const ActivityLanguageContext = createContext<
 export const ActivityLanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [language, setLanguageState] = useState<Language>("en");
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("activity_lang");
-      if (saved === "en" || saved === "hi") {
-        setLanguageState(saved);
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("activity_lang");
+        if (saved === "en" || saved === "hi") return saved;
+      } catch {
+        // Ignore localStorage read errors
       }
-    } catch {
-      // Ignore localStorage read errors
     }
-  }, []);
+    return "en";
+  });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);

@@ -148,8 +148,15 @@ const CURATED_FALLBACKS: Record<string, ArchivalBook[]> = {
   ],
 };
 
+export interface BooksApiResponse {
+  author: string;
+  source: string;
+  count: number;
+  books: ArchivalBook[];
+}
+
 // In-memory LRU-like cache to eliminate repeated outbound requests and ensure 0ms response
-const MEMORY_CACHE = new Map<string, { timestamp: number; data: any }>();
+const MEMORY_CACHE = new Map<string, { timestamp: number; data: BooksApiResponse }>();
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour in-memory cache
 
 // In-memory sliding-window IP rate limiter to protect against spam / DoS

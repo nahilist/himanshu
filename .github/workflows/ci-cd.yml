@@ -1,0 +1,128 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - project-addnew
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+# Cancel any previous in-flight runs on the same branch or PR to optimize build minutes
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "20.x"
+
+jobs:
+  # -------------------------------------------------------------
+  # STAGE 1: Code Quality & Static Analysis (CI)
+  # -------------------------------------------------------------
+  quality-check:
+    name: Lint & Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Static Type Check (TypeScript)
+        run: npm run typecheck
+
+      - name: Code Quality & Linting (ESLint)
+        run: npm run lint
+
+  # -------------------------------------------------------------
+  # STAGE 2: Optimized Production Build (CI)
+  # -------------------------------------------------------------
+  build:
+    name: Production Build
+    needs: quality-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      # Cache Next.js build artifacts for faster subsequent builds
+      - name: Cache Next.js bundle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Next.js Production Build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          NODE_ENV: production
+
+      - name: Publish Build Summary
+        run: |
+          echo "### 🚀 CI Build & Verification Passed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Node**: \`${{ env.NODE_VERSION }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ✅ All quality checks, TypeScript types, and Next.js bundle generated successfully." >> $GITHUB_STEP_SUMMARY
+
+  # -------------------------------------------------------------
+  # STAGE 3: Continuous Deployment (CD)
+  # -------------------------------------------------------------
+  deploy:
+    name: Continuous Deployment
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/project-addnew')
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Trigger AWS Amplify build webhook if configured in repository secrets
+      - name: Trigger AWS Amplify Webhook (Optional)
+        if: env.AMPLIFY_WEBHOOK_URL != ''
+        env:
+          AMPLIFY_WEBHOOK_URL: ${{ secrets.AMPLIFY_WEBHOOK_URL }}
+        run: |
+          echo "Triggering AWS Amplify Deployment..."
+          curl -X POST -d '{}' "$AMPLIFY_WEBHOOK_URL"
+          echo "Amplify webhook triggered successfully."
+
+      - name: Deployment Status Summary
+        run: |
+          echo "### 📦 CD Deployment Readiness" >> $GITHUB_STEP_SUMMARY
+          echo "- **Target Environment**: Production / Staging" >> $GITHUB_STEP_SUMMARY
+          echo "- **Triggered By**: \`${{ github.actor }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Pipeline Status**: ✅ Ready for Automated Live Rollout" >> $GITHUB_STEP_SUMMARY
+
