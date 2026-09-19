@@ -141,26 +141,26 @@ export const PORTFOLIO_DATA = {
         "Role-based access control with secure Supabase authentication",
       ],
       githubUrl: "https://github.com/nahilist/atlas-systems",
-      liveUrl: "https://atlas-systems.vercel.app",
+      liveUrl: "https://atlas-invisible-systems.vercel.app/?system=INTERNET&view=OVERVIEW&camera=OVERVIEW",
     },
     {
       id: "digit-classifier",
       title: "Handwritten Digit Classifier",
       category: "AI/ML & GenAI",
-      badge: "Computer Vision",
+      badge: "SVHN Computer Vision",
       problemStatement:
         "Deploying deep convolutional neural networks into low-latency, interactive web browsers requires model quantization and responsive inference pipelines.",
       whatIBuilt:
-        "An interactive end-to-end computer vision application that classifies drawn digits in real-time, displaying live class confidence probabilities and feature maps.",
-      technologies: ["PyTorch", "Python", "TensorFlow", "OpenCV", "Next.js"],
+        "An interactive end-to-end computer vision application that classifies drawn and SVHN digits in real-time, displaying live class confidence probabilities and feature maps.",
+      technologies: ["PyTorch", "Python", "TensorFlow", "OpenCV", "Streamlit"],
       keyFeatures: [
-        "Deep CNN trained on MNIST with 99.2% validation accuracy",
+        "Deep CNN trained on SVHN/MNIST with high validation accuracy",
         "Smooth drawing canvas with automatic centering and bounding-box normalization",
         "Real-time probability distribution chart for all 10 digits",
         "Layer activation visualization showing model focus areas",
       ],
       githubUrl: "https://github.com/nahilist/digit-classifier",
-      liveUrl: "https://digit-classifier.streamlit.app",
+      liveUrl: "https://handwritten-digit-svhn-32x32.streamlit.app/",
     },
     {
       id: "ai-notes-summarizer",
@@ -179,7 +179,7 @@ export const PORTFOLIO_DATA = {
         "Export to Markdown, PDF, and Notion-compatible formats",
       ],
       githubUrl: "https://github.com/nahilist/ai-notes-summarizer",
-      liveUrl: "https://notes-summarizer.vercel.app",
+      liveUrl: "https://ai-notes-summarizer-pisq.onrender.com/",
     },
     {
       id: "smart-ewaste-repairability",
@@ -190,7 +190,7 @@ export const PORTFOLIO_DATA = {
         "Over 50 million tons of e-waste are discarded annually because consumers lack transparent information regarding repair costs, modularity, and part availability.",
       whatIBuilt:
         "A machine learning diagnostic and scoring web system that calculates a repairability index for consumer electronics and provides step-by-step disassembly guides.",
-      technologies: ["Python", "Scikit-learn", "Pandas", "Django", "Tailwind CSS"],
+      technologies: ["Python", "Scikit-learn", "Pandas", "Django", "Streamlit"],
       keyFeatures: [
         "Predictive repairability score calculated via Random Forest regression",
         "Component breakdown checklist with cost-benefit analysis",
@@ -198,7 +198,7 @@ export const PORTFOLIO_DATA = {
         "Environmental impact calculator measuring carbon offset",
       ],
       githubUrl: "https://github.com/nahilist/ewaste-repairability",
-      liveUrl: "https://smart-ewaste.vercel.app",
+      liveUrl: "https://e-waste-predictor-100x.streamlit.app/",
     },
     {
       id: "target-groww",
