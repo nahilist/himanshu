@@ -265,7 +265,7 @@ export const SlideProjectsArchive: React.FC = () => {
               </div>
 
               {/* Category Filters */}
-              <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-4 no-scrollbar">
+              <div className="flex flex-wrap items-center gap-2 pb-2 sm:pb-4 mb-3 sm:mb-4">
                 {["ALL", "AI/ML & GenAI", "FRONTEND", "FULL STACK"].map((f) => {
                   const isActive = activeFilter === f;
                   return (
@@ -275,7 +275,7 @@ export const SlideProjectsArchive: React.FC = () => {
                         soundFx.playTick();
                         setActiveFilter(f);
                       }}
-                      className={`px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-colors cursor-pointer whitespace-nowrap ${
+                      className={`px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-mono tracking-wider transition-colors cursor-pointer whitespace-nowrap ${
                         isActive
                           ? "bg-[#ff6600] text-white font-semibold shadow-lg shadow-orange-600/30"
                           : "bg-neutral-900 text-neutral-400 hover:text-white border border-neutral-800"
