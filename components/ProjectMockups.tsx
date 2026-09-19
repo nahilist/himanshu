@@ -406,7 +406,80 @@ export const MockupSmartEwaste: React.FC = () => (
   </div>
 );
 
+export const MockupGeoverse: React.FC = () => (
+  <div className="w-full h-full bg-[#080d14] text-white relative overflow-hidden flex flex-col justify-between p-4 sm:p-6 select-none">
+    {/* High-res cinematic background image */}
+    <div className="absolute inset-0">
+      <Image
+        src="/projects/geoverse.jpg"
+        alt="Geoverse Trade Ventures - Industrial Logistics & Energy Supply"
+        fill
+        sizes="(max-width: 768px) 100vw, 650px"
+        className="object-cover object-center"
+      />
+    </div>
+
+    {/* Cinematic Gradient Overlays for optimal readability and luxury finish */}
+    <div className="absolute inset-0 bg-gradient-to-t from-[#04080e]/95 via-[#04080e]/40 to-[#04080e]/75 pointer-events-none" />
+
+    {/* Top Navbar */}
+    <div className="relative z-10 flex items-center justify-between text-[10px] font-mono">
+      <div className="flex items-center gap-2">
+        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
+        <span className="font-bold tracking-widest uppercase text-white">
+          GEOVERSE <span className="text-amber-400 font-normal text-[9px]">TRADE VENTURES</span>
+        </span>
+      </div>
+      <div className="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[9px] font-semibold tracking-wider backdrop-blur-md">
+        INDUSTRIAL SUPPLY & LOGISTICS
+      </div>
+    </div>
+
+    {/* Central Typography & Key Telemetry Badge */}
+    <div className="relative z-10 my-auto text-center py-2">
+      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 border border-white/15 text-[9px] font-mono text-neutral-300 backdrop-blur-md mb-2">
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <span>PAN-INDIA BULK COAL PROCUREMENT</span>
+      </div>
+
+      <h4 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+        POWERING <span className="text-amber-400">INDUSTRIES</span>
+      </h4>
+      <p className="text-[10px] sm:text-xs font-mono text-amber-200/90 tracking-wider mt-0.5 font-medium italic">
+        Delivering Growth Through Dependable Fuel Supply
+      </p>
+
+      {/* Floating 3-Metric Industrial HUD */}
+      <div className="mt-3.5 p-2.5 sm:p-3 rounded-2xl bg-black/70 border border-amber-500/30 max-w-sm mx-auto flex items-center justify-around gap-2 font-mono text-[9px] backdrop-blur-md shadow-2xl">
+        <div className="text-center">
+          <span className="text-amber-400 font-bold block text-xs sm:text-sm">10k+ MT</span>
+          <span className="text-neutral-400 text-[8px]">CAPABILITY</span>
+        </div>
+        <div className="h-6 w-px bg-neutral-800" />
+        <div className="text-center">
+          <span className="text-emerald-400 font-bold block text-xs sm:text-sm">5 SECTORS</span>
+          <span className="text-neutral-400 text-[8px]">POWER & CEMENT</span>
+        </div>
+        <div className="h-6 w-px bg-neutral-800" />
+        <div className="text-center">
+          <span className="text-cyan-400 font-bold block text-xs sm:text-sm">MULTIMODAL</span>
+          <span className="text-neutral-400 text-[8px]">RAIL & ROAD</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom Footer Bar */}
+    <div className="relative z-10 flex items-center justify-between text-[9px] font-mono text-neutral-300 border-t border-white/15 pt-2">
+      <span>NEXT.JS / TYPESCRIPT / TURBOPACK</span>
+      <span className="text-amber-400 font-semibold tracking-wider flex items-center gap-1">
+        GEOVERSE.IN ↗
+      </span>
+    </div>
+  </div>
+);
+
 export const projectMockups: Record<string, React.ReactNode> = {
+  geoverse: <MockupGeoverse />,
   "elementum-3d": <MockupElementum3D />,
   "target-groww": <MockupTargetGroww />,
   "atlas-invisible-systems": <MockupAtlasSystems />,
@@ -416,6 +489,7 @@ export const projectMockups: Record<string, React.ReactNode> = {
 };
 
 export const categoryTags: Record<string, string> = {
+  geoverse: "INDUSTRIAL B2B / LOGISTICS PLATFORM",
   "elementum-3d": "UI/UX / DEVELOPMENT",
   "target-groww": "UI/UX / DEVELOPMENT",
   "atlas-invisible-systems": "SYSTEMS ARCHITECTURE / CLOUD",
