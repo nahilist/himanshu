@@ -109,6 +109,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Deploy to Cloudflare Workers if CLOUDFLARE_API_TOKEN secret is configured
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npm ci
+
+      - name: Deploy to Cloudflare Workers
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx opennextjs-cloudflare deploy
+
       # Trigger AWS Amplify build webhook if configured in repository secrets
       - name: Trigger AWS Amplify Webhook (Optional)
         if: env.AMPLIFY_WEBHOOK_URL != ''
@@ -122,7 +141,7 @@ jobs:
       - name: Deployment Status Summary
         run: |
           echo "### 📦 CD Deployment Readiness" >> $GITHUB_STEP_SUMMARY
-          echo "- **Target Environment**: Production / Staging" >> $GITHUB_STEP_SUMMARY
+          echo "- **Target Environment**: Production / Cloudflare Workers" >> $GITHUB_STEP_SUMMARY
           echo "- **Triggered By**: \`${{ github.actor }}\`" >> $GITHUB_STEP_SUMMARY
           echo "- **Pipeline Status**: ✅ Ready for Automated Live Rollout" >> $GITHUB_STEP_SUMMARY
 
