@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "himanshu",
+  "name": "himanshudev",
   "account_id": "84b075227492042ea107f2c3d2b6a629",
   "main": ".open-next/worker.js",
   "compatibility_date": "2024-09-23",
@@ -12,7 +12,7 @@
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "himanshu"
+      "service": "himanshudev"
     }
   ],
   "images": {
