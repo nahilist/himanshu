@@ -433,7 +433,7 @@ export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onCont
             data-modal="true"
             role="dialog"
             aria-modal="true"
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-neutral-950/60 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-neutral-100/90 backdrop-blur-xl"
             onClick={() => {
               soundFx.playTick();
               setActiveService(null);

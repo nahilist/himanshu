@@ -117,7 +117,7 @@ export default function PoetryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#f5f5f5] selection:bg-white selection:text-black font-sans antialiased relative">
+    <div className="activity-light min-h-screen bg-white text-neutral-950 selection:bg-amber-100 selection:text-black font-sans antialiased relative">
       <ActivityHeader currentSection="poetry" />
 
       {/* Atmospheric Monochrome Background */}

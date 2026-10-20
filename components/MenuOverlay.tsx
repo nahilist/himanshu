@@ -7,7 +7,6 @@ import { X, ArrowUpRight, FileText, BookOpen } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/Icons";
 import { soundFx } from "@/utils/audio";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
-import Image from "next/image";
 
 interface MenuOverlayProps {
   isOpen: boolean;
@@ -59,21 +58,12 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-neutral-950/95 text-white backdrop-blur-2xl flex flex-col justify-between p-6 md:p-14 overflow-y-auto"
+          className="fixed inset-0 z-50 bg-white/95 text-neutral-950 backdrop-blur-2xl flex flex-col justify-between p-6 md:p-14 overflow-y-auto"
         >
           {/* Top Bar inside menu */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="relative h-10 w-auto flex items-center justify-center">
-                <Image
-                  src="/logo-monogram-white.png"
-                  alt="nahilist logo"
-                  width={40}
-                  height={48}
-                  className="h-9 w-auto object-contain"
-                />
-              </div>
-              <span className="font-extrabold tracking-tight text-lg text-white">
+              <span className="font-extrabold tracking-tight text-lg text-neutral-950">
                 {personal.name}
               </span>
               <span className="text-neutral-500 font-mono text-xs hidden sm:inline">
@@ -86,7 +76,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 soundFx.playTick();
                 onClose();
               }}
-              className="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 hover:border-white text-xs font-mono tracking-widest uppercase transition-colors cursor-pointer"
+              className="group flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-300 hover:border-neutral-950 text-xs font-mono tracking-widest uppercase transition-colors cursor-pointer"
             >
               <span>CLOSE</span>
               <X className="w-4 h-4 transition-transform group-hover:rotate-90" />
@@ -111,13 +101,13 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                     onSelectSlide(item.slideIndex);
                     onClose();
                   }}
-                  className="group cursor-pointer flex items-center justify-between border-b border-white/10 py-3 hover:border-amber-400 transition-colors"
+                  className="group cursor-pointer flex items-center justify-between border-b border-neutral-200 py-3 hover:border-amber-500 transition-colors"
                 >
                   <div className="flex items-baseline gap-4 md:gap-8">
                     <span className="font-mono text-xs text-neutral-500 group-hover:text-amber-400 transition-colors">
                       0{idx + 1}
                     </span>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-neutral-200 group-hover:text-white group-hover:translate-x-2 transition-all duration-300">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-neutral-800 group-hover:text-neutral-950 group-hover:translate-x-2 transition-all duration-300">
                       {item.label}
                     </h2>
                   </div>
@@ -142,7 +132,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                     <span className="font-mono text-xs text-amber-400 font-bold group-hover:text-amber-300 transition-colors">
                       ✦ 07
                     </span>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-amber-300 group-hover:text-white group-hover:translate-x-2 transition-all duration-300 flex items-center gap-2">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-amber-600 group-hover:text-neutral-950 group-hover:translate-x-2 transition-all duration-300 flex items-center gap-2">
                       <span>ACTIVITY</span>
                       <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </h2>
@@ -153,7 +143,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
           </div>
 
           {/* Footer inside menu */}
-          <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+          <div className="pt-6 border-t border-neutral-200 flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
             <div className="space-y-1.5">
               <span className="text-neutral-500 text-[11px] font-mono tracking-wider uppercase block">
                 STATUS & LOCAL TIME
@@ -163,7 +153,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
               </p>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-xs text-neutral-300 font-mono">
+                <span className="text-xs text-neutral-700 font-mono">
                   {personal.status}
                 </span>
               </div>
@@ -189,7 +179,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                   onClose();
                   onOpenResume();
                 }}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/20 hover:border-white text-white transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-neutral-300 hover:border-neutral-950 text-neutral-950 transition-colors cursor-pointer"
               >
                 <FileText className="w-3 h-3 text-amber-400" />
                 <span>Resume</span>
@@ -199,7 +189,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 href={personal.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/20 hover:border-white text-neutral-300 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 hover:border-neutral-950 text-neutral-600 hover:text-neutral-950 transition-colors"
               >
                 <GithubIcon className="w-3 h-3" />
                 <span>GitHub</span>
@@ -209,7 +199,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 href={personal.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/20 hover:border-white text-neutral-300 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 hover:border-neutral-950 text-neutral-600 hover:text-neutral-950 transition-colors"
               >
                 <LinkedinIcon className="w-3 h-3" />
                 <span>LinkedIn</span>

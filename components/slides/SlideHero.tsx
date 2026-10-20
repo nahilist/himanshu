@@ -3,94 +3,211 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  BriefcaseBusiness,
+  House,
+  Mail,
+  Sparkles,
+} from "lucide-react";
+import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/Icons";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
+import { soundFx } from "@/utils/audio";
 
 interface SlideHeroProps {
   onViewProjects?: () => void;
   onOpenResume?: () => void;
   onContactMe?: () => void;
+  onNavigate?: (index: number) => void;
 }
 
-export const SlideHero: React.FC<SlideHeroProps> = () => {
+const socialLinks = [
+  {
+    label: "Instagram",
+    href: "https://instagram.com/himanshux64",
+    icon: InstagramIcon,
+  },
+  {
+    label: "LinkedIn",
+    href: PORTFOLIO_DATA.personal.linkedin,
+    icon: LinkedinIcon,
+  },
+  {
+    label: "GitHub",
+    href: PORTFOLIO_DATA.personal.github,
+    icon: GithubIcon,
+  },
+];
+
+export const SlideHero: React.FC<SlideHeroProps> = ({
+  onContactMe,
+  onNavigate,
+}) => {
   const { personal } = PORTFOLIO_DATA;
+  const mobileNavItems = [
+    { label: "Home", icon: House, slide: 0 },
+    { label: "Work", icon: BriefcaseBusiness, slide: 2 },
+    { label: "Skills", icon: Sparkles, slide: 3 },
+    { label: "Story", icon: BookOpen, slide: 1 },
+    { label: "Contact", icon: Mail, slide: 4 },
+  ];
+
+  const playAndContact = () => {
+    soundFx.playOpenModal();
+    onContactMe?.();
+  };
 
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 md:px-12 bg-white overflow-hidden">
-      {/* Main Content */}
-      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center justify-center pt-2 sm:pt-4">
-        {/* Portrait Image with aligned Amber Glow */}
-        <div className="relative flex items-center justify-center mb-4 sm:mb-6">
-          {/* Diffused amber aura positioned precisely behind the person on all screen sizes */}
-          <div className="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none -z-10">
-            <motion.div
-              animate={{
-                scale: [1, 1.08, 0.98, 1],
-                opacity: [0.85, 1, 0.8, 0.85],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] md:w-[580px] md:h-[580px] rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(255, 120, 20, 0.85) 0%, rgba(255, 160, 50, 0.52) 36%, rgba(255, 210, 150, 0.24) 58%, rgba(255, 255, 255, 0) 75%)",
-                filter: "blur(40px)",
-              }}
-            />
-          </div>
-
-          {/* Cutout Portrait Image - enlarged on mobile for bold prominence with soft bottom fade */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-[17rem] h-[19.5rem] sm:w-[19rem] sm:h-[22rem] md:w-[21rem] md:h-[24rem] lg:w-[23rem] lg:h-[26.5rem] flex items-end justify-center select-none pointer-events-none"
-            style={{
-              WebkitMaskImage:
-                "linear-gradient(to bottom, black 0%, black 76%, transparent 99%)",
-              maskImage:
-                "linear-gradient(to bottom, black 0%, black 76%, transparent 99%)",
-            }}
-          >
-            <Image
-              src="/pic-remove-background.png"
-              alt={personal.name}
-              fill
-              sizes="(max-width: 640px) 272px, (max-width: 768px) 304px, (max-width: 1024px) 336px, 368px"
-              priority
-              className="object-contain object-bottom drop-shadow-2xl"
-            />
-          </motion.div>
-        </div>
-
-        {/* Candidate Greeting & Name */}
+    <section className="relative h-full min-h-screen w-full overflow-hidden bg-[#d5d5d3] p-[7px] text-neutral-950 md:bg-[#f7f7f5] md:p-0">
+      <div className="relative h-full w-full overflow-hidden rounded-t-[22px] border border-white/80 bg-[#f9f9f8] shadow-[0_0_24px_rgba(0,0,0,0.08)] md:rounded-none md:border-0 md:bg-[#f7f7f5] md:shadow-none">
+        {/* Oversized signature-style brand */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-light tracking-tight leading-[1.06] text-neutral-900"
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="pointer-events-none absolute left-1/2 top-[8.5%] z-0 -translate-x-1/2 whitespace-nowrap text-[20vw] leading-none tracking-[-0.1em] md:top-[7%] md:text-[17vw] lg:top-[-1%] lg:text-[14.5vw]"
+          style={{
+            fontFamily: '"Segoe Script", "Brush Script MT", cursive',
+            fontWeight: 500,
+          }}
         >
-          <span>Hello, I am </span>
-          <span className="font-extrabold tracking-normal text-neutral-950 block sm:inline">
-            {personal.name}
-          </span>
+          Nahilist
         </motion.h1>
 
-        {/* Role Headline */}
+        {/* Central portrait */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-3 sm:mt-5 flex items-center justify-center gap-2 sm:gap-2.5 text-sm sm:text-xl md:text-2xl lg:text-3xl font-normal text-neutral-800"
+          initial={{ opacity: 0, y: 30, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="pointer-events-none absolute left-1/2 top-[20%] z-10 h-[28vh] min-h-[10rem] w-[55%] max-w-[15rem] -translate-x-1/2 select-none md:bottom-0 md:top-auto md:h-[73vh] md:w-[38vw] md:max-w-[32rem]"
         >
-          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 shrink-0" />
-          <span className="font-mono tracking-tight font-semibold bg-gradient-to-r from-neutral-900 via-amber-700 to-neutral-900 bg-clip-text text-transparent">
-            {personal.role}
-          </span>
+          <Image
+            src="/pic-remove-background.png"
+            alt={personal.name}
+            fill
+            sizes="(max-width: 767px) 55vw, 38vw"
+            priority
+            className="object-contain object-bottom grayscale contrast-[1.08]"
+          />
         </motion.div>
+
+        {/* Role and introduction */}
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute left-1/2 top-[48.5%] z-20 w-[88%] -translate-x-1/2 text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:translate-x-0 md:text-left"
+        >
+          <h2 className="text-lg font-extrabold tracking-[-0.04em] sm:text-xl md:text-2xl lg:text-[2rem]">
+            {personal.role}
+          </h2>
+          <button
+            type="button"
+            onClick={playAndContact}
+            className="group mt-5 hidden h-14 items-center gap-8 rounded-full bg-white py-1 pl-6 pr-1 shadow-[0_12px_28px_rgba(0,0,0,0.16),0_2px_0_rgba(0,0,0,0.75)] transition-transform hover:-translate-y-0.5 md:inline-flex"
+          >
+            <span className="text-base font-bold">Let&apos;s collaborate</span>
+            <span className="flex size-12 items-center justify-center rounded-full border border-neutral-200 bg-white shadow-sm">
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </button>
+        </motion.div>
+
+        {/* Compact mobile action grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute left-1/2 top-[61%] z-30 grid w-[88%] -translate-x-1/2 grid-cols-2 gap-2 md:hidden"
+        >
+          <button
+            type="button"
+            onClick={playAndContact}
+            className="group flex h-10 items-center justify-between rounded-full bg-white pl-4 pr-1.5 text-[11px] font-bold shadow-[0_8px_18px_rgba(0,0,0,0.12),0_1.5px_0_rgba(0,0,0,0.65)]"
+          >
+            <span>Collaborate</span>
+            <span className="flex size-7 items-center justify-center rounded-full border border-neutral-200">
+              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </button>
+
+          {socialLinks.map(({ label, href, icon: Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => soundFx.playTick()}
+              className="group flex h-10 items-center justify-between rounded-full bg-white pl-3.5 pr-1.5 text-[11px] font-semibold shadow-[0_8px_18px_rgba(0,0,0,0.12),0_1.5px_0_rgba(0,0,0,0.65)]"
+            >
+              <span className="flex items-center gap-1.5">
+                <Icon className="size-3.5" />
+                {label}
+              </span>
+              <span className="flex size-7 items-center justify-center rounded-full border border-neutral-200">
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </a>
+          ))}
+        </motion.div>
+
+        {/* Desktop social links */}
+        <motion.nav
+          aria-label="Social links"
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute bottom-[6.5%] right-[4%] z-30 hidden flex-col gap-3 md:flex"
+        >
+          {socialLinks.map(({ label, href, icon: Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => soundFx.playTick()}
+              className="group flex h-11 w-44 items-center justify-between rounded-full bg-white px-4 shadow-[0_9px_20px_rgba(0,0,0,0.13),0_2px_0_rgba(0,0,0,0.75)] transition-transform hover:-translate-y-0.5"
+            >
+              <span className="flex items-center gap-2">
+                <Icon className="size-4" />
+                <span className="text-sm font-semibold">{label}</span>
+              </span>
+              <span className="ml-3 flex size-7 items-center justify-center rounded-full border border-neutral-200 shadow-sm">
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </a>
+          ))}
+        </motion.nav>
+
+        {/* Mobile bottom navigation */}
+        <nav
+          aria-label="Portfolio sections"
+          className="absolute bottom-3 left-1/2 z-30 flex h-14 w-[88%] -translate-x-1/2 items-center justify-around rounded-full bg-white px-2 shadow-[0_8px_30px_rgba(0,0,0,0.12)] md:hidden"
+        >
+          {mobileNavItems.map(({ label, icon: Icon, slide }) => {
+            const isActive = slide === 0;
+
+            return (
+              <button
+                key={label}
+                type="button"
+                onClick={() => {
+                  soundFx.playTick();
+                  onNavigate?.(slide);
+                }}
+                className={`flex min-w-10 flex-col items-center justify-center gap-0.5 rounded-2xl px-2 py-1.5 text-[8px] transition-colors ${
+                  isActive
+                    ? "bg-neutral-950 text-white"
+                    : "text-neutral-500 hover:text-neutral-950"
+                }`}
+              >
+                <Icon className="size-3.5" />
+                <span>{label}</span>
+              </button>
+            );
+          })}
+        </nav>
       </div>
     </section>
   );

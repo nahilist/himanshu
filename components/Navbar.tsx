@@ -13,6 +13,8 @@ interface NavbarProps {
   isAudioActive: boolean;
   onToggleAudio: () => void;
   theme?: "light" | "dark";
+  heroMode?: boolean;
+  hideOnMobile?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -22,13 +24,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   isAudioActive,
   onToggleAudio,
   theme = "light",
+  heroMode = false,
+  hideOnMobile = false,
 }) => {
   const isDark = theme === "dark";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 px-4 sm:px-6 md:px-12 py-3.5 sm:py-5 flex items-center justify-between pointer-events-none transition-colors duration-500">
+    <header className={`fixed top-0 left-0 right-0 z-40 px-5 py-5 sm:px-6 md:px-12 sm:py-5 ${hideOnMobile ? "hidden sm:flex" : "flex"} items-center justify-between pointer-events-none transition-colors duration-500`}>
       {/* Left section: Logo | Sound pill */}
-      <div className="flex items-center gap-2 sm:gap-3.5 pointer-events-auto select-none">
+      <div className={`${heroMode ? "hidden sm:flex" : "flex"} items-center gap-2 sm:gap-3.5 pointer-events-auto select-none`}>
         <div
           onClick={() => {
             soundFx.playTick();
@@ -36,21 +40,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           }}
           className="group cursor-pointer flex items-center gap-2 sm:gap-2.5 transition-all duration-300 hover:opacity-85"
         >
-          {/* Premium Logo Monogram & Wordmark */}
-          <div className="flex items-center gap-2 sm:gap-3 transition-transform duration-300 group-hover:scale-[1.02]">
-            {/* Geometric Monogram Emblem (Large & Razor Sharp) */}
-            <div className="relative h-8 sm:h-10 md:h-12 w-auto flex items-center justify-center">
-              <Image
-                src={isDark ? "/logo-monogram-white.png" : "/logo-monogram.png"}
-                alt="nahilist emblem"
-                width={48}
-                height={56}
-                className="h-7.5 sm:h-9 md:h-11 w-auto object-contain transition-all duration-300 drop-shadow-sm"
-                priority
-              />
-            </div>
-
-            {/* Signature Wordmark */}
+          {/* Signature Wordmark */}
+          <div className="flex items-center transition-transform duration-300 group-hover:scale-[1.02]">
             <div className="relative h-3.5 sm:h-4.5 w-auto flex items-center opacity-90 group-hover:opacity-100 transition-opacity">
               <Image
                 src={isDark ? "/logo-wordmark-white.png" : "/logo-wordmark.png"}
@@ -124,7 +115,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             soundFx.playOpenModal();
             onOpenContact();
           }}
-          className={`group relative inline-flex items-center gap-2 px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm tracking-tight transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-[1.03] active:scale-[0.98] ${
+          className={`${heroMode ? "hidden sm:inline-flex" : "inline-flex"} group relative items-center gap-2 px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm tracking-tight transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-[1.03] active:scale-[0.98] ${
             isDark
               ? "bg-white text-black hover:bg-neutral-100 shadow-white/5"
               : "bg-neutral-950 text-white hover:bg-neutral-800 shadow-black/10"
@@ -150,7 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Separator */}
         <span
-          className={`font-light select-none transition-colors ${
+          className={`${heroMode ? "hidden sm:inline" : "inline"} font-light select-none transition-colors ${
             isDark ? "text-neutral-600" : "text-neutral-300"
           }`}
         >
@@ -163,7 +154,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             soundFx.playTick();
             onOpenMenu();
           }}
-          className={`group relative flex items-center gap-2 h-8 sm:h-9 px-3 sm:px-3.5 rounded-full border backdrop-blur-md transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-[1.03] active:scale-[0.98] ${
+          className={`group relative flex items-center justify-center gap-2 h-9 ${heroMode ? "w-9 px-0 sm:w-auto sm:px-3.5" : "px-3 sm:px-3.5"} rounded-full border backdrop-blur-md transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-[1.03] active:scale-[0.98] ${
             isDark
               ? "border-white/20 bg-neutral-950/80 hover:border-white/50 hover:bg-neutral-900 text-white"
               : "border-neutral-200 bg-white/80 hover:border-neutral-400 hover:bg-white text-neutral-900 shadow-neutral-950/5"
@@ -174,14 +165,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
           {/* Micro "MENU" / "CLOSE" Label */}
-          <span className="font-mono text-[10.5px] sm:text-[11px] font-semibold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity">
+          <span className={`${heroMode ? "hidden sm:inline" : "inline"} font-mono text-[10.5px] sm:text-[11px] font-semibold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity`}>
             {isMenuOpen ? "CLOSE" : "MENU"}
           </span>
 
           {/* 3-Dot Precision Array with Dynamic States */}
-          <div className="flex items-center gap-1 sm:gap-1.5 pl-0.5">
+          <div className={`flex ${heroMode ? "flex-col gap-[2px] pl-0 sm:flex-row sm:gap-1.5 sm:pl-0.5" : "items-center gap-1 sm:gap-1.5 pl-0.5"}`}>
             <span
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+              className={`${heroMode ? "h-px w-3 rounded-none sm:h-1.5 sm:w-1.5 sm:rounded-full" : "w-1.5 h-1.5 rounded-full"} transition-all duration-300 ${
                 isMenuOpen
                   ? "bg-[#ff6600] scale-110"
                   : isDark
@@ -190,7 +181,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             />
             <span
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 delay-75 ${
+              className={`${heroMode ? "h-px w-3 rounded-none sm:h-1.5 sm:w-1.5 sm:rounded-full" : "w-1.5 h-1.5 rounded-full"} transition-all duration-300 delay-75 ${
                 isMenuOpen
                   ? "bg-amber-400 scale-110"
                   : isDark
@@ -199,7 +190,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               }`}
             />
             <span
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 delay-150 ${
+              className={`${heroMode ? "h-px w-3 rounded-none sm:h-1.5 sm:w-1.5 sm:rounded-full" : "w-1.5 h-1.5 rounded-full"} transition-all duration-300 delay-150 ${
                 isMenuOpen
                   ? "bg-[#ff6600] scale-110"
                   : isDark

@@ -22,7 +22,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/85 backdrop-blur-xl overflow-hidden"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-neutral-100/90 backdrop-blur-xl overflow-hidden"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               soundFx.playTick();
@@ -35,15 +35,15 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
             transition={{ type: "spring", stiffness: 320, damping: 30 }}
-            className="relative w-full max-w-5xl h-[88vh] bg-neutral-950 text-white rounded-2xl md:rounded-3xl shadow-2xl border border-neutral-800 overflow-hidden flex flex-col"
+            className="relative w-full max-w-5xl h-[88vh] bg-white text-neutral-950 rounded-2xl md:rounded-3xl shadow-2xl border border-neutral-200 overflow-hidden flex flex-col"
           >
             {/* Top Modal Header */}
-            <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 border-b border-neutral-850 bg-neutral-900/90 backdrop-blur-md sticky top-0 z-20">
+            <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 border-b border-neutral-200 bg-white/90 backdrop-blur-md sticky top-0 z-20">
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <div className="flex items-center gap-2 font-mono text-xs text-neutral-300">
+                <div className="flex items-center gap-2 font-mono text-xs text-neutral-600">
                   <FileText className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="font-semibold text-white tracking-wider uppercase">
+                  <span className="font-semibold text-neutral-950 tracking-wider uppercase">
                     Resume
                   </span>
                   <span className="text-neutral-600 hidden sm:inline">•</span>
@@ -68,7 +68,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                     soundFx.playTick();
                     onClose();
                   }}
-                  className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg text-neutral-500 hover:text-neutral-950 hover:bg-neutral-100 transition-colors cursor-pointer"
                   aria-label="Close"
                 >
                   <X className="w-5 h-5" />
@@ -77,16 +77,16 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             </div>
 
             {/* Embedded Google Drive PDF Viewer */}
-            <div className="relative flex-1 w-full bg-neutral-900 overflow-hidden flex flex-col">
+            <div className="relative flex-1 w-full bg-neutral-100 overflow-hidden flex flex-col">
               <iframe
                 src={previewUrl}
                 title="Himanshu Resume"
-                className="w-full flex-1 border-0 bg-neutral-900"
+                className="w-full flex-1 border-0 bg-neutral-100"
                 allow="autoplay"
               />
 
               {/* Bottom Quick-Access Bar */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-3 border-t border-neutral-850 bg-neutral-950 text-xs font-mono text-neutral-400">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-3 border-t border-neutral-200 bg-white text-xs font-mono text-neutral-500">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Google Drive Document</span>
