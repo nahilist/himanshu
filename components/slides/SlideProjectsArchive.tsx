@@ -90,12 +90,12 @@ export const SlideProjectsArchive: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col justify-between px-4 sm:px-8 md:px-14 lg:px-16 py-4 md:py-12 bg-black text-white overflow-y-auto overscroll-contain">
+    <section className="relative w-full h-full min-h-screen flex flex-col justify-between px-4 sm:px-8 md:px-14 lg:px-16 py-4 md:py-12 bg-white text-neutral-950 overflow-y-auto overscroll-contain">
       {/* Top Header / Subtle Breadcrumb (Generous clearance below fixed navbar) */}
       <div className="relative z-10 pt-24 sm:pt-28 md:pt-16 pb-3 flex items-center justify-between text-xs font-mono text-neutral-400">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-amber-500" />
-          <span className="tracking-widest uppercase font-semibold text-neutral-300 text-[11px] sm:text-xs">
+          <span className="tracking-widest uppercase font-semibold text-neutral-700 text-[11px] sm:text-xs">
             SELECTED WORKS
           </span>
         </div>
@@ -104,7 +104,7 @@ export const SlideProjectsArchive: React.FC = () => {
         <div className="flex items-center gap-2.5 sm:gap-3">
           <button
             onClick={handlePrevPair}
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-neutral-800 hover:border-white hover:text-white flex items-center justify-center transition-colors cursor-pointer text-neutral-400"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-neutral-300 hover:border-neutral-950 hover:text-neutral-950 flex items-center justify-center transition-colors cursor-pointer text-neutral-500"
             aria-label="Previous pair"
           >
             <ChevronLeft className="w-3.5 h-3.5" />
@@ -114,7 +114,7 @@ export const SlideProjectsArchive: React.FC = () => {
           </span>
           <button
             onClick={handleNextPair}
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-neutral-800 hover:border-white hover:text-white flex items-center justify-center transition-colors cursor-pointer text-neutral-400"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-neutral-300 hover:border-neutral-950 hover:text-neutral-950 flex items-center justify-center transition-colors cursor-pointer text-neutral-500"
             aria-label="Next pair"
           >
             <ChevronRight className="w-3.5 h-3.5" />
@@ -154,7 +154,7 @@ export const SlideProjectsArchive: React.FC = () => {
                   onClick={() => soundFx.playTick()}
                 >
                   {/* Rounded Preview Container */}
-                  <div className="relative w-full aspect-[16/10] sm:aspect-[16/9.5] rounded-2xl sm:rounded-3xl lg:rounded-[28px] overflow-hidden border border-neutral-800/90 shadow-2xl transition-all duration-500 group-hover:border-neutral-700 group-hover:shadow-neutral-900/80">
+                  <div className="relative w-full aspect-[16/10] sm:aspect-[16/9.5] rounded-2xl sm:rounded-3xl lg:rounded-[28px] overflow-hidden border border-neutral-200 shadow-xl transition-all duration-500 group-hover:border-neutral-400 group-hover:shadow-2xl">
                     <div className="w-full h-full transform transition-transform duration-700 ease-out group-hover:scale-[1.02]">
                       {projectMockups[project.id] || (
                         <div className="w-full h-full bg-neutral-900 flex items-center justify-center">
@@ -175,7 +175,7 @@ export const SlideProjectsArchive: React.FC = () => {
 
                     {/* Title + Slanted Orange Arrow: Project Name ↗ */}
                     <div className="mt-1.5 flex items-center justify-between">
-                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-white group-hover:text-amber-400 transition-colors flex items-center gap-2">
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-neutral-950 group-hover:text-amber-600 transition-colors flex items-center gap-2">
                         <span>{project.title}</span>
                         {/* Slanted Arrow ↗ in accent orange/salmon */}
                         <span className="text-[#ff6600] text-2xl sm:text-3xl font-light transform transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
@@ -234,17 +234,17 @@ export const SlideProjectsArchive: React.FC = () => {
             onWheelCapture={(e) => e.stopPropagation()}
             onTouchStartCapture={(e) => e.stopPropagation()}
             onTouchEndCapture={(e) => e.stopPropagation()}
-            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 md:p-8 bg-black/95 backdrop-blur-2xl overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 md:p-8 bg-neutral-100/90 backdrop-blur-2xl overflow-y-auto"
           >
             <motion.div
               initial={{ scale: 0.97, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.97, opacity: 0, y: 20 }}
               transition={{ type: "spring", stiffness: 320, damping: 28 }}
-              className="relative w-full max-w-7xl h-[95vh] sm:h-[92vh] bg-black text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 border border-neutral-800 shadow-2xl flex flex-col justify-between overflow-hidden"
+              className="relative w-full max-w-7xl h-[95vh] sm:h-[92vh] bg-white text-neutral-950 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 border border-neutral-200 shadow-2xl flex flex-col justify-between overflow-hidden"
             >
               {/* Modal Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-neutral-800 pb-4 sm:pb-5 mb-4 sm:mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-neutral-200 pb-4 sm:pb-5 mb-4 sm:mb-6">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#ff6600]" />
@@ -252,7 +252,7 @@ export const SlideProjectsArchive: React.FC = () => {
                       Complete Project Archive
                     </span>
                   </div>
-                  <h3 className="text-2xl sm:text-4xl font-normal tracking-tight text-white">
+                  <h3 className="text-2xl sm:text-4xl font-normal tracking-tight text-neutral-950">
                     All Engineered Works & Research
                   </h3>
                 </div>
@@ -263,7 +263,7 @@ export const SlideProjectsArchive: React.FC = () => {
                     soundFx.playTick();
                     setIsArchiveOpen(false);
                   }}
-                  className="group inline-flex items-center gap-3 px-5 py-2 rounded-full border border-neutral-700 bg-neutral-900/80 hover:bg-neutral-800 hover:border-white transition-all text-xs font-mono tracking-wider uppercase cursor-pointer self-start sm:self-auto"
+                  className="group inline-flex items-center gap-3 px-5 py-2 rounded-full border border-neutral-300 bg-neutral-50 hover:bg-neutral-100 hover:border-neutral-500 transition-all text-xs font-mono tracking-wider uppercase cursor-pointer self-start sm:self-auto"
                 >
                   <span>BACK TO SPOTLIGHT</span>
                   <div className="w-6 h-6 rounded-full bg-white text-black flex items-center justify-center transition-transform group-hover:scale-110">
@@ -286,7 +286,7 @@ export const SlideProjectsArchive: React.FC = () => {
                       className={`px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-mono tracking-wider transition-colors cursor-pointer whitespace-nowrap ${
                         isActive
                           ? "bg-[#ff6600] text-white font-semibold shadow-lg shadow-orange-600/30"
-                          : "bg-neutral-900 text-neutral-400 hover:text-white border border-neutral-800"
+                          : "bg-neutral-100 text-neutral-600 hover:text-neutral-950 border border-neutral-200"
                       }`}
                     >
                       {f}
@@ -331,7 +331,7 @@ export const SlideProjectsArchive: React.FC = () => {
 
                         {/* Title + Slanted Orange Arrow: Project Name ↗ */}
                         <div className="mt-1.5 flex items-center justify-between">
-                          <h3 className="text-2xl sm:text-3xl font-normal tracking-tight text-white group-hover:text-amber-400 transition-colors flex items-center gap-2">
+                          <h3 className="text-2xl sm:text-3xl font-normal tracking-tight text-neutral-950 group-hover:text-amber-600 transition-colors flex items-center gap-2">
                             <span>{project.title}</span>
                             {/* Slanted Arrow ↗ in accent orange/salmon */}
                             <span className="text-[#ff6600] text-2xl sm:text-3xl font-light transform transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
@@ -347,7 +347,7 @@ export const SlideProjectsArchive: React.FC = () => {
                                 e.preventDefault();
                                 window.open(project.githubUrl, "_blank", "noopener,noreferrer");
                               }}
-                              className="text-neutral-400 hover:text-white flex items-center gap-1 transition-colors"
+                              className="text-neutral-500 hover:text-neutral-950 flex items-center gap-1 transition-colors"
                               title="GitHub Repository"
                             >
                               <GithubIcon className="w-3.5 h-3.5" />

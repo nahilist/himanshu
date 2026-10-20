@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Compass, Feather, BookOpen } from "lucide-react";
 import { soundFx } from "@/utils/audio";
@@ -33,22 +32,13 @@ export const ActivityHeader: React.FC<ActivityHeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-black/90 border-b border-white/10 transition-colors">
       <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
-        {/* Top Left: Logo + Breadcrumb */}
+        {/* Top Left: Brand + Breadcrumb */}
         <div className="w-full md:w-auto flex items-center justify-between md:justify-start gap-4">
           <Link
             href="/"
             onClick={() => soundFx.playTick()}
             className="flex items-center gap-2.5 group cursor-pointer shrink-0"
           >
-            <div className="relative h-8 w-auto flex items-center justify-center">
-              <Image
-                src="/logo-monogram-white.png"
-                alt="Nahilist"
-                width={32}
-                height={38}
-                className="h-7 w-auto object-contain transition-transform group-hover:scale-105"
-              />
-            </div>
             <div className="flex flex-col">
               <span className="font-extrabold tracking-tight text-sm text-white group-hover:text-neutral-300 transition-colors">
                 NAHILIST

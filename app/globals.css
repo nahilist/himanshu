@@ -21,13 +21,40 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.25) #050505;
+  scrollbar-color: rgba(23, 23, 23, 0.3) #ffffff;
 }
 
 body {
   min-height: 100%;
   width: 100%;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Light editorial treatment for the Activity, Poetry, and Stories routes. */
+.activity-light [class*="bg-black"],
+.activity-light [class*="bg-neutral-9"],
+.activity-light [class*="bg-[#0"],
+.activity-light [class*="bg-[#1"],
+.activity-light [class*="from-[#0"],
+.activity-light [class*="from-[#1"],
+.activity-light [class*="bg-[radial-gradient"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+.activity-light [class~="text-white"],
+.activity-light [class*="text-[#f5f5f5]"],
+.activity-light [class~="text-neutral-200"],
+.activity-light [class~="text-neutral-300"] {
+  color: #171717 !important;
+}
+
+.activity-light [class*="border-white"] {
+  border-color: #e5e5e5 !important;
+}
+
+.activity-light [class*="shadow-[0_"] {
+  --tw-shadow-color: rgb(0 0 0 / 0.1) !important;
 }
 
 ::selection {
@@ -42,17 +69,17 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(23, 23, 23, 0.28);
   border-radius: 9999px;
-  border: 2px solid #050505;
+  border: 2px solid #ffffff;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(23, 23, 23, 0.5);
 }
 
 /* Image rendering and browser paint optimization */

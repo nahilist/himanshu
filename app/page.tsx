@@ -49,8 +49,8 @@ export default function PortfolioPage() {
     return null;
   }, []);
 
-  // Slides 2 (Projects Archive) and 5 (Grand Finale Footer) are luxury dark theme
-  const isDarkSlide = currentSlide === 2 || currentSlide === 5;
+  // The portfolio uses one consistent light theme across every slide.
+  const isDarkSlide = false;
 
   const changeSlide = useCallback(
     (newIndex: number) => {
@@ -303,6 +303,8 @@ export default function PortfolioPage() {
         isAudioActive={isAudioActive}
         onToggleAudio={toggleAudio}
         theme={isDarkSlide ? "dark" : "light"}
+        heroMode={currentSlide === 0}
+        hideOnMobile={currentSlide === 5}
       />
 
       {/* 2. Fullscreen Animated Slide Engine */}
@@ -323,6 +325,7 @@ export default function PortfolioPage() {
                 onViewProjects={() => changeSlide(2)}
                 onOpenResume={() => setIsResumeOpen(true)}
                 onContactMe={() => changeSlide(4)}
+                onNavigate={changeSlide}
               />
             )}
 
@@ -350,6 +353,8 @@ export default function PortfolioPage() {
               <SlideFooterSection
                 onScrollTop={() => changeSlide(0)}
                 onOpenResume={() => setIsResumeOpen(true)}
+                onContactMe={() => changeSlide(4)}
+                onNavigate={changeSlide}
               />
             )}
           </motion.div>
