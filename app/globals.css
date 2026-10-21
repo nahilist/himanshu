@@ -39,6 +39,27 @@ body {
   height: 100dvh;
 }
 
+/* Shared mobile device-card treatment for every portfolio slide. */
+.portfolio-slide-frame {
+  background: #d5d5d3;
+  padding: 7px;
+}
+
+.portfolio-slide-card {
+  border-radius: 22px;
+}
+
+@media (min-width: 768px) {
+  .portfolio-slide-frame {
+    background: transparent;
+    padding: 0;
+  }
+
+  .portfolio-slide-card {
+    border-radius: 0;
+  }
+}
+
 .mobile-safe-bottom {
   bottom: max(0.75rem, env(safe-area-inset-bottom));
 }

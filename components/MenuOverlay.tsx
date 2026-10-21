@@ -58,8 +58,9 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-white/95 text-neutral-950 backdrop-blur-2xl flex flex-col justify-between p-6 md:p-14 overflow-y-auto"
+          className="fixed inset-0 z-50 bg-[#d5d5d3] p-[7px] text-neutral-950 md:bg-transparent md:p-0"
         >
+          <div className="flex h-full w-full flex-col justify-between overflow-y-auto rounded-[22px] bg-white/95 p-6 shadow-[0_0_24px_rgba(0,0,0,0.08)] backdrop-blur-2xl md:rounded-none md:p-14 md:shadow-none">
           {/* Top Bar inside menu */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -216,6 +217,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
             </div>
+          </div>
           </div>
         </motion.div>
       )}

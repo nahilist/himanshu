@@ -120,7 +120,7 @@ export const SlideServicesSphere: React.FC<SlideServicesSphereProps> = ({ onCont
   };
 
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col items-center justify-between p-3.5 sm:p-8 md:p-12 lg:p-16 bg-white overflow-y-auto sm:overflow-hidden overscroll-contain">
+    <section className="portfolio-slide-card relative w-full h-full min-h-0 flex flex-col items-center justify-between p-3.5 sm:p-8 md:p-12 lg:p-16 bg-white overflow-y-auto sm:overflow-hidden overscroll-contain">
       {/* Background Architectural Canvas & Ambient Lighting (Hidden on mobile to save GPU fill-rate) */}
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
       <div className="hidden sm:block absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-gradient-to-br from-amber-200/30 via-orange-100/15 to-transparent blur-3xl pointer-events-none" />

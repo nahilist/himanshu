@@ -2,13 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
 import { soundFx } from "@/utils/audio";
 
 interface NavbarProps {
   onOpenMenu: () => void;
-  onOpenContact: () => void;
   onOpenResume?: () => void;
+  onNavigate?: (index: number) => void;
+  currentSlide?: number;
   isMenuOpen: boolean;
   isAudioActive: boolean;
   onToggleAudio: () => void;
@@ -19,7 +19,8 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenMenu,
-  onOpenContact,
+  onNavigate,
+  currentSlide = 0,
   isMenuOpen,
   isAudioActive,
   onToggleAudio,
@@ -30,9 +31,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isDark = theme === "dark";
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-40 px-5 py-5 sm:px-6 md:px-12 sm:py-5 ${hideOnMobile ? "hidden sm:flex" : "flex"} items-center justify-between pointer-events-none transition-colors duration-500`}>
+    <header
+      aria-hidden={heroMode}
+      className={`fixed top-0 left-0 right-0 z-40 px-5 py-5 sm:px-6 md:px-12 sm:py-5 ${
+        hideOnMobile ? "hidden sm:flex" : "flex"
+      } items-center justify-between transition-all duration-500 ease-out ${
+        heroMode
+          ? "pointer-events-none -translate-y-full opacity-0"
+          : "pointer-events-none translate-y-0 opacity-100"
+      }`}
+    >
       {/* Left section: Logo | Sound pill */}
-      <div className={`${heroMode ? "hidden sm:flex" : "flex"} items-center gap-2 sm:gap-3.5 pointer-events-auto select-none`}>
+      <div className="flex items-center gap-2 pointer-events-auto select-none md:hidden">
         <div
           onClick={() => {
             soundFx.playTick();
@@ -107,47 +117,46 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
       </div>
 
-      {/* Right section: Let's talk ↗ | Hamburger icon */}
-      <div className="flex items-center gap-3.5 sm:gap-4 pointer-events-auto">
-        {/* Luxury "Let's talk" Primary CTA Button */}
-        <button
-          onClick={() => {
-            soundFx.playOpenModal();
-            onOpenContact();
-          }}
-          className={`${heroMode ? "hidden sm:inline-flex" : "inline-flex"} group relative items-center gap-2 px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm tracking-tight transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-[1.03] active:scale-[0.98] ${
-            isDark
-              ? "bg-white text-black hover:bg-neutral-100 shadow-white/5"
-              : "bg-neutral-950 text-white hover:bg-neutral-800 shadow-black/10"
-          }`}
-          aria-label="Let's talk"
-        >
-          {/* Subtle live availability pulse dot */}
-          <span className="relative flex h-2 w-2 shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-          </span>
+      {/* Centered desktop navigation */}
+      <nav
+        aria-label="Primary portfolio navigation"
+        className="pointer-events-auto absolute left-1/2 top-6 hidden h-11 w-[420px] max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center justify-center gap-1 rounded-full border border-neutral-200/80 bg-white/95 px-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.10)] backdrop-blur-xl md:flex"
+      >
+        {[
+          { label: "Work", meta: "07", slide: 2 },
+          { label: "Skills", meta: "06", slide: 3 },
+          { label: "Experience", meta: "2y+", slide: 1 },
+          { label: "Contact", meta: "", slide: 4 },
+        ].map((item) => {
+          const isActive = currentSlide === item.slide;
 
-          <span className="font-bold tracking-tight whitespace-nowrap">
-            Let&apos;s talk
-          </span>
+          return (
+            <button
+              key={item.label}
+              type="button"
+              onClick={() => {
+                soundFx.playSlideTransition();
+                onNavigate?.(item.slide);
+              }}
+              className={`flex h-8 items-center rounded-full px-4 text-sm font-semibold transition-colors ${
+                isActive
+                  ? "text-neutral-950"
+                  : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950"
+              }`}
+            >
+              <span>{item.label}</span>
+              {item.meta && (
+                <span className="ml-1 text-[10px] text-neutral-400">
+                  [{item.meta}]
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </nav>
 
-          <ArrowUpRight
-            className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
-              isDark ? "text-neutral-900" : "text-[#ff6600]"
-            }`}
-          />
-        </button>
-
-        {/* Separator */}
-        <span
-          className={`${heroMode ? "hidden sm:inline" : "inline"} font-light select-none transition-colors ${
-            isDark ? "text-neutral-600" : "text-neutral-300"
-          }`}
-        >
-          |
-        </span>
-
+      {/* Right section: menu control */}
+      <div className="flex items-center gap-3.5 pointer-events-auto md:hidden">
         {/* Ultra-Premium 3-Dot Executive Menu Capsule */}
         <button
           onClick={() => {

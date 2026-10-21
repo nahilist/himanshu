@@ -45,7 +45,7 @@ export const MinimalProjectImage: React.FC<MinimalProjectImageProps> = ({
 
 export const MockupElementum3D: React.FC = () => (
   <MinimalProjectImage
-    src="/projects/elementum_periodic.jpg"
+    src="/projects/elementum_periodic.webp"
     alt="Elementum 3D - 118 Elements 3D Periodic Table"
     accentColor="rgba(56, 189, 248, 0.22)"
   />
@@ -53,7 +53,7 @@ export const MockupElementum3D: React.FC = () => (
 
 export const MockupTargetGroww: React.FC = () => (
   <MinimalProjectImage
-    src="/projects/target_groww.jpg"
+    src="/projects/target_groww.webp"
     alt="Target Groww - FinTech Kinetic Growth Wave"
     accentColor="rgba(16, 185, 129, 0.18)"
   />
@@ -61,7 +61,7 @@ export const MockupTargetGroww: React.FC = () => (
 
 export const MockupAtlasSystems: React.FC = () => (
   <MinimalProjectImage
-    src="/projects/atlas_systems.jpg"
+    src="/projects/atlas_systems.webp"
     alt="ATLAS Invisible Systems - Minimal Datacenter Infrastructure"
     accentColor="rgba(6, 182, 212, 0.18)"
   />
@@ -69,7 +69,7 @@ export const MockupAtlasSystems: React.FC = () => (
 
 export const MockupDigitClassifier: React.FC = () => (
   <MinimalProjectImage
-    src="/projects/digit_classifier.jpg"
+    src="/projects/digit_classifier.webp"
     alt="Handwritten Digit Classifier - Neural Synaptic Network"
     accentColor="rgba(168, 85, 247, 0.18)"
   />
@@ -77,7 +77,7 @@ export const MockupDigitClassifier: React.FC = () => (
 
 export const MockupAiNotes: React.FC = () => (
   <MinimalProjectImage
-    src="/projects/ai_notes.jpg"
+    src="/projects/ai_notes.webp"
     alt="AI Notes Summarizer - Crystalline Knowledge Synthesis"
     accentColor="rgba(245, 158, 11, 0.18)"
   />
@@ -85,7 +85,7 @@ export const MockupAiNotes: React.FC = () => (
 
 export const MockupSmartEwaste: React.FC = () => (
   <MinimalProjectImage
-    src="/projects/smart_ewaste.jpg"
+    src="/projects/smart_ewaste.webp"
     alt="Smart E-Waste Repairability - Macro Modular Microchip"
     accentColor="rgba(16, 185, 129, 0.18)"
   />
@@ -93,7 +93,7 @@ export const MockupSmartEwaste: React.FC = () => (
 
 export const MockupGeoverse: React.FC = () => (
   <MinimalProjectImage
-    src="/projects/geoverse.jpg"
+    src="/projects/geoverse.webp"
     alt="Geoverse Trade Ventures - Industrial Freight Logistics at Sunset"
     accentColor="rgba(245, 158, 11, 0.18)"
   />

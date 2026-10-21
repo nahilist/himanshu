@@ -59,8 +59,8 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
   };
 
   return (
-    <section className="relative h-full min-h-0 w-full overflow-hidden bg-[#d5d5d3] p-[7px] text-neutral-950 md:bg-[#f7f7f5] md:p-0">
-      <div className="relative h-full w-full overflow-hidden rounded-t-[22px] border border-white/80 bg-[#f9f9f8] shadow-[0_0_24px_rgba(0,0,0,0.08)] md:rounded-none md:border-0 md:bg-[#f7f7f5] md:shadow-none">
+    <section className="portfolio-slide-card relative h-full min-h-0 w-full overflow-hidden text-neutral-950">
+      <div className="relative h-full w-full overflow-hidden rounded-[22px] border border-white/80 bg-[#f9f9f8] shadow-[0_0_24px_rgba(0,0,0,0.08)] md:rounded-none md:border-0 md:bg-[#f7f7f5] md:shadow-none">
         {/* Oversized signature-style brand */}
         <motion.h1
           initial={{ opacity: 0, y: -20 }}

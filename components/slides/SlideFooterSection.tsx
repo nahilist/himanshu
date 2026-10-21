@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   BookOpen,
@@ -58,12 +59,24 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
   ];
 
   return (
-    <footer className="relative flex h-full min-h-0 w-full items-center justify-center overflow-x-hidden overflow-y-auto overscroll-contain bg-[#e9e9e7] px-5 pb-28 pt-16 text-neutral-950 selection:bg-neutral-950 selection:text-white sm:px-8 sm:py-24">
+    <footer className="portfolio-slide-card relative flex h-full min-h-0 w-full items-center justify-center overflow-x-hidden overflow-y-auto overscroll-contain bg-[#e9e9e7] px-5 pb-28 pt-16 text-neutral-950 selection:bg-neutral-950 selection:text-white sm:px-8 sm:py-24">
       {/* Soft monochrome atmosphere */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-[8%] -top-[18%] h-[70%] w-[62%] rounded-full bg-white/90 blur-[90px]" />
-        <div className="absolute -right-[12%] -top-[12%] h-[68%] w-[58%] rounded-full bg-neutral-300/80 blur-[110px]" />
-        <div className="absolute bottom-[-30%] left-[12%] h-[72%] w-[50%] rounded-full bg-white blur-[100px]" />
+        <motion.div
+          animate={{ x: [0, 18, 0], y: [0, 10, 0], scale: [1, 1.06, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -left-[8%] -top-[18%] h-[70%] w-[62%] rounded-full bg-white/90 blur-[90px] motion-reduce:animate-none"
+        />
+        <motion.div
+          animate={{ x: [0, -16, 0], y: [0, 14, 0], scale: [1, 1.04, 1] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -right-[12%] -top-[12%] h-[68%] w-[58%] rounded-full bg-neutral-300/80 blur-[110px] motion-reduce:animate-none"
+        />
+        <motion.div
+          animate={{ x: [0, 12, 0], scale: [1, 1.08, 1] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-[-30%] left-[12%] h-[72%] w-[50%] rounded-full bg-white blur-[100px] motion-reduce:animate-none"
+        />
         <div className="absolute bottom-[-18%] right-[-5%] h-[58%] w-[48%] rounded-full bg-neutral-400/35 blur-[95px]" />
         <div className="absolute left-[38%] top-[4%] h-[90%] w-[20%] rotate-12 bg-white/40 blur-[60px]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(163,163,163,0.12)_100%)]" />
@@ -71,27 +84,46 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
 
       <div className="relative z-10 flex w-full max-w-5xl flex-col items-center text-center">
         {/* Availability badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/90 px-4 py-2 text-xs font-semibold shadow-sm backdrop-blur-md sm:text-sm">
+        <motion.div
+          initial={{ opacity: 0, y: -14, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/90 px-4 py-2 text-xs font-semibold shadow-sm backdrop-blur-md sm:text-sm"
+        >
           <span className="relative flex size-2.5">
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-50" />
             <span className="relative inline-flex size-2.5 rounded-full bg-emerald-500" />
           </span>
           <span>Available for New Project</span>
-        </div>
+        </motion.div>
 
         {/* Primary message */}
-        <h2 className="mt-7 max-w-5xl text-3xl font-black uppercase leading-[0.95] tracking-[-0.055em] sm:mt-9 sm:text-[clamp(2.3rem,7vw,5.1rem)]">
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-7 max-w-5xl text-3xl font-black uppercase leading-[0.95] tracking-[-0.055em] sm:mt-9 sm:text-[clamp(2.3rem,7vw,5.1rem)]"
+        >
           Have a project in mind?
-        </h2>
-        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-neutral-500 sm:text-base md:text-lg">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-5 max-w-2xl text-sm leading-relaxed text-neutral-500 sm:text-base md:text-lg"
+        >
           Together, we can create something clear and impactful. Let&apos;s
           collaborate to bring your ideas to life — fast, reliable, and built
           to last.
-        </p>
+        </motion.p>
 
         {/* Contact CTA */}
-        <button
+        <motion.button
           type="button"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          whileTap={{ scale: 0.97 }}
           onClick={() => {
             soundFx.playSlideTransition();
             onContactMe?.();
@@ -102,12 +134,19 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           <span className="flex size-12 items-center justify-center rounded-full border border-neutral-200 bg-white shadow-sm">
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </span>
-        </button>
+        </motion.button>
 
         {/* Compact mobile actions */}
-        <div className="mt-8 grid w-full max-w-[19rem] grid-cols-2 gap-2.5 md:hidden">
-          <button
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-8 grid w-full max-w-[19rem] grid-cols-2 gap-2.5 md:hidden"
+        >
+          <motion.button
             type="button"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => {
               soundFx.playSlideTransition();
               onContactMe?.();
@@ -118,10 +157,12 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
             <span className="flex size-7 items-center justify-center rounded-full border border-neutral-200">
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
             </span>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
             type="button"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => {
               soundFx.playSlideTransition();
               onScrollTop();
@@ -138,15 +179,17 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
               />
             </span>
             <span className="text-[11px] font-semibold">{personal.name}</span>
-          </button>
+          </motion.button>
 
           {socialLinks.map(({ label, href, icon: Icon }) => (
-            <a
+            <motion.a
               key={label}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => soundFx.playTick()}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
               className="group flex h-10 items-center justify-between rounded-full bg-white pl-3.5 pr-1.5 text-[11px] font-semibold shadow-[0_8px_18px_rgba(0,0,0,0.12),0_1.5px_0_rgba(0,0,0,0.65)]"
             >
               <span className="flex items-center gap-1.5">
@@ -156,12 +199,14 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
               <span className="flex size-7 items-center justify-center rounded-full border border-neutral-200">
                 <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
-            </a>
+            </motion.a>
           ))}
 
-          <a
+          <motion.a
             href={`mailto:${personal.email}`}
             onClick={() => soundFx.playTick()}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
             className="group flex h-10 items-center justify-between rounded-full bg-white pl-3.5 pr-1.5 text-[11px] font-semibold shadow-[0_8px_18px_rgba(0,0,0,0.12),0_1.5px_0_rgba(0,0,0,0.65)]"
           >
             <span className="flex items-center gap-1.5">
@@ -171,12 +216,15 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
             <span className="flex size-7 items-center justify-center rounded-full border border-neutral-200">
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
             </span>
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
 
         {/* Desktop identity and social links */}
-        <nav
+        <motion.nav
           aria-label="Contact and social links"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mt-12 hidden max-w-4xl flex-wrap items-center justify-center gap-3 md:flex"
         >
           <button
@@ -231,12 +279,15 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
             </span>
           </a>
-        </nav>
+        </motion.nav>
       </div>
 
       {/* Mobile bottom navigation */}
-      <nav
+      <motion.nav
         aria-label="Portfolio sections"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
         className="mobile-safe-bottom absolute left-1/2 z-30 flex h-14 w-[88%] max-w-[20rem] -translate-x-1/2 items-center justify-around rounded-full bg-white px-2 shadow-[0_8px_30px_rgba(0,0,0,0.14)] md:hidden"
       >
         {mobileNavItems.map(({ label, icon: Icon, slide }) => {
@@ -261,7 +312,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
             </button>
           );
         })}
-      </nav>
+      </motion.nav>
     </footer>
   );
 };

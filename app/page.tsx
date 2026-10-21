@@ -297,14 +297,15 @@ export default function PortfolioPage() {
       {/* 1. Persistent Top Navbar */}
       <Navbar
         onOpenMenu={() => setIsMenuOpen(true)}
-        onOpenContact={() => changeSlide(4)}
         onOpenResume={() => setIsResumeOpen(true)}
+        onNavigate={changeSlide}
+        currentSlide={currentSlide}
         isMenuOpen={isMenuOpen}
         isAudioActive={isAudioActive}
         onToggleAudio={toggleAudio}
         theme={isDarkSlide ? "dark" : "light"}
         heroMode={currentSlide === 0}
-        hideOnMobile={currentSlide === 5}
+        hideOnMobile={currentSlide === 2 || currentSlide === 5}
       />
 
       {/* 2. Fullscreen Animated Slide Engine */}
@@ -317,7 +318,7 @@ export default function PortfolioPage() {
             initial="enter"
             animate="center"
             exit="exit"
-            className="absolute inset-0 w-full h-full will-change-transform transform-gpu"
+            className="portfolio-slide-frame absolute inset-0 w-full h-full will-change-transform transform-gpu"
           >
             {/* Slide 0: Hero Section */}
             {currentSlide === 0 && (
@@ -338,7 +339,9 @@ export default function PortfolioPage() {
             )}
 
             {/* Slide 2: Featured Projects (Archive with Filters & Modals) */}
-            {currentSlide === 2 && <SlideProjectsArchive />}
+            {currentSlide === 2 && (
+              <SlideProjectsArchive onNavigate={changeSlide} />
+            )}
 
             {/* Slide 3: Services & Capabilities (3D Sphere & Stats) */}
             {currentSlide === 3 && (

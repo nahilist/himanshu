@@ -81,7 +81,7 @@ export const SlideContactSection: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full h-full min-h-screen flex flex-col justify-between px-4 sm:px-8 md:px-14 lg:px-20 pt-16 sm:pt-20 md:pt-14 pb-4 sm:pb-8 bg-white overflow-y-auto overscroll-contain selection:bg-amber-100 selection:text-neutral-900">
+    <section className="portfolio-slide-card relative w-full h-full min-h-0 flex flex-col justify-between px-4 sm:px-8 md:px-14 lg:px-20 pt-16 sm:pt-20 md:pt-14 pb-4 sm:pb-8 bg-white overflow-y-auto overscroll-contain selection:bg-amber-100 selection:text-neutral-900">
       {/* Subtle Ambient Background Watermark & Lighting */}
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
       <div className="absolute top-1/4 -left-32 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-amber-200/20 via-orange-100/10 to-transparent blur-3xl pointer-events-none" />
