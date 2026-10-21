@@ -58,7 +58,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
   ];
 
   return (
-    <footer className="relative flex h-full min-h-screen w-full items-center justify-center overflow-x-hidden overflow-y-auto overscroll-contain bg-[#e9e9e7] px-5 pb-28 pt-16 text-neutral-950 selection:bg-neutral-950 selection:text-white sm:px-8 sm:py-24">
+    <footer className="relative flex h-full min-h-0 w-full items-center justify-center overflow-x-hidden overflow-y-auto overscroll-contain bg-[#e9e9e7] px-5 pb-28 pt-16 text-neutral-950 selection:bg-neutral-950 selection:text-white sm:px-8 sm:py-24">
       {/* Soft monochrome atmosphere */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-[8%] -top-[18%] h-[70%] w-[62%] rounded-full bg-white/90 blur-[90px]" />
@@ -237,7 +237,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
       {/* Mobile bottom navigation */}
       <nav
         aria-label="Portfolio sections"
-        className="absolute bottom-3 left-1/2 z-30 flex h-14 w-[88%] max-w-[20rem] -translate-x-1/2 items-center justify-around rounded-full bg-white px-2 shadow-[0_8px_30px_rgba(0,0,0,0.14)] md:hidden"
+        className="mobile-safe-bottom absolute left-1/2 z-30 flex h-14 w-[88%] max-w-[20rem] -translate-x-1/2 items-center justify-around rounded-full bg-white px-2 shadow-[0_8px_30px_rgba(0,0,0,0.14)] md:hidden"
       >
         {mobileNavItems.map(({ label, icon: Icon, slide }) => {
           const isActive = slide === 4;
