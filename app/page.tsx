@@ -283,7 +283,7 @@ export default function PortfolioPage() {
 
   return (
     <main
-      className={`relative w-screen h-screen overflow-hidden font-sans transition-colors duration-500 ${
+      className={`portfolio-viewport relative w-screen overflow-hidden font-sans transition-colors duration-500 ${
         isDarkSlide ? "bg-black text-white" : "bg-white text-neutral-900"
       }`}
     >

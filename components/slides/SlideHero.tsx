@@ -59,7 +59,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
   };
 
   return (
-    <section className="relative h-full min-h-screen w-full overflow-hidden bg-[#d5d5d3] p-[7px] text-neutral-950 md:bg-[#f7f7f5] md:p-0">
+    <section className="relative h-full min-h-0 w-full overflow-hidden bg-[#d5d5d3] p-[7px] text-neutral-950 md:bg-[#f7f7f5] md:p-0">
       <div className="relative h-full w-full overflow-hidden rounded-t-[22px] border border-white/80 bg-[#f9f9f8] shadow-[0_0_24px_rgba(0,0,0,0.08)] md:rounded-none md:border-0 md:bg-[#f7f7f5] md:shadow-none">
         {/* Oversized signature-style brand */}
         <motion.h1
@@ -183,7 +183,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
         {/* Mobile bottom navigation */}
         <nav
           aria-label="Portfolio sections"
-          className="absolute bottom-3 left-1/2 z-30 flex h-14 w-[88%] -translate-x-1/2 items-center justify-around rounded-full bg-white px-2 shadow-[0_8px_30px_rgba(0,0,0,0.12)] md:hidden"
+          className="mobile-safe-bottom absolute left-1/2 z-30 flex h-14 w-[88%] -translate-x-1/2 items-center justify-around rounded-full bg-white px-2 shadow-[0_8px_30px_rgba(0,0,0,0.12)] md:hidden"
         >
           {mobileNavItems.map(({ label, icon: Icon, slide }) => {
             const isActive = slide === 0;

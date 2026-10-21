@@ -30,6 +30,19 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/*
+ * Keep the slide deck inside the part of the screen that is actually visible.
+ * Android Chrome's browser controls make 100vh taller than the visual viewport.
+ */
+.portfolio-viewport {
+  height: 100vh;
+  height: 100dvh;
+}
+
+.mobile-safe-bottom {
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
 /* Light editorial treatment for the Activity, Poetry, and Stories routes. */
 .activity-light [class*="bg-black"],
 .activity-light [class*="bg-neutral-9"],
