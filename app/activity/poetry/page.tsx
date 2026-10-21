@@ -117,7 +117,7 @@ export default function PoetryPage() {
   };
 
   return (
-    <div className="activity-light min-h-screen bg-white text-neutral-950 selection:bg-amber-100 selection:text-black font-sans antialiased relative">
+    <div className="activity-shell relative min-h-screen overflow-x-hidden bg-[#070709] text-neutral-100 antialiased selection:bg-white selection:text-black">
       <ActivityHeader currentSection="poetry" />
 
       {/* Atmospheric Monochrome Background */}
@@ -139,7 +139,7 @@ export default function PoetryPage() {
           className="relative z-10 w-full min-h-screen pb-32"
         >
           {/* Top Sticky Verse Navigation Bar */}
-          <div className="sticky top-0 z-50 w-full backdrop-blur-2xl bg-black/85 border-b border-white/[0.08] px-4 sm:px-8 lg:px-12 py-3.5 transition-all">
+          <div className="sticky top-0 z-50 w-full backdrop-blur-2xl bg-black/85 border-b border-white/[0.08] px-4 sm:px-6 lg:px-4 py-3.5 transition-all">
             <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
               {/* Left: Return to Archive */}
               <button
@@ -209,7 +209,7 @@ export default function PoetryPage() {
           </div>
 
           {/* Majestic Editorial Monograph Spread */}
-          <article className="w-full max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 pt-12 sm:pt-20">
+          <article className="mx-auto w-full max-w-none px-4 pt-12 sm:px-6 sm:pt-20 lg:px-0">
             {/* 1. Hero Frontispiece: Centered Medallion & Dignified Masthead */}
             <header className="text-center space-y-8 pb-14 border-b border-white/[0.08]">
               {/* Archival Medallion Portrait */}
@@ -222,7 +222,7 @@ export default function PoetryPage() {
                       fill
                       priority
                       sizes="(max-width: 640px) 128px, 176px"
-                      className="object-cover grayscale contrast-125 brightness-95"
+                      className="object-cover object-top grayscale contrast-125 brightness-95"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                   </div>
@@ -273,7 +273,7 @@ export default function PoetryPage() {
 
             {/* 3. Archival Calligraphic / Original Verse Plate */}
             {activeDossier.originalText && (
-              <div className="my-12 p-8 sm:p-12 rounded-3xl bg-[#09090b] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden space-y-5">
+              <div className="mx-auto my-12 max-w-5xl p-8 sm:p-12 rounded-3xl bg-[#09090b] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden space-y-5">
                 <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
                   <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-bold">
                     {isItemHindi(activeDossier) ? "मूल रचना / सुलेखीय अभिलेख" : "ORIGINAL SCRIPT / CALLIGRAPHIC RECORD"}
@@ -364,7 +364,7 @@ export default function PoetryPage() {
         /* ===================================================================== */
         /* MODE B: ALL POETS OVERVIEW - REFINED EDITORIAL GALLERY                */
         /* ===================================================================== */
-        <main className="relative z-10 w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-12 py-10 sm:py-16">
+        <main className="relative z-10 mx-auto w-full max-w-none px-4 py-10 sm:px-6 sm:py-16 lg:px-0">
           {/* Minimalist Hero Section */}
           <div className="border-b border-white/[0.08] pb-10 sm:pb-14 mb-10 sm:mb-14">
             <div className="max-w-4xl space-y-5">
@@ -476,7 +476,7 @@ export default function PoetryPage() {
                             alt={item.authorOrOrigin}
                             fill
                             sizes="(max-width: 640px) 64px, 80px"
-                            className="object-cover grayscale contrast-125 brightness-95 group-hover:scale-105 transition-transform duration-500"
+                            className="object-cover object-top grayscale contrast-125 brightness-95 group-hover:scale-105 transition-transform duration-500"
                           />
                         </div>
                       )}

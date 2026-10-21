@@ -87,23 +87,23 @@ body {
 }
 
 @keyframes hero-reveal-up {
-  from { opacity: 0; translate: 0 24px; scale: 0.97; }
-  to { opacity: 1; translate: 0 0; scale: 1; }
+  from { opacity: 0; translate: var(--hero-resting-x, 0%) 24px; scale: 0.97; }
+  to { opacity: 1; translate: var(--hero-resting-x, 0%) 0; scale: 1; }
 }
 
 @keyframes hero-reveal-down {
-  from { opacity: 0; translate: 0 -20px; }
-  to { opacity: 1; translate: 0 0; }
+  from { opacity: 0; translate: var(--hero-resting-x, 0%) -20px; }
+  to { opacity: 1; translate: var(--hero-resting-x, 0%) 0; }
 }
 
 @keyframes hero-reveal-left {
-  from { opacity: 0; translate: -24px 0; }
-  to { opacity: 1; translate: 0 0; }
+  from { opacity: 0; translate: calc(var(--hero-resting-x, 0%) - 24px) 0; }
+  to { opacity: 1; translate: var(--hero-resting-x, 0%) 0; }
 }
 
 @keyframes hero-reveal-right {
-  from { opacity: 0; translate: 24px 0; }
-  to { opacity: 1; translate: 0 0; }
+  from { opacity: 0; translate: calc(var(--hero-resting-x, 0%) + 24px) 0; }
+  to { opacity: 1; translate: var(--hero-resting-x, 0%) 0; }
 }
 
 .hero-reveal {
@@ -111,6 +111,18 @@ body {
   animation-duration: 700ms;
   animation-fill-mode: forwards;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-center-x,
+.hero-mobile-center-x {
+  --hero-resting-x: -50%;
+  translate: var(--hero-resting-x) 0;
+}
+
+@media (min-width: 768px) {
+  .hero-mobile-center-x {
+    --hero-resting-x: 0%;
+  }
 }
 
 .hero-reveal-up { animation-name: hero-reveal-up; }
@@ -126,31 +138,19 @@ body {
   }
 }
 
-/* Light editorial treatment for the Activity, Poetry, and Stories routes. */
-.activity-light [class*="bg-black"],
-.activity-light [class*="bg-neutral-9"],
-.activity-light [class*="bg-[#0"],
-.activity-light [class*="bg-[#1"],
-.activity-light [class*="from-[#0"],
-.activity-light [class*="from-[#1"],
-.activity-light [class*="bg-[radial-gradient"] {
-  background-color: #ffffff !important;
-  background-image: none !important;
+/* Cohesive editorial system for every Activity route. */
+.activity-shell {
+  --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua",
+    "Noto Serif Devanagari", "Nirmala UI", Georgia, serif;
+  background-color: #070709;
+  color: #f5f5f5;
+  font-family: var(--font-geist-sans), "Noto Sans Devanagari", "Nirmala UI",
+    Arial, sans-serif;
+  color-scheme: dark;
 }
 
-.activity-light [class~="text-white"],
-.activity-light [class*="text-[#f5f5f5]"],
-.activity-light [class~="text-neutral-200"],
-.activity-light [class~="text-neutral-300"] {
-  color: #171717 !important;
-}
-
-.activity-light [class*="border-white"] {
-  border-color: #e5e5e5 !important;
-}
-
-.activity-light [class*="shadow-[0_"] {
-  --tw-shadow-color: rgb(0 0 0 / 0.1) !important;
+.activity-shell :is(h1, h2, h3, h4, p) {
+  text-wrap: pretty;
 }
 
 ::selection {

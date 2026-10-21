@@ -31,7 +31,7 @@ export const ActivityHeader: React.FC<ActivityHeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-black/90 border-b border-white/10 transition-colors">
-      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="mx-auto flex w-full max-w-none flex-col items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-4 md:flex-row">
         {/* Top Left: Brand + Breadcrumb */}
         <div className="w-full md:w-auto flex items-center justify-between md:justify-start gap-4">
           <Link

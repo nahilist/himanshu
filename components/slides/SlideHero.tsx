@@ -72,7 +72,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
 
         {/* Oversized signature-style brand */}
         <h1
-          className="hero-reveal hero-reveal-down pointer-events-none absolute left-1/2 top-[8.5%] z-0 -translate-x-1/2 whitespace-nowrap text-[20vw] leading-none tracking-[-0.1em] md:top-[7%] md:text-[17vw] lg:top-[-1%] lg:text-[14.5vw]"
+          className="hero-reveal hero-reveal-down hero-center-x pointer-events-none absolute left-1/2 top-[8.5%] z-0 whitespace-nowrap text-[20vw] leading-none tracking-[-0.1em] md:top-[7%] md:text-[17vw] lg:top-[-1%] lg:text-[14.5vw]"
           style={{
             fontFamily: '"Segoe Script", "Brush Script MT", cursive',
             fontWeight: 500,
@@ -83,7 +83,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
 
         {/* Central portrait */}
         <div
-          className="hero-reveal hero-reveal-up pointer-events-none absolute left-1/2 top-[20%] z-10 h-[28vh] min-h-[10rem] w-[55%] max-w-[15rem] -translate-x-1/2 select-none md:bottom-0 md:top-auto md:h-[73vh] md:w-[38vw] md:max-w-[32rem]"
+          className="hero-reveal hero-reveal-up hero-center-x pointer-events-none absolute left-1/2 top-[20%] z-10 h-[28vh] min-h-[10rem] w-[55%] max-w-[15rem] select-none md:bottom-0 md:top-auto md:h-[73vh] md:w-[38vw] md:max-w-[32rem]"
           style={{ animationDelay: "120ms" }}
         >
           <Image
@@ -98,7 +98,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
 
         {/* Role and introduction */}
         <div
-          className="hero-reveal hero-reveal-left absolute left-1/2 top-[53%] z-20 w-[88%] -translate-x-1/2 text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:translate-x-0 md:text-left"
+          className="hero-reveal hero-reveal-left hero-mobile-center-x absolute left-1/2 top-[53%] z-20 w-[88%] text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:text-left"
           style={{ animationDelay: "320ms" }}
         >
           <h2 className="text-lg font-extrabold tracking-[-0.04em] sm:text-xl md:text-2xl lg:text-[2rem]">
@@ -118,7 +118,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
 
         {/* Compact mobile action grid */}
         <div
-          className="hero-reveal hero-reveal-up absolute left-1/2 top-[61%] z-30 grid w-[88%] -translate-x-1/2 grid-cols-2 gap-2 md:hidden"
+          className="hero-reveal hero-reveal-up hero-center-x absolute left-1/2 top-[61%] z-30 grid w-[88%] grid-cols-2 gap-2 md:hidden"
           style={{ animationDelay: "420ms" }}
         >
           <button
