@@ -109,7 +109,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
           initial={{ opacity: 0, x: -24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute left-1/2 top-[48.5%] z-20 w-[88%] -translate-x-1/2 text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:translate-x-0 md:text-left"
+          className="absolute left-1/2 top-[53%] z-20 w-[88%] -translate-x-1/2 text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:translate-x-0 md:text-left"
         >
           <h2 className="text-lg font-extrabold tracking-[-0.04em] sm:text-xl md:text-2xl lg:text-[2rem]">
             {personal.role}
