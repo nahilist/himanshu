@@ -80,7 +80,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
           initial={{ opacity: 0, y: 30, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-          className="pointer-events-none absolute left-1/2 top-[20%] z-10 h-[28vh] min-h-[10rem] w-[55%] max-w-[15rem] -translate-x-1/2 select-none md:bottom-0 md:top-auto md:h-[73vh] md:w-[38vw] md:max-w-[32rem]"
+          className="pointer-events-none absolute bottom-[52.5%] left-1/2 top-[20%] z-10 h-auto min-h-0 w-[55%] max-w-[15rem] -translate-x-1/2 select-none md:bottom-0 md:top-auto md:h-[73vh] md:w-[38vw] md:max-w-[32rem]"
         >
           <Image
             src="/pic-remove-background.png"
@@ -97,7 +97,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
           initial={{ opacity: 0, x: -24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute left-1/2 top-[48.5%] z-20 w-[88%] -translate-x-1/2 text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:translate-x-0 md:text-left"
+          className="absolute left-1/2 top-[50%] z-20 w-[88%] -translate-x-1/2 text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:translate-x-0 md:text-left"
         >
           <h2 className="text-lg font-extrabold tracking-[-0.04em] sm:text-xl md:text-2xl lg:text-[2rem]">
             {personal.role}
