@@ -7,13 +7,11 @@ import { soundFx } from "@/utils/audio";
 
 interface NavbarProps {
   onOpenMenu: () => void;
-  onOpenResume?: () => void;
   onNavigate?: (index: number) => void;
   currentSlide?: number;
   isAudioActive: boolean;
   onToggleAudio: () => void;
   theme?: "light" | "dark";
-  heroMode?: boolean;
   hideOnMobile?: boolean;
 }
 
@@ -24,21 +22,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   isAudioActive,
   onToggleAudio,
   theme = "light",
-  heroMode = false,
   hideOnMobile = false,
 }) => {
   const isDark = theme === "dark";
 
   return (
     <header
-      aria-hidden={heroMode}
       className={`fixed top-0 left-0 right-0 z-40 px-5 py-5 sm:px-6 md:px-12 sm:py-5 ${
         hideOnMobile ? "hidden sm:flex" : "flex"
-      } items-center justify-between transition-all duration-500 ease-out ${
-        heroMode
-          ? "pointer-events-none -translate-y-full opacity-0"
-          : "pointer-events-none translate-y-0 opacity-100"
-      }`}
+      } pointer-events-none items-center justify-between`}
     >
       {/* Left section: Logo | Sound pill */}
       <div className="flex items-center gap-2 pointer-events-auto select-none md:hidden">

@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   BookOpen,
@@ -17,8 +16,6 @@ import { PORTFOLIO_DATA } from "@/data/portfolioData";
 import { soundFx } from "@/utils/audio";
 
 interface SlideHeroProps {
-  onViewProjects?: () => void;
-  onOpenResume?: () => void;
   onContactMe?: () => void;
   onOpenMenu?: () => void;
   onNavigate?: (index: number) => void;
@@ -74,42 +71,35 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
         </div>
 
         {/* Oversized signature-style brand */}
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="pointer-events-none absolute left-1/2 top-[8.5%] z-0 -translate-x-1/2 whitespace-nowrap text-[20vw] leading-none tracking-[-0.1em] md:top-[7%] md:text-[17vw] lg:top-[-1%] lg:text-[14.5vw]"
+        <h1
+          className="hero-reveal hero-reveal-down pointer-events-none absolute left-1/2 top-[8.5%] z-0 -translate-x-1/2 whitespace-nowrap text-[20vw] leading-none tracking-[-0.1em] md:top-[7%] md:text-[17vw] lg:top-[-1%] lg:text-[14.5vw]"
           style={{
             fontFamily: '"Segoe Script", "Brush Script MT", cursive',
             fontWeight: 500,
           }}
         >
           Nahilist
-        </motion.h1>
+        </h1>
 
         {/* Central portrait */}
-        <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-          className="pointer-events-none absolute left-1/2 top-[20%] z-10 h-[28vh] min-h-[10rem] w-[55%] max-w-[15rem] -translate-x-1/2 select-none md:bottom-0 md:top-auto md:h-[73vh] md:w-[38vw] md:max-w-[32rem]"
+        <div
+          className="hero-reveal hero-reveal-up pointer-events-none absolute left-1/2 top-[20%] z-10 h-[28vh] min-h-[10rem] w-[55%] max-w-[15rem] -translate-x-1/2 select-none md:bottom-0 md:top-auto md:h-[73vh] md:w-[38vw] md:max-w-[32rem]"
+          style={{ animationDelay: "120ms" }}
         >
           <Image
-            src="/pic-remove-background.png"
+            src="/pic-remove-background.webp"
             alt={personal.name}
             fill
             sizes="(max-width: 767px) 55vw, 38vw"
             priority
             className="object-contain object-bottom grayscale contrast-[1.08]"
           />
-        </motion.div>
+        </div>
 
         {/* Role and introduction */}
-        <motion.div
-          initial={{ opacity: 0, x: -24 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute left-1/2 top-[53%] z-20 w-[88%] -translate-x-1/2 text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:translate-x-0 md:text-left"
+        <div
+          className="hero-reveal hero-reveal-left absolute left-1/2 top-[53%] z-20 w-[88%] -translate-x-1/2 text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:translate-x-0 md:text-left"
+          style={{ animationDelay: "320ms" }}
         >
           <h2 className="text-lg font-extrabold tracking-[-0.04em] sm:text-xl md:text-2xl lg:text-[2rem]">
             {personal.role}
@@ -124,14 +114,12 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </span>
           </button>
-        </motion.div>
+        </div>
 
         {/* Compact mobile action grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute left-1/2 top-[61%] z-30 grid w-[88%] -translate-x-1/2 grid-cols-2 gap-2 md:hidden"
+        <div
+          className="hero-reveal hero-reveal-up absolute left-1/2 top-[61%] z-30 grid w-[88%] -translate-x-1/2 grid-cols-2 gap-2 md:hidden"
+          style={{ animationDelay: "420ms" }}
         >
           <button
             type="button"
@@ -162,15 +150,13 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
               </span>
             </a>
           ))}
-        </motion.div>
+        </div>
 
         {/* Desktop social links */}
-        <motion.nav
+        <nav
           aria-label="Social links"
-          initial={{ opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute bottom-[6.5%] right-[4%] z-30 hidden flex-col gap-3 md:flex"
+          className="hero-reveal hero-reveal-right absolute bottom-[6.5%] right-[4%] z-30 hidden flex-col gap-3 md:flex"
+          style={{ animationDelay: "420ms" }}
         >
           {socialLinks.map(({ label, href, icon: Icon }) => (
             <a
@@ -190,7 +176,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
               </span>
             </a>
           ))}
-        </motion.nav>
+        </nav>
 
         {/* Mobile bottom navigation */}
         <nav

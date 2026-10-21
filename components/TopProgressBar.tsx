@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 
 interface TopProgressBarProps {
   currentSlide: number;
@@ -29,15 +28,13 @@ export const TopProgressBar: React.FC<TopProgressBarProps> = ({
       />
 
       {/* Dynamic expanding progress line */}
-      <motion.div
-        className={`relative h-full transition-colors duration-500 ${
+      <div
+        className={`relative h-full transition-[width] duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isDark
             ? "bg-gradient-to-r from-amber-400 via-white to-amber-300 shadow-[0_0_10px_rgba(251,191,36,0.8)]"
             : "bg-gradient-to-r from-neutral-900 via-neutral-950 to-amber-600 shadow-[0_0_8px_rgba(217,119,6,0.4)]"
         }`}
-        initial={{ width: `${(1 / totalSlides) * 100}%` }}
-        animate={{ width: `${progressPercentage}%` }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        style={{ width: `${progressPercentage}%` }}
       >
         {/* Glow tip at the leading edge */}
         <div
@@ -45,7 +42,7 @@ export const TopProgressBar: React.FC<TopProgressBarProps> = ({
             isDark ? "bg-amber-300" : "bg-amber-500"
           }`}
         />
-      </motion.div>
+      </div>
     </div>
   );
 };

@@ -21,7 +21,6 @@ import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
 interface SlideFooterSectionProps {
   onScrollTop: () => void;
-  onOpenResume?: () => void;
   onContactMe?: () => void;
   onNavigate?: (index: number) => void;
 }
@@ -171,7 +170,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           >
             <span className="relative size-6 overflow-hidden rounded-full bg-neutral-800">
               <Image
-                src="/pic-remove-background.png"
+                src="/pic-remove-background.webp"
                 alt=""
                 fill
                 sizes="24px"
@@ -237,7 +236,7 @@ export const SlideFooterSection: React.FC<SlideFooterSectionProps> = ({
           >
             <span className="relative size-7 overflow-hidden rounded-full bg-neutral-800">
               <Image
-                src="/pic-remove-background.png"
+                src="/pic-remove-background.webp"
                 alt=""
                 fill
                 sizes="28px"

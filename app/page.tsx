@@ -1,27 +1,49 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/Navbar";
 import { TopProgressBar } from "@/components/TopProgressBar";
-import { MenuOverlay } from "@/components/MenuOverlay";
-import { ContactModal } from "@/components/ContactModal";
-import { ResumeModal } from "@/components/ResumeModal";
-
 import { SlideHero } from "@/components/slides/SlideHero";
-import { SlideAbout } from "@/components/slides/SlideAbout";
-import { SlideProjectsArchive } from "@/components/slides/SlideProjectsArchive";
-import { SlideServicesSphere } from "@/components/slides/SlideServicesSphere";
-import { SlideContactSection } from "@/components/slides/SlideContactSection";
-import { SlideFooterSection } from "@/components/slides/SlideFooterSection";
 import { soundFx } from "@/utils/audio";
+
+const MenuOverlay = dynamic(() =>
+  import("@/components/MenuOverlay").then((module) => module.MenuOverlay)
+);
+const ResumeModal = dynamic(() =>
+  import("@/components/ResumeModal").then((module) => module.ResumeModal)
+);
+const SlideAbout = dynamic(() =>
+  import("@/components/slides/SlideAbout").then((module) => module.SlideAbout)
+);
+const SlideProjectsArchive = dynamic(() =>
+  import("@/components/slides/SlideProjectsArchive").then(
+    (module) => module.SlideProjectsArchive
+  )
+);
+const SlideServicesSphere = dynamic(() =>
+  import("@/components/slides/SlideServicesSphere").then(
+    (module) => module.SlideServicesSphere
+  )
+);
+const SlideContactSection = dynamic(() =>
+  import("@/components/slides/SlideContactSection").then(
+    (module) => module.SlideContactSection
+  )
+);
+const SlideFooterSection = dynamic(() =>
+  import("@/components/slides/SlideFooterSection").then(
+    (module) => module.SlideFooterSection
+  )
+);
 
 export default function PortfolioPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [hasOpenedMenu, setHasOpenedMenu] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [hasOpenedResume, setHasOpenedResume] = useState(false);
   const [isAudioActive, setIsAudioActive] = useState(false);
 
   const totalSlides = 6;
@@ -76,14 +98,14 @@ export default function PortfolioPage() {
 
   // Check if any modal or scrollable overlay is currently open
   const isModalActive = useCallback((target?: HTMLElement | null) => {
-    if (isMenuOpen || isContactOpen || isResumeOpen) return true;
+    if (isMenuOpen || isResumeOpen) return true;
     if (typeof document !== "undefined") {
       if (document.body.getAttribute("data-modal-open") === "true") return true;
       if (target?.closest("[data-modal='true'], [role='dialog']")) return true;
       if (document.querySelector("[data-modal='true'], [role='dialog']")) return true;
     }
     return false;
-  }, [isMenuOpen, isContactOpen, isResumeOpen]);
+  }, [isMenuOpen, isResumeOpen]);
 
   // Lock window scroll on homepage slide deck
   useEffect(() => {
@@ -254,31 +276,14 @@ export default function PortfolioPage() {
     setIsAudioActive(!isMuted);
   };
 
-  // Slide animation variants
-  const slideVariants = {
-    enter: (direction: number) => ({
-      y: direction > 0 ? "15%" : "-15%",
-      opacity: 0,
-      scale: 0.98,
-    }),
-    center: {
-      y: "0%",
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.45,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
-    },
-    exit: (direction: number) => ({
-      y: direction > 0 ? "-15%" : "15%",
-      opacity: 0,
-      scale: 0.98,
-      transition: {
-        duration: 0.35,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
-    }),
+  const openMenu = () => {
+    setHasOpenedMenu(true);
+    setIsMenuOpen(true);
+  };
+
+  const openResume = () => {
+    setHasOpenedResume(true);
+    setIsResumeOpen(true);
   };
 
   return (
@@ -295,37 +300,31 @@ export default function PortfolioPage() {
       />
 
       {/* 1. Persistent Top Navbar */}
-      <Navbar
-        onOpenMenu={() => setIsMenuOpen(true)}
-        onOpenResume={() => setIsResumeOpen(true)}
-        onNavigate={changeSlide}
-        currentSlide={currentSlide}
-        isAudioActive={isAudioActive}
-        onToggleAudio={toggleAudio}
-        theme={isDarkSlide ? "dark" : "light"}
-        heroMode={currentSlide === 0}
-        hideOnMobile={currentSlide === 2 || currentSlide === 5}
-      />
+      {currentSlide !== 0 && (
+        <Navbar
+          onOpenMenu={openMenu}
+          onNavigate={changeSlide}
+          currentSlide={currentSlide}
+          isAudioActive={isAudioActive}
+          onToggleAudio={toggleAudio}
+          theme={isDarkSlide ? "dark" : "light"}
+          hideOnMobile={currentSlide === 2 || currentSlide === 5}
+        />
+      )}
 
       {/* 2. Fullscreen Animated Slide Engine */}
       <div className="relative w-full h-full">
-        <AnimatePresence initial={false} custom={direction} mode="wait">
-          <motion.div
-            key={currentSlide}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="portfolio-slide-frame absolute inset-0 w-full h-full will-change-transform transform-gpu"
-          >
+        <div
+          key={currentSlide}
+          className={`portfolio-slide-frame portfolio-slide-enter absolute inset-0 h-full w-full will-change-transform ${
+            direction > 0 ? "slide-from-bottom" : "slide-from-top"
+          }`}
+        >
             {/* Slide 0: Hero Section */}
             {currentSlide === 0 && (
               <SlideHero
-                onViewProjects={() => changeSlide(2)}
-                onOpenResume={() => setIsResumeOpen(true)}
                 onContactMe={() => changeSlide(4)}
-                onOpenMenu={() => setIsMenuOpen(true)}
+                onOpenMenu={openMenu}
                 onNavigate={changeSlide}
               />
             )}
@@ -355,35 +354,31 @@ export default function PortfolioPage() {
             {currentSlide === 5 && (
               <SlideFooterSection
                 onScrollTop={() => changeSlide(0)}
-                onOpenResume={() => setIsResumeOpen(true)}
                 onContactMe={() => changeSlide(4)}
                 onNavigate={changeSlide}
               />
             )}
-          </motion.div>
-        </AnimatePresence>
+        </div>
       </div>
 
       {/* 3. Fullscreen Editorial Menu */}
-      <MenuOverlay
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        onSelectSlide={changeSlide}
-        onOpenContact={() => changeSlide(4)}
-        onOpenResume={() => setIsResumeOpen(true)}
-      />
+      {hasOpenedMenu && (
+        <MenuOverlay
+          isOpen={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+          onSelectSlide={changeSlide}
+          onOpenContact={() => changeSlide(4)}
+          onOpenResume={openResume}
+        />
+      )}
 
       {/* 5. Resume Hub Lightbox Modal */}
-      <ResumeModal
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-      />
-
-      {/* 6. Quick Contact Modal (Fallback) */}
-      <ContactModal
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-      />
+      {hasOpenedResume && (
+        <ResumeModal
+          isOpen={isResumeOpen}
+          onClose={() => setIsResumeOpen(false)}
+        />
+      )}
     </main>
   );
 }
