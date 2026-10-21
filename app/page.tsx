@@ -10,9 +10,6 @@ import { soundFx } from "@/utils/audio";
 const MenuOverlay = dynamic(() =>
   import("@/components/MenuOverlay").then((module) => module.MenuOverlay)
 );
-const ResumeModal = dynamic(() =>
-  import("@/components/ResumeModal").then((module) => module.ResumeModal)
-);
 const SlideAbout = dynamic(() =>
   import("@/components/slides/SlideAbout").then((module) => module.SlideAbout)
 );
@@ -42,8 +39,6 @@ export default function PortfolioPage() {
   const [direction, setDirection] = useState(1);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasOpenedMenu, setHasOpenedMenu] = useState(false);
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [hasOpenedResume, setHasOpenedResume] = useState(false);
   const [isAudioActive, setIsAudioActive] = useState(false);
 
   const totalSlides = 6;
@@ -98,14 +93,14 @@ export default function PortfolioPage() {
 
   // Check if any modal or scrollable overlay is currently open
   const isModalActive = useCallback((target?: HTMLElement | null) => {
-    if (isMenuOpen || isResumeOpen) return true;
+    if (isMenuOpen) return true;
     if (typeof document !== "undefined") {
       if (document.body.getAttribute("data-modal-open") === "true") return true;
       if (target?.closest("[data-modal='true'], [role='dialog']")) return true;
       if (document.querySelector("[data-modal='true'], [role='dialog']")) return true;
     }
     return false;
-  }, [isMenuOpen, isResumeOpen]);
+  }, [isMenuOpen]);
 
   // Lock window scroll on homepage slide deck
   useEffect(() => {
@@ -281,11 +276,6 @@ export default function PortfolioPage() {
     setIsMenuOpen(true);
   };
 
-  const openResume = () => {
-    setHasOpenedResume(true);
-    setIsResumeOpen(true);
-  };
-
   return (
     <main
       className={`portfolio-viewport relative w-screen overflow-hidden font-sans transition-colors duration-500 ${
@@ -368,15 +358,6 @@ export default function PortfolioPage() {
           onClose={() => setIsMenuOpen(false)}
           onSelectSlide={changeSlide}
           onOpenContact={() => changeSlide(4)}
-          onOpenResume={openResume}
-        />
-      )}
-
-      {/* 5. Resume Hub Lightbox Modal */}
-      {hasOpenedResume && (
-        <ResumeModal
-          isOpen={isResumeOpen}
-          onClose={() => setIsResumeOpen(false)}
         />
       )}
     </main>

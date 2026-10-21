@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowUpRight, FileText, BookOpen } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/Icons";
+import { X, ArrowRight, ArrowUpRight } from "lucide-react";
 import { soundFx } from "@/utils/audio";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 
@@ -13,7 +12,6 @@ interface MenuOverlayProps {
   onClose: () => void;
   onSelectSlide: (index: number) => void;
   onOpenContact: () => void;
-  onOpenResume: () => void;
 }
 
 export const MenuOverlay: React.FC<MenuOverlayProps> = ({
@@ -21,10 +19,9 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
   onClose,
   onSelectSlide,
   onOpenContact,
-  onOpenResume,
 }) => {
   const [time, setTime] = useState<string>("");
-  const { personal, about } = PORTFOLIO_DATA;
+  const { personal } = PORTFOLIO_DATA;
 
   useEffect(() => {
     const updateTime = () => {
@@ -43,8 +40,8 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
   }, []);
 
   const slideLinks = [
-    { label: "HERO & PHILOSOPHY", slideIndex: 0 },
-    { label: "ABOUT & PHILOSOPHY", slideIndex: 1 },
+    { label: "HERO", slideIndex: 0 },
+    { label: "ABOUT", slideIndex: 1 },
     { label: "FEATURED PROJECTS", slideIndex: 2 },
     { label: "SERVICES & CAPABILITIES", slideIndex: 3 },
     { label: "CONTACT & COLLABORATION", slideIndex: 4 },
@@ -60,15 +57,18 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 bg-[#d5d5d3] p-[7px] text-neutral-950 md:bg-transparent md:p-0"
         >
-          <div className="flex h-full w-full flex-col justify-between overflow-y-auto rounded-[22px] bg-white/95 p-6 shadow-[0_0_24px_rgba(0,0,0,0.08)] backdrop-blur-2xl md:rounded-none md:p-14 md:shadow-none">
+          <div
+            className="flex h-full w-full flex-col justify-between overflow-y-auto rounded-[22px] bg-white bg-cover bg-center bg-no-repeat p-6 shadow-[0_0_24px_rgba(0,0,0,0.08)] md:rounded-none md:bg-contain md:p-14 md:shadow-none"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)), url("/menu-background.gif")',
+            }}
+          >
           {/* Top Bar inside menu */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="font-extrabold tracking-tight text-lg text-neutral-950">
                 {personal.name}
-              </span>
-              <span className="text-neutral-500 font-mono text-xs hidden sm:inline">
-                / {about.degree}
               </span>
             </div>
 
@@ -86,7 +86,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
 
           {/* Main Navigation List */}
           <div className="my-auto py-8 max-w-4xl">
-            <span className="text-[11px] font-mono tracking-widest text-amber-500 uppercase font-semibold block mb-6">
+            <span className="text-[11px] font-mono tracking-widest text-[#FF8C00] uppercase font-semibold block mb-6">
               PORTFOLIO SECTIONS
             </span>
 
@@ -102,10 +102,10 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                     onSelectSlide(item.slideIndex);
                     onClose();
                   }}
-                  className="group cursor-pointer flex items-center justify-between border-b border-neutral-200 py-3 hover:border-amber-500 transition-colors"
+                  className="group cursor-pointer flex items-center justify-between border-b border-neutral-200 py-3 hover:border-[#FF8C00] transition-colors"
                 >
                   <div className="flex items-baseline gap-4 md:gap-8">
-                    <span className="font-mono text-xs text-neutral-500 group-hover:text-amber-400 transition-colors">
+                    <span className="font-mono text-xs text-neutral-500 group-hover:text-[#FF8C00] transition-colors">
                       0{idx + 1}
                     </span>
                     <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-neutral-800 group-hover:text-neutral-950 group-hover:translate-x-2 transition-all duration-300">
@@ -127,15 +127,15 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                     soundFx.playSlideTransition();
                     onClose();
                   }}
-                  className="group cursor-pointer flex items-center justify-between border-b border-amber-500/30 py-3 hover:border-amber-400 transition-colors"
+                  className="group cursor-pointer flex items-center justify-between border-b border-[#FF8C00]/30 py-3 hover:border-[#FF8C00] transition-colors"
                 >
                   <div className="flex items-baseline gap-4 md:gap-8">
-                    <span className="font-mono text-xs text-amber-400 font-bold group-hover:text-amber-300 transition-colors">
+                    <span className="font-mono text-xs text-[#FF8C00] font-bold transition-colors">
                       ✦ 07
                     </span>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-amber-600 group-hover:text-neutral-950 group-hover:translate-x-2 transition-all duration-300 flex items-center gap-2">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-[#FF8C00] group-hover:text-neutral-950 group-hover:translate-x-2 transition-all duration-300 flex items-center gap-2">
                       <span>ACTIVITY</span>
-                      <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF8C00] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </h2>
                   </div>
                 </Link>
@@ -150,7 +150,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
                 STATUS & LOCAL TIME
               </span>
               <p className="text-xs sm:text-sm font-medium">
-                INDIA (IST) — <span className="font-mono text-amber-400">{time || "12:00 PM"}</span>
+                INDIA (IST) — <span className="font-mono text-[#FF8C00]">{time || "12:00 PM"}</span>
               </p>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -162,59 +162,20 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
 
             {/* Quick Actions & Socials */}
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
-              <Link
-                href="/activity"
-                onClick={() => {
-                  soundFx.playTick();
-                  onClose();
-                }}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 hover:border-amber-400 hover:bg-amber-500/20 text-amber-300 transition-colors cursor-pointer"
-              >
-                <BookOpen className="w-3 h-3 text-amber-400" />
-                <span>Activity</span>
-              </Link>
-
               <button
-                onClick={() => {
-                  soundFx.playTick();
-                  onClose();
-                  onOpenResume();
-                }}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-neutral-300 hover:border-neutral-950 text-neutral-950 transition-colors cursor-pointer"
-              >
-                <FileText className="w-3 h-3 text-amber-400" />
-                <span>Resume</span>
-              </button>
-
-              <a
-                href={personal.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 hover:border-neutral-950 text-neutral-600 hover:text-neutral-950 transition-colors"
-              >
-                <GithubIcon className="w-3 h-3" />
-                <span>GitHub</span>
-              </a>
-
-              <a
-                href={personal.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 hover:border-neutral-950 text-neutral-600 hover:text-neutral-950 transition-colors"
-              >
-                <LinkedinIcon className="w-3 h-3" />
-                <span>LinkedIn</span>
-              </a>
-
-              <button
+                type="button"
                 onClick={() => {
                   onClose();
                   onOpenContact();
                 }}
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-sans font-bold transition-colors cursor-pointer"
+                className="group inline-flex h-14 cursor-pointer items-center gap-7 rounded-full border border-white/90 bg-white py-1 pl-6 pr-1 text-neutral-950 shadow-[0_12px_28px_rgba(0,0,0,0.16),0_2px_0_rgba(0,0,0,0.75)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(0,0,0,0.2),0_2px_0_rgba(0,0,0,0.78)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF8C00] focus-visible:ring-offset-2 active:translate-y-0"
               >
-                <span>Initiate Contact</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <span className="font-sans text-base font-bold tracking-[-0.02em]">
+                  Initiate Contact
+                </span>
+                <span className="flex size-12 items-center justify-center rounded-full border border-neutral-200 bg-white shadow-sm transition-colors duration-300 group-hover:border-[#FF8C00]/50 group-hover:bg-[#fffaf3]">
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
               </button>
             </div>
           </div>
