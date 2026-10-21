@@ -300,7 +300,6 @@ export default function PortfolioPage() {
         onOpenResume={() => setIsResumeOpen(true)}
         onNavigate={changeSlide}
         currentSlide={currentSlide}
-        isMenuOpen={isMenuOpen}
         isAudioActive={isAudioActive}
         onToggleAudio={toggleAudio}
         theme={isDarkSlide ? "dark" : "light"}
@@ -326,6 +325,7 @@ export default function PortfolioPage() {
                 onViewProjects={() => changeSlide(2)}
                 onOpenResume={() => setIsResumeOpen(true)}
                 onContactMe={() => changeSlide(4)}
+                onOpenMenu={() => setIsMenuOpen(true)}
                 onNavigate={changeSlide}
               />
             )}

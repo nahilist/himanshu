@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { MenuButton } from "@/components/MenuButton";
 import { soundFx } from "@/utils/audio";
 
 interface NavbarProps {
@@ -9,7 +10,6 @@ interface NavbarProps {
   onOpenResume?: () => void;
   onNavigate?: (index: number) => void;
   currentSlide?: number;
-  isMenuOpen: boolean;
   isAudioActive: boolean;
   onToggleAudio: () => void;
   theme?: "light" | "dark";
@@ -21,7 +21,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenMenu,
   onNavigate,
   currentSlide = 0,
-  isMenuOpen,
   isAudioActive,
   onToggleAudio,
   theme = "light",
@@ -156,59 +155,14 @@ export const Navbar: React.FC<NavbarProps> = ({
       </nav>
 
       {/* Right section: menu control */}
-      <div className="flex items-center gap-3.5 pointer-events-auto md:hidden">
-        {/* Ultra-Premium 3-Dot Executive Menu Capsule */}
-        <button
+      <div className="flex items-center gap-3.5 pointer-events-auto">
+        <MenuButton
+          isDark={isDark}
           onClick={() => {
             soundFx.playTick();
             onOpenMenu();
           }}
-          className={`group relative flex items-center justify-center gap-2 h-9 ${heroMode ? "w-9 px-0 sm:w-auto sm:px-3.5" : "px-3 sm:px-3.5"} rounded-full border backdrop-blur-md transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-[1.03] active:scale-[0.98] ${
-            isDark
-              ? "border-white/20 bg-neutral-950/80 hover:border-white/50 hover:bg-neutral-900 text-white"
-              : "border-neutral-200 bg-white/80 hover:border-neutral-400 hover:bg-white text-neutral-900 shadow-neutral-950/5"
-          }`}
-          aria-label="Open Menu"
-        >
-          {/* Subtle Ambient Sheen */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-          {/* Micro "MENU" / "CLOSE" Label */}
-          <span className={`${heroMode ? "hidden sm:inline" : "inline"} font-mono text-[10.5px] sm:text-[11px] font-semibold tracking-widest uppercase opacity-80 group-hover:opacity-100 transition-opacity`}>
-            {isMenuOpen ? "CLOSE" : "MENU"}
-          </span>
-
-          {/* 3-Dot Precision Array with Dynamic States */}
-          <div className={`flex ${heroMode ? "flex-col gap-[2px] pl-0 sm:flex-row sm:gap-1.5 sm:pl-0.5" : "items-center gap-1 sm:gap-1.5 pl-0.5"}`}>
-            <span
-              className={`${heroMode ? "h-px w-3 rounded-none sm:h-1.5 sm:w-1.5 sm:rounded-full" : "w-1.5 h-1.5 rounded-full"} transition-all duration-300 ${
-                isMenuOpen
-                  ? "bg-[#ff6600] scale-110"
-                  : isDark
-                  ? "bg-white group-hover:scale-125 group-hover:bg-[#ff6600]"
-                  : "bg-neutral-950 group-hover:scale-125 group-hover:bg-[#ff6600]"
-              }`}
-            />
-            <span
-              className={`${heroMode ? "h-px w-3 rounded-none sm:h-1.5 sm:w-1.5 sm:rounded-full" : "w-1.5 h-1.5 rounded-full"} transition-all duration-300 delay-75 ${
-                isMenuOpen
-                  ? "bg-amber-400 scale-110"
-                  : isDark
-                  ? "bg-white/80 group-hover:scale-125 group-hover:bg-amber-400"
-                  : "bg-neutral-950/80 group-hover:scale-125 group-hover:bg-amber-400"
-              }`}
-            />
-            <span
-              className={`${heroMode ? "h-px w-3 rounded-none sm:h-1.5 sm:w-1.5 sm:rounded-full" : "w-1.5 h-1.5 rounded-full"} transition-all duration-300 delay-150 ${
-                isMenuOpen
-                  ? "bg-[#ff6600] scale-110"
-                  : isDark
-                  ? "bg-white/60 group-hover:scale-125 group-hover:bg-[#ff6600]"
-                  : "bg-neutral-950/60 group-hover:scale-125 group-hover:bg-[#ff6600]"
-              }`}
-            />
-          </div>
-        </button>
+        />
       </div>
     </header>
   );

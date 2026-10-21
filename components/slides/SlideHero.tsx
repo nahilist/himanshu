@@ -12,6 +12,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/Icons";
+import { MenuButton } from "@/components/MenuButton";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 import { soundFx } from "@/utils/audio";
 
@@ -19,6 +20,7 @@ interface SlideHeroProps {
   onViewProjects?: () => void;
   onOpenResume?: () => void;
   onContactMe?: () => void;
+  onOpenMenu?: () => void;
   onNavigate?: (index: number) => void;
 }
 
@@ -42,6 +44,7 @@ const socialLinks = [
 
 export const SlideHero: React.FC<SlideHeroProps> = ({
   onContactMe,
+  onOpenMenu,
   onNavigate,
 }) => {
   const { personal } = PORTFOLIO_DATA;
@@ -61,6 +64,15 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
   return (
     <section className="portfolio-slide-card relative h-full min-h-0 w-full overflow-hidden text-neutral-950">
       <div className="relative h-full w-full overflow-hidden rounded-[22px] border border-white/80 bg-[#f9f9f8] shadow-[0_0_24px_rgba(0,0,0,0.08)] md:rounded-none md:border-0 md:bg-[#f7f7f5] md:shadow-none">
+        <div className="absolute right-4 top-4 z-40 md:right-12 md:top-6">
+          <MenuButton
+            onClick={() => {
+              soundFx.playTick();
+              onOpenMenu?.();
+            }}
+          />
+        </div>
+
         {/* Oversized signature-style brand */}
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
