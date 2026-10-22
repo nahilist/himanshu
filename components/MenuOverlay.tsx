@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -21,6 +21,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
   onOpenContact,
 }) => {
   const [time, setTime] = useState<string>("");
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const { personal } = PORTFOLIO_DATA;
 
   useEffect(() => {
@@ -39,6 +40,16 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    closeButtonRef.current?.focus();
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [isOpen, onClose]);
+
   const slideLinks = [
     { label: "HERO", slideIndex: 0 },
     { label: "ABOUT", slideIndex: 1 },
@@ -52,6 +63,9 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Portfolio navigation"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -73,6 +87,7 @@ export const MenuOverlay: React.FC<MenuOverlayProps> = ({
             </div>
 
             <button
+              ref={closeButtonRef}
               onClick={() => {
                 soundFx.playTick();
                 onClose();

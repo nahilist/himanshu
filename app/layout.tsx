@@ -1,29 +1,29 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://himanshukumar.dev"),
-  title: "Himanshu | AI/ML & Frontend Developer",
-  description:
-    "Portfolio of Himanshu showcasing machine learning and modern frontend projects.",
-  authors: [{ name: "Himanshu", url: "https://github.com/himanshux64" }],
-  creator: "Himanshu Kumar",
-  keywords: [
-    "Himanshu",
-    "AI/ML Developer",
-    "Frontend Developer",
-  ],
+  metadataBase: new URL(SITE.origin),
+  title: {
+    default: `${SITE.personName} | ${SITE.role} | ${SITE.name}`,
+    template: `%s | ${SITE.personName}`,
+  },
+  description: SITE.description,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.personName, url: SITE.github }],
+  creator: SITE.personName,
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -32,29 +32,19 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   openGraph: {
-    title: "Himanshu | AI/ML & Frontend Developer",
-    description:
-      "Portfolio of Himanshu showcasing machine learning and modern frontend projects.",
-    url: "https://himanshukumar.dev",
-    siteName: "Himanshu Portfolio",
-    images: [
-      {
-        url: "/logo.png",
-        width: 800,
-        height: 800,
-        alt: "Himanshu Portfolio Logo",
-      },
-    ],
+    title: `${SITE.personName} | ${SITE.role} | ${SITE.name}`,
+    description: SITE.description,
+    url: "/",
+    siteName: SITE.name,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.personName}, ${SITE.role}` }],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Himanshu | AI/ML & Frontend Developer",
-    description:
-      "Portfolio of Himanshu showcasing machine learning and modern frontend projects.",
-    creator: "@himanshux64",
-    images: ["/logo.png"],
+    title: `${SITE.personName} | ${SITE.role} | ${SITE.name}`,
+    description: SITE.description,
+    images: ["/twitter-image"],
   },
 };
 
@@ -66,7 +56,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} min-h-full antialiased`}
+      className="min-h-full antialiased"
     >
       <body className="min-h-full w-full bg-white text-neutral-900">
         {children}

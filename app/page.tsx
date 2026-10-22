@@ -6,6 +6,8 @@ import { Navbar } from "@/components/Navbar";
 import { TopProgressBar } from "@/components/TopProgressBar";
 import { SlideHero } from "@/components/slides/SlideHero";
 import { soundFx } from "@/utils/audio";
+import { JsonLd } from "@/components/JsonLd";
+import { SITE, absoluteUrl } from "@/lib/site";
 
 const MenuOverlay = dynamic(() =>
   import("@/components/MenuOverlay").then((module) => module.MenuOverlay)
@@ -278,10 +280,38 @@ export default function PortfolioPage() {
 
   return (
     <main
+      id="main-content"
       className={`portfolio-viewport relative w-screen overflow-hidden font-sans transition-colors duration-500 ${
         isDarkSlide ? "bg-black text-white" : "bg-white text-neutral-900"
       }`}
     >
+      <a href="#home-heading" className="sr-only z-[100] rounded bg-neutral-950 px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to portfolio introduction</a>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "@id": `${absoluteUrl("/")}#person`,
+            name: SITE.personName,
+            alternateName: SITE.name,
+            url: absoluteUrl("/"),
+            image: absoluteUrl("/pic-remove-background.webp"),
+            jobTitle: SITE.role,
+            email: `mailto:${SITE.email}`,
+            sameAs: [SITE.github, SITE.linkedin, SITE.medium],
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": `${absoluteUrl("/")}#website`,
+            url: absoluteUrl("/"),
+            name: SITE.name,
+            description: SITE.description,
+            inLanguage: "en",
+            author: { "@id": `${absoluteUrl("/")}#person` },
+          },
+        ]}
+      />
       {/* Sleek Top Edge Scroll Progress Line */}
       <TopProgressBar
         currentSlide={currentSlide}

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   BookOpen,
@@ -71,7 +72,8 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
         </div>
 
         {/* Oversized signature-style brand */}
-        <h1
+        <div
+          aria-hidden="true"
           className="hero-reveal hero-reveal-down hero-center-x pointer-events-none absolute left-1/2 top-[8.5%] z-0 whitespace-nowrap text-[20vw] leading-none tracking-[-0.1em] md:top-[7%] md:text-[17vw] lg:top-[-1%] lg:text-[14.5vw]"
           style={{
             fontFamily: '"Segoe Script", "Brush Script MT", cursive',
@@ -79,7 +81,7 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
           }}
         >
           Nahilist
-        </h1>
+        </div>
 
         {/* Central portrait */}
         <div
@@ -101,9 +103,9 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
           className="hero-reveal hero-reveal-left hero-mobile-center-x absolute left-1/2 top-[53%] z-20 w-[88%] text-center md:bottom-[6.5%] md:left-[4.2%] md:top-auto md:w-auto md:max-w-[20rem] md:text-left"
           style={{ animationDelay: "320ms" }}
         >
-          <h2 className="text-lg font-extrabold tracking-[-0.04em] sm:text-xl md:text-2xl lg:text-[2rem]">
-            {personal.role}
-          </h2>
+          <h1 id="home-heading" className="text-lg font-extrabold tracking-[-0.04em] sm:text-xl md:text-2xl lg:text-[2rem]">
+            {personal.name} <span className="block text-[0.7em] tracking-[-0.02em] text-neutral-600">{personal.role} &middot; Nahilist</span>
+          </h1>
           <button
             type="button"
             onClick={playAndContact}
@@ -114,6 +116,11 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </span>
           </button>
+          <nav aria-label="Profile pages" className="mt-5 hidden gap-4 text-sm font-semibold md:flex">
+            <Link className="underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900" href="/projects">Projects</Link>
+            <Link className="underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900" href="/about">About</Link>
+            <Link className="underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900" href="/contact">Contact</Link>
+          </nav>
         </div>
 
         {/* Compact mobile action grid */}

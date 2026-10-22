@@ -27,7 +27,7 @@ export interface ServiceItem {
 
 export const PORTFOLIO_DATA = {
   personal: {
-    name: "Himanshu",
+    name: "Himanshu Kumar",
     role: "AI/ML & Frontend Developer",
     shortIntro:
       "",
