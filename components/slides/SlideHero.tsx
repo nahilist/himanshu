@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/Icons";
 import { MenuButton } from "@/components/MenuButton";
+import TechText from "@/components/TechText";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
 import { soundFx } from "@/utils/audio";
 
@@ -71,16 +72,29 @@ export const SlideHero: React.FC<SlideHeroProps> = ({
           />
         </div>
 
-        {/* Oversized signature-style brand */}
+        {/* Oversized interactive signature-style brand */}
         <div
           aria-hidden="true"
-          className="hero-reveal hero-reveal-down hero-center-x pointer-events-none absolute left-1/2 top-[8.5%] z-0 whitespace-nowrap text-[20vw] leading-none tracking-[-0.1em] md:top-[7%] md:text-[17vw] lg:top-[-1%] lg:text-[14.5vw]"
-          style={{
-            fontFamily: '"Segoe Script", "Brush Script MT", cursive',
-            fontWeight: 500,
-          }}
+          className="hero-reveal hero-reveal-down absolute inset-x-0 top-[5%] z-0 h-[28vw] min-h-28 max-h-[19rem] md:top-[1%] md:h-[24vw] lg:top-[-4%] lg:h-[22vw]"
         >
-          Nahilist
+          <TechText
+            text="Nahilist"
+            fontFamily={'"Segoe Script", "Brush Script MT", cursive'}
+            fontWeight={500}
+            fontSize={260}
+            letterSpacing={-0.1}
+            color="#171717"
+            accentColor="#525252"
+            reveal="letter"
+            dashLength={4}
+            dashGap={2}
+            specks={15}
+            intro="assemble"
+            introDuration={1.8}
+            clickKick
+            guides={false}
+            style={{}}
+          />
         </div>
 
         {/* Central portrait */}
