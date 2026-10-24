@@ -13,91 +13,60 @@ export interface ProjectItem {
 
 export interface SkillCategory {
   title: string;
-  iconName: string;
   skills: string[];
   description: string;
-}
-
-export interface ServiceItem {
-  id: string;
-  title: string;
-  description: string;
-  deliverables: string[];
 }
 
 export const PORTFOLIO_DATA = {
   personal: {
     name: "Himanshu Kumar",
-    role: "AI/ML & Frontend Developer",
-    shortIntro:
-      "",
-    status: "Available for Select Projects & Roles",
-    location: "India",
     email: "himanshukx64@gmail.com",
     github: "https://github.com/nahilist",
     linkedin: "https://linkedin.com/in/himanshux64",
-    medium: "https://medium.com/@himanshux64",
-    calendly: "https://calendly.com/himanshukumar-dev/30min",
   },
 
   about: {
     degree: "B.Tech in Artificial Intelligence & Machine Learning (AI & ML)",
     college: "Sanskriti University, Mathura, India",
-    currentYear: "4th Year",
     bio: [
       "I'm an AI & ML student and Frontend Developer focused on building intelligent solutions and clean, modern web experiences.",
       "I enjoy turning ideas into real-world products through AI, engineering, and frontend development.",
-    ],
-    careerObjective:
-      "I'm an AI & ML student and Frontend Developer focused on building intelligent solutions and clean, modern web experiences. I enjoy turning ideas into real-world products through AI, engineering, and frontend development.",
-    availability: "Actively seeking Summer/Winter 2025-2026 Internships and high-impact collaborative projects.",
-    highlights: [
-      { label: "Degree", value: "B.Tech AI & ML" },
-      { label: "Academic Standing", value: "4th Year (2022-2026)" },
-      { label: "Focus", value: "GenAI, RAG & Next.js" },
-      { label: "Status", value: "Open for Internships" },
     ],
   },
 
   skills: [
     {
       title: "AI / Machine Learning",
-      iconName: "brain",
       skills: ["Python", "TensorFlow", "PyTorch", "Scikit-learn"],
       description:
         "Developing predictive algorithms, computer vision pipelines, statistical modeling, and deep neural networks.",
     },
     {
       title: "Generative AI",
-      iconName: "sparkles",
       skills: ["LLM", "RAG", "AI Agents", "LangChain"],
       description:
         "Building context-aware retrieval engines, vector search pipelines, autonomous agentic workflows, and prompt engineering.",
     },
     {
       title: "Frontend Engineering",
-      iconName: "layout",
       skills: ["HTML5", "CSS3", "JavaScript", "React", "Next.js", "Tailwind CSS"],
       description:
         "Crafting pixel-perfect, accessible, and responsive user interfaces with server-side rendering and smooth physics animations.",
     },
     {
       title: "Backend Development",
-      iconName: "server",
       skills: ["Django", "FastAPI"],
       description:
         "Designing high-throughput asynchronous REST APIs, microservices, authentication systems, and model-serving backends.",
     },
     {
       title: "Developer Tools",
-      iconName: "terminal",
       skills: ["Git", "GitHub", "Docker", "Jupyter", "Google Colab"],
       description:
         "Version control workflows, reproducible containerized environments, and interactive exploratory data analysis.",
     },
     {
       title: "Databases & Storage",
-      iconName: "database",
       skills: ["MongoDB", "SQLite", "Supabase"],
       description:
         "Designing relational schemas, document-based stores, vector embeddings databases, and real-time backend synchronization.",
@@ -270,49 +239,4 @@ export const PORTFOLIO_DATA = {
     },
   ],
 
-  services: [
-    {
-      id: "ai-ml-dev",
-      title: "AI/ML Application Development",
-      description:
-        "Designing custom machine learning models, training deep learning pipelines (PyTorch/TensorFlow), and creating computer vision or predictive classification solutions.",
-      deliverables: ["Custom Model Training", "Data Preprocessing & Evaluation", "RESTful Model Serving"],
-    },
-    {
-      id: "gen-ai-rag",
-      title: "Generative AI & RAG Solutions",
-      description:
-        "Building intelligent retrieval-augmented generation pipelines, custom agentic workflows, and semantic document search systems using LangChain and LLMs.",
-      deliverables: ["Vector Search Pipelines", "Multi-Agent Workflows", "Prompt Engineering & Evaluation"],
-    },
-    {
-      id: "frontend-dev",
-      title: "Modern Frontend Development",
-      description:
-        "Engineering responsive, accessible, ultra-fast web interfaces using Next.js, React, TypeScript, Tailwind CSS, and fluid Framer Motion animations.",
-      deliverables: ["Next.js App Router Architecture", "Responsive & Accessible UI", "Micro-Interactions"],
-    },
-    {
-      id: "fullstack-apps",
-      title: "Full-Stack Web Applications",
-      description:
-        "Developing scalable end-to-end applications from database design (Supabase/MongoDB) and Python APIs (FastAPI/Django) to interactive user interfaces.",
-      deliverables: ["Full-Stack Architecture", "Database Schema Design", "Secure Authentication"],
-    },
-  ] as ServiceItem[],
-
-  statistics: [
-    { label: "Completed Projects", value: "15+", subtext: "Production & Academic Works" },
-    { label: "Technologies Mastered", value: "20+", subtext: "AI/ML, Web, Tools & DBs" },
-    { label: "GitHub Repositories", value: "25+", subtext: "Open Source Codebases" },
-    { label: "Hands-on Learning", value: "2+ Years", subtext: "Continuous Practical Practice" },
-  ],
-
-  resume: {
-    fileName: "Himanshu_Kumar_Resume.pdf",
-    viewUrl: "https://drive.google.com/file/d/1yGZ26o7WLiyysw6PWk2mlbnqs5TQLeUf/view?usp=drivesdk",
-    previewUrl: "https://drive.google.com/file/d/1yGZ26o7WLiyysw6PWk2mlbnqs5TQLeUf/preview",
-    downloadUrl: "https://drive.google.com/file/d/1yGZ26o7WLiyysw6PWk2mlbnqs5TQLeUf/view?usp=drivesdk",
-    lastUpdated: "September 2025",
-  },
 };
