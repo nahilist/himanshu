@@ -52,6 +52,7 @@ export function NavsoulHome() {
   const [activeSkill, setActiveSkill] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [isDesktopNavFloating, setIsDesktopNavFloating] = useState(false);
   const closeMenuButtonRef = useRef<HTMLButtonElement>(null);
   const { personal, skills, experienceEducation } = PORTFOLIO_DATA;
 
@@ -91,6 +92,13 @@ export function NavsoulHome() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const updateDesktopNav = () => setIsDesktopNavFloating(window.scrollY > 90);
+    updateDesktopNav();
+    window.addEventListener("scroll", updateDesktopNav, { passive: true });
+    return () => window.removeEventListener("scroll", updateDesktopNav);
   }, []);
 
   const movePortraitReveal = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -205,6 +213,24 @@ export function NavsoulHome() {
           </div>
         </div>
       </footer>
+
+      {isDesktopNavFloating && (
+        <nav
+          aria-label="Sticky primary navigation"
+          className="fixed left-1/2 top-6 z-[70] hidden -translate-x-1/2 items-center rounded-full border border-black/[0.04] bg-white/95 px-7 py-4 shadow-[0_8px_24px_rgba(0,0,0,0.14)] backdrop-blur-xl lg:flex"
+        >
+          <ul className="flex items-center gap-8">
+            {navItems.map((item) => (
+              <li key={item.label}>
+                <a className="inline-flex items-baseline gap-1 whitespace-nowrap text-sm font-medium text-neutral-700 transition-colors hover:text-black" href={item.href}>
+                  {item.label}
+                  {item.count && <span className="text-xs text-neutral-400">[{item.count}]</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
 
       {isMenuOpen && (
         <div
