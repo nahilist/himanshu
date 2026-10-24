@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ArrowUpRight, ChevronDown, Mail, Menu, X } from "lucide-react";
 import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/Icons";
 import TechText from "@/components/TechText";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
@@ -42,7 +42,27 @@ function SectionHeading({ children, backdrop, align = "center", dark = false }: 
 
 export function NavsoulHome() {
   const [activeSkill, setActiveSkill] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const closeMenuButtonRef = useRef<HTMLButtonElement>(null);
   const { personal, skills, experienceEducation } = PORTFOLIO_DATA;
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeMenuButtonRef.current?.focus();
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isMenuOpen]);
 
   const movePortraitReveal = (event: React.PointerEvent<HTMLDivElement>) => {
     const portrait = event.currentTarget;
@@ -59,6 +79,16 @@ export function NavsoulHome() {
             <ul className="hidden items-center gap-8 lg:flex">
               {navItems.map((item) => <li key={item.label}><a className="inline-flex items-baseline gap-1 text-sm font-medium text-neutral-700 hover:text-black" href={item.href}>{item.label}{item.count && <span className="text-xs text-neutral-400">[{item.count}]</span>}</a></li>)}
             </ul>
+            <button
+              type="button"
+              aria-label="Open navigation menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-navigation"
+              onClick={() => setIsMenuOpen(true)}
+              className="flex size-10 items-center justify-center rounded-full border border-black/10 bg-white/85 text-neutral-800 shadow-sm backdrop-blur-sm transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black lg:hidden"
+            >
+              <Menu className="size-[18px]" strokeWidth={1.8} />
+            </button>
           </nav>
 
           <div className="relative mt-4 hidden flex-1 md:block">
@@ -76,11 +106,11 @@ export function NavsoulHome() {
             <div className="absolute bottom-2 left-0 z-20">
               <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">Software Engineer</h1>
               <p className="mt-2 max-w-xs text-sm leading-relaxed text-neutral-500">Building digital products that are fast, reliable, and user-focused.</p>
-              <a href="#contact" className="group mt-5 inline-flex items-center gap-3 rounded-full bg-white py-2.5 pl-6 pr-2.5 shadow-[0_10px_28px_-10px_rgba(0,0,0,0.45)] ring-1 ring-black/5"><span className="font-semibold">Let&apos;s collaborate</span><ArrowBubble /></a>
+              <a href="#contact" className="group relative isolate mt-5 inline-flex items-center gap-3 rounded-full bg-white py-2.5 pl-6 pr-2.5 shadow-[0_10px_28px_-10px_rgba(0,0,0,0.45)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black"><span className="font-semibold">Let&apos;s collaborate</span><ArrowBubble /></a>
             </div>
 
             <div className="absolute bottom-2 right-0 z-20 flex flex-col gap-3">
-              {socialLinks.map(({ label, href, icon: Icon }) => <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="group flex h-10 w-44 items-center justify-between rounded-full bg-white px-4 shadow-[0_8px_22px_rgba(0,0,0,0.12)] ring-1 ring-black/5"><span className="flex items-center gap-2 text-sm font-semibold"><Icon className="size-4" />{label}</span><ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" /></a>)}
+              {socialLinks.map(({ label, href, icon: Icon }) => <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="group relative isolate flex h-11 w-48 items-center justify-between rounded-full bg-white py-1.5 pl-4 pr-1.5 shadow-[0_10px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black"><span className="flex items-center gap-2 text-sm font-semibold"><Icon className="size-4" />{label}</span><ArrowBubble /></a>)}
             </div>
           </div>
 
@@ -91,7 +121,10 @@ export function NavsoulHome() {
               <Image src="/pic-remove-background.webp" alt="" aria-hidden="true" fill sizes="208px" className="portrait-color-layer object-contain object-bottom" />
             </div>
             <div className="mt-2 text-center"><h1 className="text-2xl font-semibold">Software Engineer</h1><p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-neutral-500">Building digital products that are fast, reliable, and user-focused.</p></div>
-            <div className="mx-auto mt-8 grid w-full max-w-sm grid-cols-2 gap-2.5"><a href="#contact" className="flex h-10 items-center justify-between rounded-full bg-white px-4 text-sm font-semibold shadow-md ring-1 ring-black/5">Collaborate<ArrowRight className="size-4" /></a>{socialLinks.map(({ label, href, icon: Icon }) => <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-semibold shadow-sm ring-1 ring-black/5"><Icon className="size-4" />{label}</a>)}</div>
+            <div className="mx-auto mt-8 grid w-full max-w-sm grid-cols-2 gap-2.5">
+              <a href="#contact" className="group relative isolate flex h-11 items-center justify-between rounded-full bg-white py-1.5 pl-4 pr-1.5 text-sm font-semibold shadow-[0_10px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black">Collaborate<ArrowBubble /></a>
+              {socialLinks.map(({ label, href, icon: Icon }) => <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="group relative isolate flex h-11 items-center justify-between rounded-full bg-white py-1.5 pl-3 pr-1.5 text-sm font-semibold shadow-[0_10px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black"><span className="flex min-w-0 items-center gap-2"><Icon className="size-4 shrink-0" /><span className="truncate">{label}</span></span><ArrowBubble /></a>)}
+            </div>
           </div>
         </section>
 
@@ -118,10 +151,104 @@ export function NavsoulHome() {
           <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 shadow-sm ring-1 ring-black/5"><span className="relative flex size-2.5"><span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60" /><span className="relative inline-flex size-2.5 rounded-full bg-emerald-500" /></span><span className="text-sm font-medium">Available for New Project</span></div>
           <h2 className="mt-7 text-4xl font-bold uppercase tracking-tight sm:text-5xl md:text-6xl">Have a project in mind?</h2>
           <p className="mt-5 max-w-xl text-sm leading-relaxed text-neutral-600 sm:text-base">Together, we can create something clear and impactful. Let&apos;s collaborate to bring your ideas to life — fast, reliable, and built to last.</p>
-          <a href={`mailto:${personal.email}`} className="group mt-8 inline-flex items-center gap-3 rounded-full bg-white py-2.5 pl-6 pr-2.5 shadow-md ring-1 ring-black/5"><span className="font-semibold">Contact Me</span><ArrowBubble /></a>
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-3"><Link href="/" className="rounded-full bg-neutral-950 px-5 py-3 text-sm font-semibold text-white">{personal.name}</Link>{socialLinks.map(({ label, href, icon: Icon }) => <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-full bg-white px-4 py-3 text-sm font-semibold shadow-sm ring-1 ring-black/5"><Icon className="size-4" />{label}</a>)}</div>
+          <a href={`mailto:${personal.email}`} className="group relative isolate mt-8 inline-flex items-center gap-3 rounded-full bg-white py-2.5 pl-6 pr-2.5 shadow-[0_12px_25px_-10px_rgba(0,0,0,0.5)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black"><span className="font-semibold">Contact Me</span><ArrowBubble /></a>
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-3">
+            <Link href="/" className="inline-flex h-11 items-center gap-2.5 rounded-full bg-neutral-950 py-1.5 pl-1.5 pr-5 text-sm font-semibold text-white shadow-[0_12px_24px_-12px_rgba(0,0,0,0.65)]">
+              <span className="relative size-8 overflow-hidden rounded-full bg-neutral-800">
+                <Image src="/pic-remove-background.webp" alt="" fill sizes="32px" className="object-cover object-top grayscale" />
+              </span>
+              {personal.name}
+            </Link>
+            {socialLinks.map(({ label, href, icon: Icon }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="group relative isolate inline-flex h-11 items-center gap-3 rounded-full bg-white py-1.5 pl-4 pr-1.5 text-sm font-semibold shadow-[0_12px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black">
+                <span className="flex items-center gap-2"><Icon className="size-4" />{label}</span>
+                <ArrowBubble />
+              </a>
+            ))}
+            <a href={`mailto:${personal.email}`} className="group relative isolate inline-flex h-11 items-center gap-3 rounded-full bg-white py-1.5 pl-4 pr-1.5 text-sm font-semibold shadow-[0_12px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black">
+              <span className="flex items-center gap-2"><Mail className="size-4" />Email</span>
+              <ArrowBubble />
+            </a>
+          </div>
         </div>
       </footer>
+
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex justify-end bg-black/35 backdrop-blur-[3px] lg:hidden"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setIsMenuOpen(false);
+          }}
+        >
+          <aside
+            id="mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+            className="flex h-full w-[83vw] max-w-[360px] flex-col border-l border-white/15 bg-[#090909] px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] text-white shadow-[-24px_0_70px_rgba(0,0,0,0.28)]"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xl font-bold tracking-tight">Nahilist</span>
+              <button
+                ref={closeMenuButtonRef}
+                type="button"
+                aria-label="Close navigation menu"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex size-10 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white/40 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <X className="size-[18px]" strokeWidth={1.7} />
+              </button>
+            </div>
+
+            <nav className="mt-7" aria-label="Mobile navigation">
+              <ul>
+                {navItems.map((item) => (
+                  <li key={item.label} className="border-b border-white/[0.07]">
+                    <a
+                      href={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="group flex items-center justify-between py-5 text-xl font-medium tracking-tight text-white/90 transition-colors hover:text-white"
+                    >
+                      <span>{item.label}</span>
+                      {item.count && (
+                        <span className="text-xs font-semibold tracking-normal text-white/30 transition-colors group-hover:text-white/50">
+                          [{item.count}]
+                        </span>
+                      )}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className="mt-auto">
+              <a
+                href={`mailto:${personal.email}`}
+                className="group inline-flex items-center gap-2 rounded-full bg-white py-1.5 pl-4 pr-1.5 text-xs font-semibold text-neutral-900"
+              >
+                Let&apos;s Talk
+                <span className="flex size-6 items-center justify-center rounded-full border border-neutral-200">
+                  <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </a>
+              <div className="mt-4 flex items-center gap-5 text-white/45">
+                {socialLinks.map(({ label, href, icon: Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="transition-colors hover:text-white"
+                  >
+                    <Icon className="size-[18px]" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </aside>
+        </div>
+      )}
     </main>
   );
 }
