@@ -180,21 +180,25 @@ export function NavsoulHome() {
           <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 shadow-sm ring-1 ring-black/5"><span className="relative flex size-2.5"><span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60" /><span className="relative inline-flex size-2.5 rounded-full bg-emerald-500" /></span><span className="text-sm font-medium">Available for New Project</span></div>
           <h2 className="mt-7 text-4xl font-bold uppercase tracking-tight sm:text-5xl md:text-6xl">Have a project in mind?</h2>
           <p className="mt-5 max-w-xl text-sm leading-relaxed text-neutral-600 sm:text-base">Together, we can create something clear and impactful. Let&apos;s collaborate to bring your ideas to life — fast, reliable, and built to last.</p>
-          <a href={`mailto:${personal.email}`} className="group relative isolate mt-8 inline-flex items-center gap-3 rounded-full bg-white py-2.5 pl-6 pr-2.5 shadow-[0_12px_25px_-10px_rgba(0,0,0,0.5)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black"><span className="font-semibold">Contact Me</span><ArrowBubble /></a>
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-3">
-            <Link href="/" className="inline-flex h-11 items-center gap-2.5 rounded-full bg-neutral-950 py-1.5 pl-1.5 pr-5 text-sm font-semibold text-white shadow-[0_12px_24px_-12px_rgba(0,0,0,0.65)]">
+          <a href={`mailto:${personal.email}`} className="group relative isolate mt-8 hidden items-center gap-3 rounded-full bg-white py-2.5 pl-6 pr-2.5 shadow-[0_12px_25px_-10px_rgba(0,0,0,0.5)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black sm:inline-flex"><span className="font-semibold">Contact Me</span><ArrowBubble /></a>
+          <div className="mt-8 grid w-full max-w-[280px] grid-cols-2 gap-3 sm:mt-14 sm:flex sm:max-w-none sm:flex-wrap sm:items-center sm:justify-center">
+            <a href={`mailto:${personal.email}`} className="group relative isolate inline-flex h-11 items-center justify-between rounded-full bg-white py-1.5 pl-3 pr-1.5 text-xs font-semibold shadow-[0_12px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black sm:hidden">
+              <span>Contact Me</span>
+              <ArrowBubble />
+            </a>
+            <Link href="/" className="inline-flex h-11 items-center gap-2 rounded-full bg-neutral-950 py-1.5 pl-1.5 pr-3 text-xs font-semibold text-white shadow-[0_12px_24px_-12px_rgba(0,0,0,0.65)] sm:gap-2.5 sm:pr-4 sm:text-sm">
               <span className="relative size-8 overflow-hidden rounded-full bg-neutral-800">
                 <Image src="/pic-remove-background.webp" alt="" fill sizes="32px" className="object-cover object-top grayscale" />
               </span>
-              {personal.name}
+              Nahilist
             </Link>
             {socialLinks.map(({ label, href, icon: Icon }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="group relative isolate inline-flex h-11 items-center gap-3 rounded-full bg-white py-1.5 pl-4 pr-1.5 text-sm font-semibold shadow-[0_12px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black">
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="group relative isolate inline-flex h-11 items-center justify-between gap-1.5 rounded-full bg-white py-1.5 pl-3 pr-1.5 text-xs font-semibold shadow-[0_12px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black sm:gap-3 sm:pl-4 sm:text-sm">
                 <span className="flex items-center gap-2"><Icon className="size-4" />{label}</span>
                 <ArrowBubble />
               </a>
             ))}
-            <a href={`mailto:${personal.email}`} className="group relative isolate inline-flex h-11 items-center gap-3 rounded-full bg-white py-1.5 pl-4 pr-1.5 text-sm font-semibold shadow-[0_12px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black">
+            <a href={`mailto:${personal.email}`} className="group relative isolate inline-flex h-11 items-center justify-between gap-1.5 rounded-full bg-white py-1.5 pl-3 pr-1.5 text-xs font-semibold shadow-[0_12px_24px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/5 after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:translate-x-[2px] after:translate-y-[2px] after:rounded-full after:border after:border-black sm:gap-3 sm:pl-4 sm:text-sm">
               <span className="flex items-center gap-2"><Mail className="size-4" />Email</span>
               <ArrowBubble />
             </a>
@@ -281,7 +285,7 @@ export function NavsoulHome() {
 
       <nav
         aria-label="Mobile quick navigation"
-        className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex h-16 w-[min(88vw,340px)] -translate-x-1/2 items-center rounded-full border border-black/[0.04] bg-white/95 p-1.5 shadow-[0_10px_35px_rgba(0,0,0,0.18)] backdrop-blur-xl lg:hidden"
+        className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex h-16 w-[min(76vw,330px)] -translate-x-1/2 items-center rounded-full border border-black/[0.04] bg-white/95 p-1.5 shadow-[0_10px_35px_rgba(0,0,0,0.18)] backdrop-blur-xl lg:hidden"
       >
         {mobileDockItems.map(({ label, href, section, icon: Icon }) => {
           const active = activeSection === section;
