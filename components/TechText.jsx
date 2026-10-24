@@ -706,7 +706,15 @@ const TechText = ({
         targetX = view.left + (view.right - view.left) * (0.5 - 0.5 * Math.cos(clock * 0.45));
         targetY = view.top + (view.bottom - view.top) * (0.45 + 0.1 * Math.sin(clock * 0.8));
       }
-      const active = !introducing && (pointer.inside || sweeping || dragging >= 0);
+      const interactive =
+        s.sweep ||
+        s.draggable ||
+        s.clickKick ||
+        s.selection ||
+        s.guides ||
+        s.reveal === 'area' ||
+        s.reveal === 'letter';
+      const active = interactive && !introducing && (pointer.inside || sweeping || dragging >= 0);
       if (active && !placed) {
         lens.x = targetX;
         lens.y = targetY;
@@ -938,6 +946,7 @@ const TechText = ({
         if (Math.hypot(e.clientX - rect.left - press.x, e.clientY - rect.top - press.y) < 6) kick(press.index);
       }
       press.index = -1;
+      if (e.pointerType !== 'mouse') pointer.inside = false;
       wake();
     };
 

@@ -16,6 +16,12 @@ const navItems = [
   { label: "Contact", count: "", href: "#contact" },
 ];
 
+const mobileMenuItems = [
+  ...navItems.slice(0, 3),
+  { label: "Activity", count: "", href: "/activity" },
+  navItems[3],
+];
+
 const socialLinks = [
   { label: "Instagram", href: "https://instagram.com/himanshux64", icon: InstagramIcon },
   { label: "LinkedIn", href: PORTFOLIO_DATA.personal.linkedin, icon: LinkedinIcon },
@@ -95,16 +101,23 @@ export function NavsoulHome() {
   }, []);
 
   useEffect(() => {
+    let frame = 0;
     const updateDesktopNav = () => {
       const scrollTop = Math.max(window.scrollY, document.documentElement.scrollTop);
       setIsDesktopNavFloating(scrollTop > 90);
     };
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        updateDesktopNav();
+      });
+    };
     updateDesktopNav();
-    window.addEventListener("scroll", updateDesktopNav, { passive: true });
-    document.addEventListener("scroll", updateDesktopNav, { passive: true, capture: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", updateDesktopNav);
-      document.removeEventListener("scroll", updateDesktopNav, { capture: true });
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -117,7 +130,7 @@ export function NavsoulHome() {
 
   return (
     <main className="navsoul-page min-h-screen w-full p-3 sm:p-5 md:p-6">
-      <div className="relative overflow-hidden rounded-[1.75rem] bg-white/95 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.25)] backdrop-blur-sm md:rounded-[2.25rem]">
+      <div className="relative overflow-hidden rounded-[1.75rem] bg-white shadow-[0_30px_80px_-30px_rgba(0,0,0,0.25)] md:rounded-[2.25rem]">
         <section id="home" className="relative flex min-h-[calc(100svh-2rem)] flex-col px-5 pb-5 pt-6 sm:px-8 sm:pb-7 sm:pt-8 md:px-10 md:pb-8 md:pt-10">
           <nav className="relative z-50 flex items-center justify-end lg:justify-center" aria-label="Primary navigation">
             <ul className="hidden items-center gap-8 lg:flex">
@@ -143,8 +156,8 @@ export function NavsoulHome() {
             </div>
 
             <div onPointerEnter={movePortraitReveal} onPointerDown={movePortraitReveal} onPointerMove={movePortraitReveal} className="hero-portrait absolute bottom-0 left-1/2 z-10 h-[62vh] w-[clamp(350px,32vw,448px)] -translate-x-1/2 translate-y-6 select-none">
-              <Image src="/pic-remove-background.webp" alt={personal.name} fill priority sizes="448px" className="pointer-events-none object-contain object-bottom grayscale" />
-              <Image src="/pic-remove-background.webp" alt="" aria-hidden="true" fill priority sizes="448px" className="portrait-color-layer pointer-events-none object-contain object-bottom" />
+              <Image src="/pic-remove-background.webp" alt={personal.name} fill fetchPriority="high" sizes="(min-width: 768px) 448px, 208px" className="pointer-events-none object-contain object-bottom grayscale" />
+              <Image src="/pic-remove-background.webp" alt="" aria-hidden="true" fill sizes="(min-width: 768px) 448px, 208px" className="portrait-color-layer pointer-events-none object-contain object-bottom" />
             </div>
 
             <div className="absolute bottom-2 left-0 z-20">
@@ -161,8 +174,8 @@ export function NavsoulHome() {
           <div className="flex flex-1 flex-col justify-center md:hidden">
             <div className="h-36 w-full"><TechText text="Nahilist" fontFamily={'"Segoe Script", "Brush Script MT", cursive'} fontWeight={500} fontSize={180} letterSpacing={-0.1} color="#171717" intro="assemble" guides={false} style={{}} /></div>
             <div onPointerDown={movePortraitReveal} onPointerMove={movePortraitReveal} className="hero-portrait relative mx-auto -mt-1 h-60 w-52 select-none">
-              <Image src="/pic-remove-background.webp" alt={personal.name} fill priority sizes="208px" className="object-contain object-bottom grayscale" />
-              <Image src="/pic-remove-background.webp" alt="" aria-hidden="true" fill sizes="208px" className="portrait-color-layer object-contain object-bottom" />
+              <Image src="/pic-remove-background.webp" alt={personal.name} fill fetchPriority="high" sizes="(min-width: 768px) 448px, 208px" className="object-contain object-bottom grayscale" />
+              <Image src="/pic-remove-background.webp" alt="" aria-hidden="true" fill sizes="(min-width: 768px) 448px, 208px" className="portrait-color-layer object-contain object-bottom" />
             </div>
             <div className="mt-2 text-center"><h1 className="text-2xl font-semibold">Software Engineer</h1><p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-neutral-500">Building digital products that are fast, reliable, and user-focused.</p></div>
             <div className="mx-auto mt-8 grid w-full max-w-sm grid-cols-2 gap-2.5">
@@ -227,7 +240,7 @@ export function NavsoulHome() {
       <nav
         aria-label="Sticky primary navigation"
         aria-hidden={!isDesktopNavFloating}
-        className={`fixed left-1/2 top-6 z-[70] hidden h-12 -translate-x-1/2 items-center rounded-full border border-black/[0.06] bg-white/95 px-6 shadow-[0_8px_24px_rgba(0,0,0,0.16)] backdrop-blur-xl transition-[opacity,transform,visibility] duration-300 lg:flex ${isDesktopNavFloating ? "visible translate-y-0 opacity-100" : "pointer-events-none invisible -translate-y-3 opacity-0"}`}
+        className={`fixed left-1/2 top-6 z-[70] hidden h-12 -translate-x-1/2 items-center rounded-full border border-black/[0.06] bg-white px-6 shadow-[0_8px_24px_rgba(0,0,0,0.16)] transition-[opacity,transform,visibility] duration-300 lg:flex ${isDesktopNavFloating ? "visible translate-y-0 opacity-100" : "pointer-events-none invisible -translate-y-3 opacity-0"}`}
       >
         <ul className="flex items-center gap-8">
           {navItems.map((item) => (
@@ -274,9 +287,9 @@ export function NavsoulHome() {
 
             <nav className="mt-7" aria-label="Mobile navigation">
               <ul>
-                {navItems.map((item) => (
+                {mobileMenuItems.map((item) => (
                   <li key={item.label} className="border-b border-white/[0.07]">
-                    <a
+                    <Link
                       href={item.href}
                       onClick={() => setIsMenuOpen(false)}
                       className="group flex items-center justify-between py-5 text-xl font-medium tracking-tight text-white/90 transition-colors hover:text-white"
@@ -287,7 +300,7 @@ export function NavsoulHome() {
                           [{item.count}]
                         </span>
                       )}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -324,7 +337,7 @@ export function NavsoulHome() {
 
       <nav
         aria-label="Mobile quick navigation"
-        className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex h-16 w-[min(76vw,330px)] -translate-x-1/2 items-center rounded-full border border-black/[0.04] bg-white/95 p-1.5 shadow-[0_10px_35px_rgba(0,0,0,0.18)] backdrop-blur-xl lg:hidden"
+        className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex h-16 w-[min(76vw,330px)] -translate-x-1/2 items-center rounded-full border border-black/[0.04] bg-white p-1.5 shadow-[0_10px_35px_rgba(0,0,0,0.18)] lg:hidden"
       >
         {mobileDockItems.map(({ label, href, section, icon: Icon }) => {
           const active = activeSection === section;
