@@ -95,10 +95,17 @@ export function NavsoulHome() {
   }, []);
 
   useEffect(() => {
-    const updateDesktopNav = () => setIsDesktopNavFloating(window.scrollY > 90);
+    const updateDesktopNav = () => {
+      const scrollTop = Math.max(window.scrollY, document.documentElement.scrollTop);
+      setIsDesktopNavFloating(scrollTop > 90);
+    };
     updateDesktopNav();
     window.addEventListener("scroll", updateDesktopNav, { passive: true });
-    return () => window.removeEventListener("scroll", updateDesktopNav);
+    document.addEventListener("scroll", updateDesktopNav, { passive: true, capture: true });
+    return () => {
+      window.removeEventListener("scroll", updateDesktopNav);
+      document.removeEventListener("scroll", updateDesktopNav, { capture: true });
+    };
   }, []);
 
   const movePortraitReveal = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -165,10 +172,13 @@ export function NavsoulHome() {
           </div>
         </section>
 
-        <section id="work" className="relative px-5 py-16 sm:px-8 sm:py-20 md:px-10 md:py-28">
+        <section id="work" className="relative px-5 py-20 sm:px-8 sm:py-24 md:px-10 md:pb-32 md:pt-32">
           <SectionHeading backdrop="Portfolio">Selected Work</SectionHeading>
-          <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 md:gap-y-16">
-            {projects.map((project) => <Link href={`/projects/${project.id}`} key={project.id} className="group block"><div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-neutral-100 ring-1 ring-black/5"><Image src={project.image.src} alt={project.image.alt} fill sizes="(min-width: 768px) 45vw, 90vw" className="object-cover transition-transform duration-700 group-hover:scale-105" /><span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide backdrop-blur-sm">{project.category}</span><span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/10"><span className="flex size-14 scale-50 items-center justify-center rounded-full bg-white opacity-0 shadow-lg transition-all group-hover:scale-100 group-hover:opacity-100"><ArrowUpRight className="size-5" /></span></span></div><h3 className="mt-4 text-lg font-semibold md:text-xl">{project.title}</h3><div className="mt-3 flex flex-wrap gap-2"><span className="rounded-full border border-black/10 px-3 py-1 text-xs text-neutral-600">{project.badge}</span><span className="rounded-full border border-black/10 px-3 py-1 text-xs text-neutral-600">View case study</span></div></Link>)}
+          <div className="mt-14 md:mt-16">
+            <div className="inline-flex border-b-2 border-neutral-900 pb-2 text-sm font-medium">Real Product</div>
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 md:mt-12 md:grid-cols-2 md:gap-y-16">
+              {projects.map((project) => <Link href={`/projects/${project.id}`} key={project.id} className="group block"><div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-neutral-100 ring-1 ring-black/5"><Image src={project.image.src} alt={project.image.alt} fill sizes="(min-width: 768px) 45vw, 90vw" className="object-cover transition-transform duration-700 group-hover:scale-105" /><span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide backdrop-blur-sm">{project.category}</span><span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/10"><span className="flex size-14 scale-50 items-center justify-center rounded-full bg-white opacity-0 shadow-lg transition-all group-hover:scale-100 group-hover:opacity-100"><ArrowUpRight className="size-5" /></span></span></div><h3 className="mt-4 text-lg font-semibold md:text-xl">{project.title}</h3><div className="mt-3 flex flex-wrap gap-2"><span className="rounded-full border border-black/10 px-3 py-1 text-xs text-neutral-600">{project.badge}</span><span className="rounded-full border border-black/10 px-3 py-1 text-xs text-neutral-600">View case study</span></div></Link>)}
+            </div>
           </div>
         </section>
 
@@ -214,23 +224,26 @@ export function NavsoulHome() {
         </div>
       </footer>
 
-      {isDesktopNavFloating && (
-        <nav
-          aria-label="Sticky primary navigation"
-          className="fixed left-1/2 top-6 z-[70] hidden -translate-x-1/2 items-center rounded-full border border-black/[0.04] bg-white/95 px-7 py-4 shadow-[0_8px_24px_rgba(0,0,0,0.14)] backdrop-blur-xl lg:flex"
-        >
-          <ul className="flex items-center gap-8">
-            {navItems.map((item) => (
-              <li key={item.label}>
-                <a className="inline-flex items-baseline gap-1 whitespace-nowrap text-sm font-medium text-neutral-700 transition-colors hover:text-black" href={item.href}>
-                  {item.label}
-                  {item.count && <span className="text-xs text-neutral-400">[{item.count}]</span>}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+      <nav
+        aria-label="Sticky primary navigation"
+        aria-hidden={!isDesktopNavFloating}
+        className={`fixed left-1/2 top-6 z-[70] hidden h-12 -translate-x-1/2 items-center rounded-full border border-black/[0.06] bg-white/95 px-6 shadow-[0_8px_24px_rgba(0,0,0,0.16)] backdrop-blur-xl transition-[opacity,transform,visibility] duration-300 lg:flex ${isDesktopNavFloating ? "visible translate-y-0 opacity-100" : "pointer-events-none invisible -translate-y-3 opacity-0"}`}
+      >
+        <ul className="flex items-center gap-8">
+          {navItems.map((item) => (
+            <li key={item.label}>
+              <a
+                tabIndex={isDesktopNavFloating ? undefined : -1}
+                className="inline-flex items-baseline gap-1 whitespace-nowrap text-sm font-medium text-neutral-700 transition-colors hover:text-black"
+                href={item.href}
+              >
+                {item.label}
+                {item.count && <span className="text-xs text-neutral-400">[{item.count}]</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       {isMenuOpen && (
         <div
