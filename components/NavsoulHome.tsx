@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, ChevronDown, Mail, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BriefcaseBusiness, ChevronDown, Clock3, Home, Mail, Menu, Sparkles, X } from "lucide-react";
 import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/Icons";
 import TechText from "@/components/TechText";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
@@ -20,6 +20,14 @@ const socialLinks = [
   { label: "Instagram", href: "https://instagram.com/himanshux64", icon: InstagramIcon },
   { label: "LinkedIn", href: PORTFOLIO_DATA.personal.linkedin, icon: LinkedinIcon },
   { label: "GitHub", href: PORTFOLIO_DATA.personal.github, icon: GithubIcon },
+];
+
+const mobileDockItems = [
+  { label: "Home", href: "#home", section: "home", icon: Home },
+  { label: "Work", href: "#work", section: "work", icon: BriefcaseBusiness },
+  { label: "Skills", href: "#skills", section: "skills", icon: Sparkles },
+  { label: "Story", href: "#experience", section: "experience", icon: Clock3 },
+  { label: "Contact", href: "#contact", section: "contact", icon: Mail },
 ];
 
 function ArrowBubble() {
@@ -43,6 +51,7 @@ function SectionHeading({ children, backdrop, align = "center", dark = false }: 
 export function NavsoulHome() {
   const [activeSkill, setActiveSkill] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const closeMenuButtonRef = useRef<HTMLButtonElement>(null);
   const { personal, skills, experienceEducation } = PORTFOLIO_DATA;
 
@@ -63,6 +72,26 @@ export function NavsoulHome() {
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    const sections = mobileDockItems
+      .map((item) => document.getElementById(item.section))
+      .filter((section): section is HTMLElement => section !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleSection) setActiveSection(visibleSection.target.id);
+      },
+      { rootMargin: "-25% 0px -60%", threshold: [0, 0.1, 0.25, 0.5] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   const movePortraitReveal = (event: React.PointerEvent<HTMLDivElement>) => {
     const portrait = event.currentTarget;
@@ -249,6 +278,27 @@ export function NavsoulHome() {
           </aside>
         </div>
       )}
+
+      <nav
+        aria-label="Mobile quick navigation"
+        className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 z-40 flex h-16 w-[min(88vw,340px)] -translate-x-1/2 items-center rounded-full border border-black/[0.04] bg-white/95 p-1.5 shadow-[0_10px_35px_rgba(0,0,0,0.18)] backdrop-blur-xl lg:hidden"
+      >
+        {mobileDockItems.map(({ label, href, section, icon: Icon }) => {
+          const active = activeSection === section;
+          return (
+            <a
+              key={section}
+              href={href}
+              aria-current={active ? "page" : undefined}
+              onClick={() => setActiveSection(section)}
+              className={`flex h-full min-w-0 flex-1 flex-col items-center justify-center rounded-full transition-all duration-300 ${active ? "bg-neutral-950 text-white shadow-md" : "text-neutral-400 hover:text-neutral-800"}`}
+            >
+              <Icon className="size-4" strokeWidth={active ? 2 : 1.7} />
+              <span className={`mt-0.5 text-[9px] leading-none ${active ? "font-semibold" : "font-medium"}`}>{label}</span>
+            </a>
+          );
+        })}
+      </nav>
     </main>
   );
 }
