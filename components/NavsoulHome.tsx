@@ -16,14 +16,10 @@ const navItems = [
   { label: "Contact", count: "", href: "#contact" },
 ];
 
-const mobileMenuItems = [
-  ...navItems.slice(0, 3),
-  { label: "Activity", count: "", href: "/activity" },
-  navItems[3],
-];
+const mobileMenuItems = navItems;
 
 const socialLinks = [
-  { label: "Instagram", href: "https://instagram.com/himanshux64", icon: InstagramIcon },
+  { label: "Instagram", href: "https://instagram.com/himanshukx64", icon: InstagramIcon },
   { label: "LinkedIn", href: PORTFOLIO_DATA.personal.linkedin, icon: LinkedinIcon },
   { label: "GitHub", href: PORTFOLIO_DATA.personal.github, icon: GithubIcon },
 ];

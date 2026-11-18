@@ -87,20 +87,6 @@ html {
   }
 }
 
-/* Cohesive editorial system for every Activity route. */
-.activity-shell {
-  --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua",
-    "Noto Serif Devanagari", "Nirmala UI", Georgia, serif;
-  background-color: #070709;
-  color: #f5f5f5;
-  font-family: var(--font-geist-sans), "Noto Sans Devanagari", "Nirmala UI",
-    Arial, sans-serif;
-  color-scheme: dark;
-}
-
-.activity-shell :is(h1, h2, h3, h4, p) {
-  text-wrap: pretty;
-}
 
 ::selection {
   background-color: #fef3c7;
