@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
   // Disable x-powered-by header to prevent framework fingerprinting
   poweredByHeader: false,
 
+  experimental: {
+    agentUpgrade: "security",
+  },
+
   // Aggressive browser caching and enterprise-grade security headers
   async headers() {
     return [
